@@ -10,5 +10,4 @@ public class BoardAttachVO {
 	private String uploadPath;
 	private String uuid;
 	private boolean image;
-
 }
