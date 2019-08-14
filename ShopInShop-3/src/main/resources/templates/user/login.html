@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+<meta charset="UTF-8">
+
+<title>Insert title here</title>
+</head>
+<body>
+
+			<h2>CUSTOM LOGIN PAGE</h2>
+
+
+			<form method="post">
+				<p>
+					<label for="username">Username</label> <input type="text"
+						id="username" name="username" value="user88" />
+				</p>
+				<p>
+					<label for="password">Password</label> <input type="password"
+						id="password" name="password" value="pw88" />
+				</p>
+			
+				
+			
+				<button type="submit" class="btn">Log in</button>
+			</form>
+			
+			<a href="/user/join">join</a>
+			
+			<div id="naver_id_login" style="text-align:center"><a th:href="${url}">
+<img width="223" src="https://developers.naver.com/doc/review_201802/CK_bEFnWMeEBjXpQ5o8N_20180202_7aot50.png"/></a></div>
+			
+
+
+
+
+</body>
+</html>

@@ -1,0 +1,122 @@
+<html xmlns:th="http://www.thymeleaf.org">
+
+<body>
+
+
+	<div class="uploadDiv">
+		<input multiple="multiple" type="file" name="files" />
+	</div>
+
+	<div class="input-field col s6">
+		<button id="save" type="submit">Submit</button>
+	</div>
+
+
+	<div class="uploadResult">
+		<ul>
+		</ul>
+	</div>
+
+
+
+	<th:block layout:fragment="script">
+
+		<script src="https://code.jquery.com/jquery-3.4.1.min.js"
+			integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+			crossorigin="anonymous"></script>
+
+		<script th:inline="javascript">
+			$(document).ready(function() {
+
+				var cloneObj = $(".uploadDiv").clone()
+
+				$("#save").on("click", function(e) {
+
+					var formData = new FormData();
+
+					var inputFile = $("input[name='files']");
+
+					var files = inputFile[0].files;
+					console.log(files);
+
+					for (var i = 0; i < files.length; i++) {
+						formData.append("uploadFile", files[i]);
+					}
+					
+					console.log(formData);
+					$.ajax({
+						url : '/upload/newFiles',
+						processData : false,
+						contentType : false,
+						data : formData,
+						type : 'POST',
+						dataType : 'json',
+						success : function(result) {
+							alert("Uploaded");
+							console.log(result);
+
+							showUploadFile(result);
+
+							$(".uploadDiv").html(cloneObj.html());
+						}
+					}); // $.ajax
+				});
+				
+				 var uploadResult = $(".uploadResult ul");
+				  
+				  function showUploadFile(uploadResultArr){
+					  var str = "";
+					  
+					  $(uploadResultArr).each(function(i,obj){
+						  
+						  var folderFileName = encodeURIComponent(obj.uuid+"_"+obj.fileName);
+						  
+						  if(!obj.image){
+							  str += "<li><a href='/upload/download?fileName="+folderFileName+"'>"+obj.fileName +"</li>";
+						  }else{
+							  //var fileCallPath = encodeURIComponent(obj.uploadPath+"/s_"+obj.uuid+"_"+obj.fileName);
+							  
+							  var folderFileName = "/s_"+obj.uuid+"_"+obj.fileName;
+							  
+							  var originFileName= encodeURIComponent(obj.uploadPath+obj.uuid+"_"+obj.fileName);
+							  // s_ check ..... 
+							  var fileCallPath = encodeURIComponent(obj.uploadPath+"/"+obj.uuid+"_"+obj.fileName);
+							  str += "<li><a href=\"javascript:showImage(\'"+originFileName+"')\"><img src='/upload/getImage?fileName="+fileCallPath+"'></a>"+
+							  		"<button data-file="+fileCallPath+"><i class='fa fa-times'></i></button><br>"
+									  
+									  //"<span data-file=\'"+folderFileName+"\' data-tpye='image'>x</span></li>";
+						
+						  }
+					  });
+					 uploadResult.append(str);	  
+				  }// end function 
+				  
+				  
+				  $(".uploadResult").on("click","button",function(e){
+						 console.log("delete file");
+						 
+						 var targetFile = $(this).data("file");
+						 var targetLi = $(this).closest("li");
+						 
+						 console.log(targetFile);
+						 
+						 $.ajax({
+								url: '/upload/deleteFile',
+								data: {fileName: targetFile, type:'image'},
+								dataType: 'text',
+								type: 'POST',
+								success: function(result){
+									alert(result);
+									targetLi.remove();}
+							 });
+					  });
+				
+				
+
+			}); 
+		</script>
+
+	</th:block>
+
+</body>
+</html>
