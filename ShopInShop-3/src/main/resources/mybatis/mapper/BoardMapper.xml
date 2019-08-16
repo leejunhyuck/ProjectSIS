@@ -39,8 +39,14 @@
  
  
     <insert id = "insert">
-    insert into tbl_board2(title, content, writer)
-    values(#{title},#{content},#{writer})
+    insert into tbl_board2 (title, content, writer)
+		values
+		(#{title},
+		#{content}, #{writer})
+
+		<selectKey resultType="int" keyProperty="bno" order="AFTER">
+			SELECT LAST_INSERT_ID()
+		</selectKey>
     </insert>
     
     <select id="select" resultType="org.sis.board.model.BoardVO">

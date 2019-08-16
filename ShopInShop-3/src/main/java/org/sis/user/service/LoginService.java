@@ -2,7 +2,7 @@ package org.sis.user.service;
 
 import org.sis.mapper.BoardMapper;
 import org.sis.mapper.LoginMapper;
-import org.sis.user.model.Member;
+import org.sis.user.model.MemberVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,7 +15,7 @@ public class LoginService {
 	private LoginMapper mapper;
 	
 
-	public void register(Member member){
+	public void register(MemberVO member){
 		
 		mapper.join(member);
 		

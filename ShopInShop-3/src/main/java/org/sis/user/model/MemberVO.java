@@ -4,7 +4,7 @@ package org.sis.user.model;
 import lombok.Data;
 
 @Data
-public class Member {
+public class MemberVO {
 
  
   private String mid;

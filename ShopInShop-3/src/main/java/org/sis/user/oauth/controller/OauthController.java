@@ -79,6 +79,8 @@ public class OauthController {
 		session.setAttribute("sessionId", nickname); // 세션 생성
 		model.addAttribute("result", apiResult);
 		
+		
+		
 	}
 
 //	// 로그아웃

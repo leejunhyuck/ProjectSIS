@@ -5,7 +5,9 @@ import java.util.Map;
 
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
+import org.sis.board.model.BoardAttachVO;
 import org.sis.board.model.BoardVO;
 import org.sis.board.model.Criteria;
 
@@ -33,5 +35,8 @@ public interface BoardMapper {
 	
 	@Update("update tbl_board2 set replycnt=replycnt+#{amount} where bno =#{bno}")
 	public int updateReplyCnt(@Param("bno") Integer bno,@Param("amount") int amount);
+	
+	@Select("select * from tbl_attach where bno = #{bno}")
+	public List<BoardAttachVO> findbyBno(int bno);
 	
 }

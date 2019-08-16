@@ -58,7 +58,7 @@ public JsonNode getAccessToken(String autorize_code) {
  
         postParams.add(new BasicNameValuePair("client_id", "4eb1e6b4b8d8a1e1a9a46592616e1cb0"));
  
-        postParams.add(new BasicNameValuePair("redirect_uri", "http://localhost:8080/oauth/oauth")); //예 : http://아이피:포트/최상위폴더/리다이렉션경로
+        postParams.add(new BasicNameValuePair("redirect_uri", "http://localhost:8080/user/oauth")); //예 : http://아이피:포트/최상위폴더/리다이렉션경로
  
         postParams.add(new BasicNameValuePair("code", autorize_code));
         //기타 설명은 생략 자세히 알고 싶으면 구글링하세요.

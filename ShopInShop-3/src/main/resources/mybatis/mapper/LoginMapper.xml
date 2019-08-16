@@ -7,14 +7,16 @@
  
  	<select id ="getLoginCnt" resultType="int">
 
-		select count(*) from tbl_member where id = #{mid} and pwd = #{mpw}
+		select count(*) from sis_member where mid = #{mid} and mpw = #{mpw}
 
 	</select>
 	
-	<select id="join" resultType="int">
+	
+	<insert id="join" >
 		
+		insert into sis_member (mid,mpw,name) values (#{mid},#{mpw},#{name})
 		
-	</select>
+	</insert>
     
     
  </mapper>

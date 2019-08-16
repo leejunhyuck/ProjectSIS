@@ -1,12 +1,13 @@
 <html xmlns:th="http://www.thymeleaf.org">
 
+<th:block th:insert="/../include/header.html"></th:block>
+
 <style>
 .modal-footer .hide {
 	display: none
 }
 </style>
 
-<body>
 
 <h1>read page</h1>
 
@@ -50,6 +51,16 @@
 	<button class="btn btn-outline-success addReplyBtn">Add Reply</button>
 
 </div>
+
+
+<hr>
+<div class='uploadResult'>
+	<ul></ul>
+</div>
+<div class='bigPicture'></div>
+
+
+
 
 <div class="card shadow mb-4">
 	<div class="card-body">
@@ -108,12 +119,7 @@
 </div>
 
 
-<script
-  src="https://code.jquery.com/jquery-3.4.1.min.js"
-  integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
-  crossorigin="anonymous"></script>
 <script th:src="@{/js/reply.js}"></script>
-
 <script>
 
 <!-- using actionForm -->
@@ -144,7 +150,7 @@ console.log(replyCnt);
 
 	<!-- add reply -->
 $(".addReplyBtn").on("click", function() {
-	//$("#replyModal").modal("show");
+	$("#replyModal").modal("show");
 	$(".modifyBtn").addClass("hide");
 	$(".replyBtn").removeClass("hide");
 	$(".deleteBtn").addClass("hide");
@@ -160,7 +166,7 @@ $(".replyBtn").on("click", function(e) {
 	console.log(obj);
 	replyService.addReply(obj, function() {
 		alert("댓글 등록 성공");
-		//$("#replyModal").modal("hide");
+		$("#replyModal").modal("hide");
 		showPage(-1);
 	});
 	replyCnt +=1 ;
@@ -180,7 +186,7 @@ replyList.on("click","li",function(e){
 		$(".mrno").val(reply.rno);
 		$("input[name='reply']").val(reply.reply);
 		$("input[name='replyer']").val(reply.replyer);
-		//$("#replyModal").modal("show");
+		$("#replyModal").modal("show");
 		
 		$(".modifyBtn").removeClass("hide");
 		$(".replyBtn").addClass("hide");
@@ -199,7 +205,7 @@ $(".modifyBtn").on("click",function(e){
 			};
 	 replyService.modifyReply(obj, function() {
 			alert("댓글 등록 성공");
-			//$("#replyModal").modal("hide");
+			$("#replyModal").modal("hide");
 			showPage(page);
 		});
 });
@@ -211,7 +217,7 @@ $(".deleteBtn").on("click",function(){
 	replyService.removeReply(rno,function(){
 		alert("remove.....")
 		showPage(page);
-		//$("#replyModal").modal("hide");
+		$("#replyModal").modal("hide");
 	})
 	replyCnt +=1 ;
 });
@@ -323,6 +329,39 @@ pageReply.on("click","li a",function(e){
 });
 
 </script>
-</body>
-</html>
 
+
+<script>
+
+$(document).ready(function(){
+	
+	console.log(".... 레디 ")
+	//(function(){
+		var bno = [[${vo.bno}]];
+		$.getJSON("/board/getAttachList",{bno: bno}, function(arr){
+			console.log(arr);
+			var str="";
+			
+			$(arr).each(function(i,attach){
+				var fileCallPath = encodeURIComponent( attach.uploadPath+"/s_"+attach.uuid+"_"+attach.fileName);
+				
+				str += "<li data-path='"+attach.uploadPath+"' data-uuid='"+attach.uuid+"' data-filename='"+attach.fileName+"'>";
+				str += "<div><img src='/upload/getImage?fileName="+fileCallPath+"'>";
+				str += "</div></li>";
+				
+			});
+			$(".uploadResult ul").append(str);
+		}); // end json < getImage to read page
+		
+		$(".uploadResult ul").on("click","li",function(e){
+			console.log("view origin Image")
+			var liObj = $(this);
+			console.log(liObj.data);
+			var path = encodeURIComponent(liObj.data("path")+"/"+liObj.data("uuid")+"_"+liObj.data("filename"));
+			showImage(path.replace(new RegExp(/\\/g),"/"));
+			});
+}); 
+
+</script>
+
+<th:block th:insert="/../include/footer.html"></th:block>

@@ -44,12 +44,12 @@ public class UploadController {
 		try {
 			file = new File("c:\\upload\\"+ URLDecoder.decode(fileName,"UTF-8"));
 			file.delete();
-			/*
-			 * if(type.equals("image")) { String largeFileName=
-			 * file.getAbsolutePath().replace("s_","");
-			 * log.info("largeFileName: "+largeFileName); file = new File(largeFileName);
-			 * file.delete(); }
-			 */
+			
+			  if(type.equals("image")) { String largeFileName=
+			  file.getAbsolutePath().replace("s_","");
+			  log.info("largeFileName: "+largeFileName); file = new File(largeFileName);
+			  file.delete(); }
+			 
 		}catch (Exception e) {
 			e.printStackTrace();
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
@@ -63,8 +63,8 @@ public class UploadController {
 	public ResponseEntity<byte[]> getImage(String fileName){
 		log.info("fileName: " + fileName);
 		File file = new File("c:\\upload\\"+fileName);
-		File watermarkImageFile = new File("c:\\upload\\mark.png");
-		File changeFile = new File("c:\\upload\\"+fileName+"2");
+		File watermarkImageFile = new File("c:\\upload\\logo.png");
+		File changeFile = new File("c:\\upload\\"+fileName);
 		addImageWatermark(watermarkImageFile, file, changeFile);
 		log.info("file: "+file);
 		
@@ -109,20 +109,22 @@ public class UploadController {
 			UUID uuid = UUID.randomUUID();
 
 			uploadFileName = uuid.toString() + "_" + uploadFileName;
+			
 
 			try {
+				FileOutputStream thumbnail = new FileOutputStream(new File(uploadPath, "s_" + uploadFileName));
+				Thumbnailator.createThumbnail(multipartFile.getInputStream(), thumbnail, 300, 300);
+				thumbnail.close();
+				
+				
 				File saveFile = new File(uploadPath, uploadFileName);
 				multipartFile.transferTo(saveFile);
 
 				boardAttachVO.setUuid(uuid.toString());
 				boardAttachVO.setUploadPath(uploadFolderPath);
-
 				boardAttachVO.setImage(true);
-				boardAttachVO.setBno(1600);
-
-				//FileOutputStream thumbnail = new FileOutputStream(new File(uploadPath, "s_" + uploadFileName));
-				//Thumbnailator.createThumbnail(multipartFile.getInputStream(), thumbnail, 100, 100);
-				//thumbnail.close();
+				
+				
 
 				list.add(boardAttachVO);
 			} catch (Exception e) {
@@ -158,9 +160,14 @@ public class UploadController {
 			System.out.println(sourceImage.getWidth() + " : " + sourceImage.getHeight());
 			System.out.println(watermarkImage.getWidth() + " : " + watermarkImage.getHeight());
 			System.out.println("x:" + topLeftX + "\ty:" + topLeftY);
+			// 워터마크 좌하구석 공식
+			int watermarkX = sourceImage.getWidth()-watermarkImage.getWidth();
+			int watermarkY = sourceImage.getHeight()-watermarkImage.getHeight();
+			
+			System.out.println("x:" + watermarkX + "\ty:" + watermarkY);
 
 			// paints the image watermark
-			g2d.drawImage(watermarkImage, 0, 0, null);
+			g2d.drawImage(watermarkImage, watermarkX, watermarkY, null);
 
 			ImageIO.write(sourceImage, "png", destImageFile);
 			g2d.dispose();

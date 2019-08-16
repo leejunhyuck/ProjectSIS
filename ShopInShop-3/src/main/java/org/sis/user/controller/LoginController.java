@@ -9,7 +9,7 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 import org.sis.mapper.ReplyMapper;
-import org.sis.user.model.Member;
+import org.sis.user.model.MemberVO;
 import org.sis.user.oauth.KakaoApi;
 import org.sis.user.oauth.NaverLoginBO;
 import org.sis.user.service.LoginService;
@@ -31,6 +31,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.fasterxml.jackson.databind.JsonNode;
 import com.github.scribejava.core.model.OAuth2AccessToken;
 
 import lombok.AllArgsConstructor;
@@ -96,28 +97,48 @@ public class LoginController {
 	}
 	
 	
-	@GetMapping(value = "/join")
+	@GetMapping("/join")
 	public void join(){
 		
-		log.info("login");
+		log.info("join");
 		
 	}
 	
 	@PostMapping("/join")
-	  public String joinPost(@ModelAttribute("member") Member member) {
+	  public String joinPost(@ModelAttribute("member") MemberVO member) {
 
+		
+		
 	    log.info("MEMBER: " + member);
 
 	  
-
+	    
 	   
 	    
 	    return "/user/joinResult";
 	  }
 	
 	
-	
-	
+	@RequestMapping(value = "/hello")
+	public void hello() {
+
+	}
+
+	@RequestMapping(value = "/oauth")
+	public String login(@RequestParam("code") String code, HttpSession session) {
+		log.info("로그인 할때 임시 코드값");
+		log.info(code);
+		log.info("로그인 후 결과값");
+
+		JsonNode node = kakao.getAccessToken(code);
+		log.info(""+node);
+
+		String token = node.get("access_token").toString();
+
+		session.setAttribute("token", token);
+
+		return "/user/joinResult";
+	}
 	
 	
 }

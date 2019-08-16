@@ -1,6 +1,9 @@
 <html xmlns:th="http://www.thymeleaf.org">
 
-<body>
+
+<th:block th:insert="/../include/header.html"></th:block>
+
+
 	<h1>List page</h1>
 
 	<h5>
@@ -31,7 +34,7 @@
 	</div>
 	
 
-	<table border="1">
+	<table class="table table-bordered">
 		<tr>
 			<td>BNO</td>
 			<td>TITLE</td>
@@ -74,10 +77,6 @@
 	</form>
 
 
-<script
-  src="https://code.jquery.com/jquery-3.4.1.min.js"
-  integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
-  crossorigin="anonymous"></script>
 
 <script>
 
@@ -142,5 +141,6 @@ $(".amount-opt").on("change",function(e){
 </script>
 
 
-</body>
-</html>
+
+
+<th:block th:insert="/../include/footer.html"></th:block>

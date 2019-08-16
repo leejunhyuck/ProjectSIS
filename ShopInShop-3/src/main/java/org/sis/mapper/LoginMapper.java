@@ -1,11 +1,11 @@
 package org.sis.mapper;
 
-import org.sis.user.model.Member;
+import org.sis.user.model.MemberVO;
 
 public interface LoginMapper {
 
 	
-	public int getLoginCnt(Member member);
+	public int getLoginCnt(MemberVO member);
 	
-	public int join(Member member);
+	public int join(MemberVO member);
 }
