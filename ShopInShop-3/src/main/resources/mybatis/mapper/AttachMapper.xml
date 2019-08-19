@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="org.sis.mapper.AttachMapper">
+
+	<insert id="insert" parameterType="org.sis.board.model.BoardVO">
+		Insert into tbl_attach(bno,fileName,uploadPath,uuid) values(#{bno},#{fileName},#{uploadPath},#{uuid})
+	</insert>
+	
+	<select id="getOldFiles" resultType="org.sis.board.model.BoardAttachVO">
+		select * from tbl_attach where uploadpath =  DATE_FORMAT(now()-1 , '%Y\%m\%d')
+	</select>
+	
+	<select id="findbybno" resultType="org.sis.board.model.BoardAttachVO">
+		select * from tbl_attach where bno = #{bno}
+	</select>
+	
+	<delete id="deleteAll">
+		delete from tbl_attach where bno = #{bno}
+	</delete>
+
+
+
+
+</mapper>
