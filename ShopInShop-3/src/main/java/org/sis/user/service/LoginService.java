@@ -22,9 +22,9 @@ public class LoginService {
 		
 	}
 	
-	public void logincheck(MemberVO member){
+	public String logincheck(MemberVO member){
 		
-		mapper.login(member);
+		return mapper.login(member).getName();
 		
 		
 	}

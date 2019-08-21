@@ -5,7 +5,7 @@
 
  <mapper namespace="org.sis.mapper.LoginMapper">
  
- 	<select id ="login" resultType="int">
+ 	<select id ="login" resultType="org.sis.user.model.MemberVO">
 
 		select name from tbl_member where mid = #{mid} and mpw = #{mpw}
 

@@ -69,13 +69,13 @@ public class LoginController {
 	}
 	
 	@PostMapping("/login")
-	public void login(@ModelAttribute("member") MemberVO member) {
+	public String login(@ModelAttribute("member") MemberVO member) {
 		
 		log.info("MEMBER: " + member);
 		
-		//service.logincheck();
+		log.info(service.logincheck(member));
 		
-		//return "/user/joinResult";
+		return "/user/joinResult";
 	}
 	
 	
@@ -123,9 +123,9 @@ public class LoginController {
 	    log.info("MEMBER: " + member);
 
 	    
-	    //service.register(member);
+	    service.register(member);
 	    
-	   
+	    
 	    
 	    return "/user/joinResult";
 	  }
