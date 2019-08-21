@@ -41,7 +41,7 @@ public class LoginTests {
 		member.setMid("id");
 		
 		
-		log.info(""+mapper.getLoginCnt(member));
+		log.info(""+mapper.login(member));
 		
 	}
 	

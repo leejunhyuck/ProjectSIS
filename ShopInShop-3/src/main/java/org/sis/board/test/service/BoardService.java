@@ -1,9 +1,9 @@
-package org.sis.board.service;
+package org.sis.board.test.service;
 
 import java.util.List;
 
-import org.sis.board.model.BoardAttachVO;
-import org.sis.board.model.BoardVO;
+import org.sis.board.test.model.BoardAttachVO;
+import org.sis.board.test.model.BoardVO;
 
 public interface BoardService extends GenericService<BoardVO, Integer>{
 

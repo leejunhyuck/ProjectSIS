@@ -22,6 +22,12 @@ public class LoginService {
 		
 	}
 	
+	public void logincheck(MemberVO member){
+		
+		mapper.login(member);
+		
+		
+	}
 	
 	
 }

@@ -1,10 +1,10 @@
-package org.sis.board.controller;
+package org.sis.board.test.controller;
 
 import java.util.List;
 
-import org.sis.board.model.Criteria;
-import org.sis.board.model.ReplyVO;
-import org.sis.board.service.ReplyService;
+import org.sis.board.test.model.Criteria;
+import org.sis.board.test.model.ReplyVO;
+import org.sis.board.test.service.ReplyService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;

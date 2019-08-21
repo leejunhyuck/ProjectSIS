@@ -1,4 +1,4 @@
-package org.sis.board.model;
+package org.sis.board.test.model;
 
 import java.sql.Date;
 import java.util.List;

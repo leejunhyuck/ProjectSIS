@@ -1,4 +1,4 @@
-package org.sis.board.model;
+package org.sis.board.test.model;
 
 import java.util.Arrays;
 import java.util.HashMap;

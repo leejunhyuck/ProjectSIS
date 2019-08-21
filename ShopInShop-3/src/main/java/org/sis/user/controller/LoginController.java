@@ -45,6 +45,7 @@ import lombok.extern.java.Log;
 @Log
 public class LoginController {
 
+	@Setter(onMethod_=@Autowired )
 	private LoginService service;
 	
 	@Setter(onMethod_=@Autowired )
@@ -55,8 +56,8 @@ public class LoginController {
 	
 	private String apiResult = null;
 	
-	
-	@RequestMapping(value = "/login", method = { RequestMethod.GET, RequestMethod.POST })
+	//@RequestMapping(value = "/login", method = { RequestMethod.GET, RequestMethod.POST })
+	@RequestMapping(value = "/login", method = { RequestMethod.GET })
 	public void login(Model model, HttpSession session) {
 		
 		String naverAuthUrl = naverLoginBO.getAuthorizationUrl(session);
@@ -65,6 +66,16 @@ public class LoginController {
 		// 네이버
 		model.addAttribute("url", naverAuthUrl);
 		
+	}
+	
+	@PostMapping("/login")
+	public void login(@ModelAttribute("member") MemberVO member) {
+		
+		log.info("MEMBER: " + member);
+		
+		//service.logincheck();
+		
+		//return "/user/joinResult";
 	}
 	
 	
@@ -111,7 +122,8 @@ public class LoginController {
 		
 	    log.info("MEMBER: " + member);
 
-	  
+	    
+	    //service.register(member);
 	    
 	   
 	    

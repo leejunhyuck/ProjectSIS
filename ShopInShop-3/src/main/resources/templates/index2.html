@@ -4,6 +4,7 @@
 	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 <head>
 
+  <head>
     <title>Shop In Shop</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -23,7 +24,6 @@
     <link rel="stylesheet" href="css/style.css">
     
   </head>
-  
   <body>
   
   <div class="site-wrap">
@@ -73,7 +73,7 @@
 		<div class="modal-dialog" role="document">
 			<div class="modal-content">
 				<div class="modal-header">
-					<h6 class="modal-title" id="exampleModalLabel">로그인</h6>
+					<h3 class="modal-title" id="exampleModalLabel">로그인</h5>
 					<button class="close" type="button" data-dismiss="modal"
 						aria-label="Close">
 						<span aria-hidden="true">×</span>
@@ -96,7 +96,7 @@
         		
 			</div>
 			<div class="modal-footer">
-				<button class="btn btn-secondary" type="button" id="joinpage" data-dismiss="modal">회원가입</button>
+				<button class="btn btn-secondary" type="button" data-dismiss="modal">회원가입</button>
 				
 
         		
@@ -118,16 +118,18 @@
 
 
 <!--        <div class="row align-items-start align-items-md-center justify-content-end">-->
-        <div class="container">
-          <div class="d-flex align-content-center justify-content-center flex-wrap bd-highlight mb-3" style="height:80vh">
-            <div class="form-my row">
-              <span class="icon icon-search2"></span>
-              <input type="text" class="form-control border-0" placeholder="지역명, 지하철역명 등">
-            </div>
-            <div>
-              <div class="bd-highlight valign"><a href="#" class="btn btn-sm btn-primary">검색</a></div>
-            </div>
-          </div>
+       <div class='map' style="height:77vh">
+       
+       
+       
+       	<div class='map left'>
+       	 왼쪽
+       	
+       	</div>
+       <div class='map rigth'>
+       <div id="map-canvas"></div>
+       </div>	
+     	        </div>
 
 <!--        <div class="row">-->
 <!--          <div class ="col-md-2"></div>-->
@@ -152,7 +154,7 @@
 
 <!--          </div>-->
 
-        </div>
+       
 <!--        </div>-->
 
 
@@ -176,22 +178,118 @@
 	display:none;
 	
 }
+.map{
+  display: flex;
+  padding:6px;
+  border:6px;
+  
+  
+}
+
+.left{
+  flex:0.2;
+  background-color:blue;
+
+}
+.rigth{
+	flex:0.8;
+ 
+
+}
+   #map-canvas {
+        width: 170vh ;
+        height: 72vh ;
+    }
+
+
+
 </style>
 
   
- 
+ <script src="//maps.googleapis.com/maps/api/js?key=AIzaSyCyfhfvTsgc8w7P_BrNXZbsLW0LaChuChI&language=ko"></script>
   <script>
   
   function login(){
 	  $("#replyModal").modal('show')
 	}
-  	
   
-	 $("#joinpage").on("click",function(e){
-		 e.preventDefault();
-	  	 alert("join")
-  	});
+  
+  
+  var mapDiv = document.getElementById( "map-canvas" ) ;
+  var map = new google.maps.Map( mapDiv, {
+      center: new google.maps.LatLng( 37.504520, 127.024236 ) ,
+      zoom: 15 ,
+  } ) ;
+  // Event ,, Change Center
+  map.addListener( "center_changed", function ( argument ) {
+      console.log(JSON.stringify( argument ));
+      console.log( argument ) ;
+  } ) ;
 
+
+<!--Marker-->
+  var marker = new google.maps.Marker( {
+      map: map ,
+      position: new google.maps.LatLng( 37.504100, 127.024026 ) ,
+  } ) ;
+
+<!--InfoWindow , 말풍선 -->
+  var infoWindow = new google.maps.InfoWindow( {
+      position: new google.maps.LatLng( 37.514094, 127.030716 ) ,
+      content: "몇개의 매물이 있는지 표시할놈 .. " ,
+  } ) ;
+  infoWindow.open( map ) ;
+
+  var infoWindow = new google.maps.InfoWindow( {
+      position: new google.maps.LatLng( 37.501074, 127.037018 ) ,
+      content: "(Ex)역삼동:20 " ,
+  } ) ;
+  infoWindow.open( map ) ;
+
+  var infoWindow = new google.maps.InfoWindow( {
+      position: new google.maps.LatLng( 37.501228, 127.000434 ) ,
+      content: "(Ex)반포동:25 " ,
+  } ) ;
+  infoWindow.open( map ) ;
+
+<!-- Polygon , 구역 나누기 -->
+  var polygon_Nonhyeon = new google.maps.Polygon( {
+      map: map,
+      paths: [
+          new google.maps.LatLng( 37.515933, 127.019600 ) ,
+          new google.maps.LatLng( 37.522910, 127.038829 ) ,
+          new google.maps.LatLng( 37.510212, 127.043718 ) ,
+          new google.maps.LatLng( 37.504563, 127.024493 )
+      ] ,
+      fillColor: "tomato",
+      strokeColor: "white"
+  } ) ;
+  
+  var polygon_Yeoksam = new google.maps.Polygon( {
+      map: map ,
+      paths: [
+          new google.maps.LatLng( 37.510212, 127.043718 ) ,
+          new google.maps.LatLng( 37.504563, 127.024493 ) ,
+          new google.maps.LatLng( 37.489701, 127.031694 ) ,
+          new google.maps.LatLng( 37.496372, 127.052896 )
+      ] ,
+      fillColor: "skyblue",
+      strokeColor: "white"
+  } ) ;
+  var polygon_Banpo = new google.maps.Polygon( {
+      map: map ,
+      paths: [
+          new google.maps.LatLng( 37.510965, 127.021035 ) ,
+          new google.maps.LatLng( 37.504292, 127.024210 ) ,
+          new google.maps.LatLng( 37.492103, 127.001549 ) ,
+          new google.maps.LatLng( 37.502794, 126.980434 ) ,
+          new google.maps.LatLng( 37.517436, 126.997001 ) ,
+          new google.maps.LatLng( 37.505450, 127.003610 )
+      ] ,
+      fillColor: "pink",
+      strokeColor: "white"
+  } ) ;
+  
   	
   </script>
 </html>

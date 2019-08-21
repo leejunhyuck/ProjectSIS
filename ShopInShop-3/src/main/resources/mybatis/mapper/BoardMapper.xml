@@ -49,11 +49,11 @@
 		</selectKey>
     </insert>
     
-    <select id="select" resultType="org.sis.board.model.BoardVO">
+    <select id="select" resultType="org.sis.board.test.model.BoardVO">
     select * from tbl_board2 where bno=#{bno}
     </select>
     
-    <select id="selectPage" resultType="org.sis.board.model.BoardVO">
+    <select id="selectPage" resultType="org.sis.board.test.model.BoardVO">
     select *from tbl_board2
      <include refid="searchCri"></include> 
     order by bno desc limit #{skip} , #{amount}
@@ -67,7 +67,7 @@
     select count(bno) from tbl_board2  <include refid="searchCri"></include> 
     </select>
     
-    <select id="serach" resultType="org.sis.board.model.BoardVO">
+    <select id="serach" resultType="org.sis.board.test.model.BoardVO">
     select * from tbl_board2
     <if test="map != null">
         <where>

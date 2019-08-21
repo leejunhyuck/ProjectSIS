@@ -1,4 +1,4 @@
-package org.sis.board.controller;
+package org.sis.board.test.controller;
 
 import java.awt.AlphaComposite;
 import java.awt.Graphics2D;
@@ -16,7 +16,7 @@ import java.util.UUID;
 
 import javax.imageio.ImageIO;
 
-import org.sis.board.model.BoardAttachVO;
+import org.sis.board.test.model.BoardAttachVO;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

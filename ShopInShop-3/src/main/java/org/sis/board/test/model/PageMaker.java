@@ -1,4 +1,4 @@
-package org.sis.board.model;
+package org.sis.board.test.model;
 
 import org.springframework.web.util.UriComponentsBuilder;
 

@@ -7,14 +7,49 @@
 <body>
 			<form method="post">
 				<p>
-					<label>UID</label> <input type="text" name="mid" value="newbie" />
+					<label>아이디</label> <input type="text" name="mid" placeholder="아이디"  required="required" value="mid"  />
 				</p>
 				<p>
-					<label>UPW</label> <input type="password" name="mpw" value="newbie" />
+					<label>비밀번호</label> <input type="password" name="mpw"  placeholder="비밀번호" required="required" value="mpw" />
 				</p>
 				<p>
-					<label>UNAME</label> <input type="text" name="name" value="홍길동" />
+					<label>비밀번호 확인</label> <input type="password"  name="isPassword" placeholder="비밀번호 확인" required="required" />
 				</p>
+				<p>
+					<label>이름</label> <input type="text"  placeholder="이름"  name="name" required="required" value="name" />
+				</p>
+				<p>
+					<label>닉네임</label> <input type="text" name="nick" placeholder="닉네임" required="required" value="nick" />
+				</p>
+				<p>
+					<label>email</label> <input type="email" name="email"   required="required" value="email@naver.com"/>
+				</p>
+				<p>
+					<label>phone</label> <input type="tel" pattern="(010)-\d{3,4}-\d{4}" name="mobile"  required="required" value="010-2222-2222"/>
+				</p>
+				<p>
+					<label>질문</label> <input type="text"  name="question" required="required" value="question"/>
+				</p>
+				<p>
+					<label>답변</label> <input type="text"  name="answer"  required="required" value="answer"/>
+				</p>
+				<p>
+					<label>역할</label> <input type="text"  name="role"  required="required" value="role" />
+				</p>
+				<p>
+					<label>나라</label> <input type="text"  name="country" required="required" value="country" />
+				</p>
+				<p>
+					<label>주소</label> <input type="text"  name="adress" required="required" value="adress"/>
+				</p>
+				<p>
+				
+					<label>성별</label><br>
+						<input name="gender" value="M" type="radio">남&nbsp;&nbsp;
+						<input name="gender" value="W" type="radio">여			
+						</p>
+				
+				
 				<button type="submit" class="btn">join</button>
 			</form>
 			

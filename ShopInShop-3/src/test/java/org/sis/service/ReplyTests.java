@@ -2,7 +2,7 @@ package org.sis.service;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.sis.board.model.BoardVO;
+import org.sis.board.test.model.BoardVO;
 import org.sis.mapper.BoardMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;

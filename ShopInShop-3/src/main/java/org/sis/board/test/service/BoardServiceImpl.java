@@ -1,10 +1,10 @@
-package org.sis.board.service;
+package org.sis.board.test.service;
 
 import java.util.List;
 
-import org.sis.board.model.BoardAttachVO;
-import org.sis.board.model.BoardVO;
-import org.sis.board.model.Criteria;
+import org.sis.board.test.model.BoardAttachVO;
+import org.sis.board.test.model.BoardVO;
+import org.sis.board.test.model.Criteria;
 import org.sis.mapper.AttachMapper;
 import org.sis.mapper.BoardMapper;
 import org.springframework.beans.factory.annotation.Autowired;

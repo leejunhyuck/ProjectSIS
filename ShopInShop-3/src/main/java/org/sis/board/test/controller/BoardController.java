@@ -1,15 +1,15 @@
-package org.sis.board.controller;
+package org.sis.board.test.controller;
 
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
 
-import org.sis.board.model.BoardAttachVO;
-import org.sis.board.model.BoardVO;
-import org.sis.board.model.Criteria;
-import org.sis.board.model.PageMaker;
-import org.sis.board.service.BoardService;
+import org.sis.board.test.model.BoardAttachVO;
+import org.sis.board.test.model.BoardVO;
+import org.sis.board.test.model.Criteria;
+import org.sis.board.test.model.PageMaker;
+import org.sis.board.test.service.BoardService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;

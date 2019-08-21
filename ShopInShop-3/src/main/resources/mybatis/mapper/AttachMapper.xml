@@ -5,15 +5,15 @@
 
 <mapper namespace="org.sis.mapper.AttachMapper">
 
-	<insert id="insert" parameterType="org.sis.board.model.BoardVO">
+	<insert id="insert" parameterType="org.sis.board.test.model.BoardVO">
 		Insert into tbl_attach(bno,fileName,uploadPath,uuid) values(#{bno},#{fileName},#{uploadPath},#{uuid})
 	</insert>
 	
-	<select id="getOldFiles" resultType="org.sis.board.model.BoardAttachVO">
+	<select id="getOldFiles" resultType="org.sis.board.test.model.BoardAttachVO">
 		select * from tbl_attach where uploadpath =  DATE_FORMAT(now()-1 , '%Y\%m\%d')
 	</select>
 	
-	<select id="findbybno" resultType="org.sis.board.model.BoardAttachVO">
+	<select id="findbybno" resultType="org.sis.board.test.model.BoardAttachVO">
 		select * from tbl_attach where bno = #{bno}
 	</select>
 	

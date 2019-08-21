@@ -5,16 +5,17 @@
 
  <mapper namespace="org.sis.mapper.LoginMapper">
  
- 	<select id ="getLoginCnt" resultType="int">
+ 	<select id ="login" resultType="int">
 
-		select count(*) from sis_member where mid = #{mid} and mpw = #{mpw}
+		select name from tbl_member where mid = #{mid} and mpw = #{mpw}
 
 	</select>
 	
 	
 	<insert id="join" >
 		
-		insert into sis_member (mid,mpw,name) values (#{mid},#{mpw},#{name})
+		insert into tbl_member (mid,mpw,name,nick,email,mobile,question,answer,country,adress) 
+		values (#{mid},#{mpw},#{name},#{nick},#{email},#{mobile},#{question},#{answer},#{country},#{adress})
 		
 	</insert>
     

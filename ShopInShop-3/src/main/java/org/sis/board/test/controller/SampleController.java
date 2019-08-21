@@ -1,4 +1,4 @@
-package org.sis.board.controller;
+package org.sis.board.test.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
