@@ -1,13 +1,38 @@
 <html xmlns:th="http://www.thymeleaf.org">
 
-<body>
-	<h1>List page</h1>
+
+<th:block th:insert="/../include/header.html"></th:block>
+
+<br>
+
+<div class="container">
+	
+
 
 	<h5>
-		<a th:href="@{/board/register}">Register</a>
+		<a th:href="@{/matching/register}">Register</a>
 	</h5>
+
 	
-	<div>
+
+	<table  class="table table-bordered table-hover">
+		<tr class="table-primary" >
+			<td>bno</td>
+			<td>TITLE</td>
+			<td>ID</td>
+			<td>REGDATE</td>
+		</tr>
+		<tr th:each="vo : ${list}">
+			<td th:text="${vo.bno}"></td>
+			<td><a class="view" th:href="${vo.bno}" th:text="${vo.title}"></a><span> ([[${vo.replycnt}]])</span></td>
+			<td th:text="${vo.mid}"></td>
+			<td th:text="${vo.regdate}"></td>
+		</tr>
+	</table>
+	
+	
+	
+	<div class="flex-end">
 		<select name="typeView">
 			<option value="">--</option>
 			<option value="T" th:attr="selected=${cri.type == 'T'? 'true' : 'false'}">제목</option>
@@ -19,7 +44,7 @@
 			<option value="TCW" th:attr="selected=${cri.type == 'TCW'? 'true' : 'false'}">제목 + 내용+ 작성자</option>
 		</select>
 		<input type="text" name="keywordView" th:value="${cri.keyword}">
-		<button class="btn btn-primary searchBtn">Search</button>
+		<button class="btn-primary btn-sm searchBtn">Search</button>
 	
 	
 		<select class="amount-opt">
@@ -28,45 +53,47 @@
 			<option value="50" th:attr="selected=${cri.amount == 50? 'true' : 'false'}">50</option>
 			<option value="100" th:attr="selected=${cri.amount == 100? 'true' : 'false'}">100</option>
 		</select>
-	</div>
+	</div>	
 	
-
-	<table border="1">
-		<tr>
-			<td>BNO</td>
-			<td>TITLE</td>
-			<td>WRITER</td>
-			<td>REGDATE</td>
-		</tr>
-		<tr th:each="vo : ${list}">
-			<td th:text="${vo.bno}"></td>
-			<td><a class="view" th:href="${vo.bno}" th:text="${vo.title}"></a><span> ([[${vo.replycnt}]])</span></td>
-			<td th:text="${vo.writer}"></td>
-			<td th:text="${vo.regdate}"></td>
-		</tr>
-	</table>
+	
 
 
 <h4> pagination not complete ... </h4>
-	<ul class="pagination">
+	<ul class="pagination" th:with="page=${page}">
 		
 		<li th:if="${pm.prev}" class="page-item"><a class="page-link"
 			th:href='${pm.start-1}'>Previous</a></li>
+			
+			
 		<c:forEach begin="${pm.start}" end="${pm.end}" var="idx">
 			<li class="page-item ${pm.current == idx ? "active":"" } ">
 			<a class="page-link" href='${idx}'>${idx}</a></li>
 		</c:forEach>
 		
-		<li th:each="pageNumber : ${pm.end}">
+
+	
+		<li th:each="pageNumber : ${page}">
 			<a class="page-link" th:text=${pageNumber}></a>
 		</li>
+		
+		
+		
+		
 
 			<li th:if="${pm.next}" class="page-item"><a class="page-link" 
 			th:href='${pm.end+1}'>Next</a></li>
 	</ul>
 	
+
+
+
+
 	
-	<form id="actionForm" action="/board/list" method="get">
+</div>
+	
+	
+	
+	<form id="actionForm" action="/matching/list" method="get">
 	<input type="hidden" name="page" th:value="${cri.page}">
 	<input type="hidden" name="amount" th:value="${cri.amount}">
 	<input type="hidden" name="type" th:value="${cri.type}">
@@ -74,10 +101,6 @@
 	</form>
 
 
-<script
-  src="https://code.jquery.com/jquery-3.4.1.min.js"
-  integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
-  crossorigin="anonymous"></script>
 
 <script>
 
@@ -94,10 +117,10 @@ var actionForm = $("#actionForm");
 
 $(".view").on("click",function(e){
 	e.preventDefault();
-	var targetBno = $(this).attr("href");
+	var targetbno = $(this).attr("href");
 	
-	actionForm.attr("action","/board/read");
-	actionForm.append("<input type='hidden' name='bno' value="+targetBno+">");
+	actionForm.attr("action","/matching/read");
+	actionForm.append("<input type='hidden' name='bno' value="+targetbno+">");
 	actionForm.submit();
 });
 
@@ -139,8 +162,20 @@ $(".amount-opt").on("change",function(e){
 });
 <!-- actionForm End .. -->
 
+<!-- make pagenation -->
+
+var page = [] 
+
+for(var i = [[${pm.start}]] ; i <= [[${pm.end}]] ; i++ ){
+	page.push(i);
+}
+console.log(page);
+
+console.log([1 , 2]);
+	
+	
+
 </script>
 
 
-</body>
-</html>
+<th:block th:insert="/../include/footer.html"></th:block>

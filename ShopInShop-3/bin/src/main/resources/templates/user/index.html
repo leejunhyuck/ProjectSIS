@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+
+    <title>Shop In Shop</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Mukta:300,400,700"> 
+    <link rel="stylesheet" href="fonts/icomoon/style.css">
+
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/magnific-popup.css">
+    <link rel="stylesheet" href="css/jquery-ui.css">
+    <link rel="stylesheet" href="css/owl.carousel.min.css">
+    <link rel="stylesheet" href="css/owl.theme.default.min.css">
+
+
+    <link rel="stylesheet" href="css/aos.css">
+
+    <link rel="stylesheet" href="css/style.css">
+    
+  </head>
+  
+  <body>
+  
+  <div class="site-wrap">
+
+    <!-- Header Start -->
+    <header class="site-navbar" role="banner">
+      <div class="site-navbar-top">
+        <div class="container">
+          <div class="row align-items-center">
+
+            <div class="text-center">
+              <div class="site-logo">
+                <a href="index.html" class="js-logo-clone">Shop In Shop</a>
+              </div>
+            </div>
+
+            <div class="site-navigation">
+
+              <ul class="site-menu js-clone-nav d-none d-md-block">
+
+                <li><a href="../store/list.html">Store</a></li>
+                <li><a href="../matching/list.html">Matching</a></li>
+                <li><a href="../community/list.html">Community</a></li>
+
+              </ul>
+            </div>
+
+            <div class="col-6 col-md-4 order-3 "> <!--  text-right -->
+              <div class="site-top-icons">
+                <ul>
+                  <li><a href="../store/recent.html">관심목록</a></li>
+ <!--                  <li><a href="../join.html">회원가입</a></li> -->
+<!--                  <li><a href="../mypage.html">마이페이지</a></li>-->
+                  <li><a href="javascript:login();">회원가입<span>·</span>로그인</a></li> <!-- 로그인 - 모달 -->
+                  
+                  
+                  
+<!--                  <li><a href="#">로그아웃</a></li>-->
+
+<!--                  <li class="d-inline-block d-md-none ml-md-0"><a href="#" class="site-menu-toggle js-menu-toggle"><span class="icon-menu"></span></a></li>-->
+                </ul>
+              </div> 
+            </div>
+            
+	<div class="modal fade" id="replyModal" tabindex="-1" role="dialog"
+		aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h6 class="modal-title" id="exampleModalLabel">로그인</h6>
+					<button class="close" type="button" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">×</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					<input type="text" class="form-control mbno" 
+						th:value="아이디" > 
+					<input type="text" class="form-control mrno"  value="비밀번호">
+					<button class="btn btn-secondary" type="button" data-dismiss="modal">로그인</button>
+				
+					<div id="naver_id_login" style="text-align:center"><a href="/user/login" target="_blank">
+					<img width="150" src="https://developers.naver.com/doc/review_201802/CK_bEFnWMeEBjXpQ5o8N_20180202_7aot50.png"/></a></div>
+	
+					<div id ="kakao_id_Login" style="text-align:center">	
+					<a href="https://kauth.kakao.com/oauth/authorize?client_id=4eb1e6b4b8d8a1e1a9a46592616e1cb0&redirect_uri=http://localhost:8080/user/oauth&response_type=code"
+					target="_blank">
+          	 		<img width="150" src="/images/kakao_account_login_btn_medium_narrow.png"></a>
+        			</div>
+        		
+			</div>
+			<div class="modal-footer">
+				<button class="btn btn-secondary" type="button" data-dismiss="modal">회원가입</button>
+				
+
+        		
+				<button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+				
+				<button class="btn btn-primary replyBtn hide">ADD REPLY</button>
+				<button class="btn btn-primary rereBtn hide">ADD REREPLY</button>
+				<button class="btn btn-info modifyBtn hide">Modify Reply</button>
+				<button class="btn btn-danger deleteBtn hide">Delete Reply</button>
+			</div>
+		</div>
+	</div>
+</div>
+          </div>
+        </div>
+      </div>
+    </header>
+    <!-- Header End -->
+
+
+<!--        <div class="row align-items-start align-items-md-center justify-content-end">-->
+        <div class="container">
+          <div class="d-flex align-content-center justify-content-center flex-wrap bd-highlight mb-3" style="height:80vh">
+            <div class="form-my row">
+              <span class="icon icon-search2"></span>
+              <input type="text" class="form-control border-0" placeholder="지역명, 지하철역명 등">
+            </div>
+            <div>
+              <div class="bd-highlight valign"><a href="#" class="btn btn-sm btn-primary">검색</a></div>
+            </div>
+          </div>
+
+<!--        <div class="row">-->
+<!--          <div class ="col-md-2"></div>-->
+<!--          <div class ="col-md-8">-->
+
+<!--&lt;!&ndash;            <div class="site-search-icon text-center"> &lt;!&ndash; col-6 col-md-4 order-2 order-md-1  &ndash;&gt;&ndash;&gt;-->
+<!--              <div class="row text-center">-->
+<!--              <form action="" class="">-->
+<!--&lt;!&ndash;                <span class="icon icon-search2"></span>&ndash;&gt;-->
+<!--                <input type="text" class="form-control border-0" placeholder="Search">-->
+<!--              </form>-->
+
+<!--              <a href="#" class="btn btn-sm btn-primary">Search</a>-->
+<!--            </div>-->
+
+<!--              </div>-->
+
+
+<!--          </div>-->
+<!--        </div>-->
+
+
+<!--          </div>-->
+
+        </div>
+<!--        </div>-->
+
+
+  </div>
+
+  <script src="js/jquery-3.3.1.min.js"></script>
+  <script src="js/jquery-ui.js"></script>
+  <script src="js/popper.min.js"></script>
+  <script src="js/bootstrap.min.js"></script>
+  <script src="js/owl.carousel.min.js"></script>
+  <script src="js/jquery.magnific-popup.min.js"></script>
+  <script src="js/aos.js"></script>
+
+  <script src="js/main.js"></script>
+
+    
+  </body>
+ 
+  <style>
+.modal-footer .hide{
+	display:none;
+	
+}
+</style>
+
+  
+ 
+  <script>
+  
+  function login(){
+	  $("#replyModal").modal('show')
+	}
+  
+  
+  	
+  </script>
+</html>

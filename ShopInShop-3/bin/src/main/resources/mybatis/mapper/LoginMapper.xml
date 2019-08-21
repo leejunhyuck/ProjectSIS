@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+ <mapper namespace="org.sis.mapper.LoginMapper">
+ 
+ 	<select id ="login" resultType="int">
+
+		select name from tbl_member where mid = #{mid} and mpw = #{mpw}
+
+	</select>
+	
+	
+	<insert id="join" >
+		
+		insert into tbl_member (mid,mpw,name,nick,email,mobile,question,answer,country,adress) 
+		values (#{mid},#{mpw},#{name},#{nick},#{email},#{mobile},#{question},#{answer},#{country},#{adress})
+		
+	</insert>
+    
+    
+ </mapper>

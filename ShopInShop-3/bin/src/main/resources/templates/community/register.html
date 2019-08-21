@@ -1,0 +1,32 @@
+<html xmlns:th="http://www.thymeleaf.org">
+
+<h1>register page</h1>
+
+<div class="panel-body">
+
+	<form th:action="@{/board/register}" method="post">
+
+		<div class="form-group">
+			<label>Title</label> 
+			<input class="form-control" name="title"/>			
+		</div>
+
+		<div class="form-group">
+			<label>Content</label>
+			<textarea class="form-control" rows="3" name='content'></textarea>
+		</div>
+
+		<div class="form-group" >
+			<label>Writer</label> 
+			<input class="form-control" name="writer"/>
+		</div>
+		<button type="submit" class="btn btn-default">Submit Button</button>
+		<button type="reset" class="btn btn-primary">Reset Button</button>
+		<a th:href="@{/board/list}" class="btn btn-secondary"> Go to List </a>
+	</form>
+
+</div>
+
+
+
+

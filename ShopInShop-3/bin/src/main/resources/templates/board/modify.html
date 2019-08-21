@@ -1,0 +1,226 @@
+<html xmlns:th="http://www.thymeleaf.org">
+
+<th:block th:insert="/../include/header.html"></th:block>
+
+
+<h1>modify page</h1>
+
+<div class="panel-heading">View Page</div>
+<form id="actionForm" action="/board/modify" method="post">
+<div class="panel-body">
+
+	<div class="form-group">
+		<label>BNO</label> <input class="form-control" name="bno"
+			th:value="${vo.bno}" readonly="readonly" />
+	</div>
+
+	<div class="form-group">
+		<label>Title</label> <input class="form-control" name="title"
+			th:value="${vo.title}" />
+		<p class="help-block">Title text here.</p>
+	</div>
+
+	<div class="form-group">
+		<label>Content</label>
+		<textarea class="form-control" rows="3" name='content'
+			th:text="${vo.content}"></textarea>
+	</div>
+
+	<div class="form-group">
+		<label>Writer</label> <input class="form-control" name="writer"
+			th:value="${vo.writer}" readonly="readonly" />
+	</div>
+
+	<div class="form-group">
+		<label>RegDate</label> <input class="form-control" name="regDate"
+			th:value="${#dates.format(vo.regdate,'yyyy-MM-dd')}"
+			readonly="readonly" />
+	</div>
+
+
+	<div class="pull-right" >
+	<button class="btn btn-primary modBtn">Modify</button> 
+	<button class="btn btn-primary delBtn">Delete</button> 
+	<button class="btn btn-primary listBtn">Go List</button>
+	</div>
+
+
+</div>
+
+
+	<input type="hidden" name="bno" th:value="${cri.bno}"> 
+	<input type="hidden" name="page" th:value="${cri.page}"> 
+	<input type="hidden" name="amount" th:value="${cri.amount}"> 
+	<input type="hidden" name="type" th:value="${cri.type}">
+	<input type="hidden" name="keyword" th:value="${cri.keyword}">
+</form>
+
+
+<div class="card">
+	<div class="card-body">
+		<form class="form-horizontal form-material" action="/upload/home"
+			method="post">
+			<div class="uploadDiv">
+				<input type="file" name="uploadFile" multiple="multiple">
+			</div>
+		</form>
+	</div>
+</div>
+<hr>
+<div class='uploadResult'>
+	<ul></ul>
+</div>
+
+
+<script>
+<!-- using actionForm -->
+	var actionForm = $("#actionForm");
+
+	$(".modBtn").on("click", function(e) {
+		e.preventDefault();
+		
+		var str = "" ;
+		
+		$(".uploadResult ul li").each(function(i,obj){
+			var jobj = $(obj);
+			console.log(jobj);
+		
+		str += "<input type='hidden' name='attachList["+i+"].fileName' value='"+jobj.data("filename")+"'>";
+		str += "<input type='hidden' name='attachList["+i+"].uuid' value='"+jobj.data("uuid")+"'>";
+		str += "<input type='hidden' name='attachList["+i+"].uploadPath' value='"+jobj.data("path")+"'>";
+		});
+		actionForm.append(str);
+		actionForm.submit();
+	})
+
+	$(".delBtn").on("click", function(e) {
+		actionForm.attr("action", "/board/remove").submit();
+		actionForm.submit();
+	})
+
+	$(".listBtn").on(
+			"click",
+			function(e) {
+				actionForm.find("input[name='bno']").remove();
+				actionForm.attr("action", "/board/list").attr("method", "get")
+						.submit();
+			})<!-- actionForm End .. -->
+</script>
+
+<script>
+
+$(document).ready(function(){
+	//(function(){
+		var bno = [[${vo.bno}]];
+		$.getJSON("/board/getAttachList",{bno: bno}, function(arr){
+			console.log(arr);
+			var str="";
+			
+			$(arr).each(function(i,attach){
+				var fileCallPath = encodeURIComponent( attach.uploadPath+"/s_"+attach.uuid+"_"+attach.fileName);
+				str += "<li data-path='"+attach.uploadPath+"' data-uuid='"+attach.uuid+"' data-filename='"+attach.fileName+"'>";
+				str += "<div><span>" + attach.fileName + "</span>";
+				str += "<button type='button' data-file=\'"+fileCallPath+"\' class='btn btn-circle'><i class='fa fa-times'>x</i></button><br>";
+				str += "<img src='/upload/getImage?fileName="+fileCallPath+"'>";
+				str += "</div></li>";
+			});
+			$(".uploadResult ul").append(str);
+		}); // end json < getImage to read page
+		
+		
+		$(".uploadResult").on("click", "button", function(e){
+			console.log("delete file");
+			
+			if(confirm("Remove this file?")){
+				var targetLi = $(this).closest("li");
+				targetLi.remove();
+			}	
+		});
+				
+		
+		$("input[type=file]").on("change", function(e) {
+
+			e.preventDefault();
+
+			console.log("submit check!!");
+
+			var formData = new FormData();
+			var inputFile = $("input[name='uploadFile']");
+			var files = inputFile[0].files;
+
+			for (var i = 0; i < files.length; i++) {
+				if (!checkExtension(files[i].name, files[i].size)) {
+					return false;
+				}
+				formData.append("uploadFile", files[i]);
+			}
+			$.ajax({
+				url : '/upload/newFiles',
+				processData : false,
+				contentType : false,
+				data : formData,
+				type : 'POST',
+				dataType : 'json',
+				success : function(result) {
+					alert("Uploaded");
+					console.log(result);
+					showUploadFile(result);
+				}
+			}); // $.ajax    
+
+		});
+
+		var regex = new RegExp("(.*?)\.(exe|php)$");
+		var maxSize = 5242880;
+
+		function checkExtension(fileName, fileSize) {
+
+			if (fileSize >= maxSize) {
+				alert("over Size");
+				return false;
+			}
+
+			if (regex.test(fileName)) {
+				alert("Don't upload this type");
+				return false;
+			}
+			return true;
+		} // check upload
+		
+		var uploadResult = $(".uploadResult ul");
+		  
+		  function showUploadFile(uploadResultArr){
+			  var str = "";
+			  
+			  $(uploadResultArr).each(function(i,obj){
+				  
+				  var folderFileName = encodeURIComponent(obj.uuid+"_"+obj.fileName);
+				  
+				  if(!obj.image){
+					  str += "<li><a href='/upload/download?fileName="+folderFileName+"'>"+obj.fileName +"</li>";
+				  }else{
+					  //var fileCallPath = encodeURIComponent(obj.uploadPath+"/s_"+obj.uuid+"_"+obj.fileName);
+					  
+					  var fileCallPath = encodeURIComponent(obj.uploadPath+"/s_"+obj.uuid+"_"+obj.fileName);
+					  
+					 str +="<li data-path='"+obj.uploadPath+"' data-uuid='"+obj.uuid+"' data-filename='"+obj.fileName+"'><div>";
+					 str +="<span>"+obj.fileName+"</span>";
+					 str +="<button data-file="+fileCallPath+" class='btn btn-warning btn-circle'><i class='fa fa-times'>x</i></button><br>";
+					 str +="<img src='/upload/getImage?fileName="+fileCallPath+"'>"
+					 str +="</div></li>";
+					 
+					  
+					  var folderFileName = "/s_"+obj.uuid+"_"+obj.fileName;
+					  var originFileName= obj.uuid+"_"+obj.fileName;
+					  //str += "<li><a href=\"javascript:showImage(\'"+originFileName+"')\"><img src='/upload/getImage?fileName="+folderFileName+"'></a>"+
+							 // "<span data-file=\'"+folderFileName+"\' data-tpye='image'>x</span></li>";
+				  }
+			  });
+			 uploadResult.append(str);	  
+		  }// end function 
+}); 
+
+</script>
+  
+
+<th:block th:insert="/../include/footer.html"></th:block>

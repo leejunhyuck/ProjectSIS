@@ -16,14 +16,24 @@
 <link rel="stylesheet" th:href="@{/css/owl.theme.default.min.css}">
 
 
+
+
 <link rel="stylesheet" th:href="@{/css/aos.css}">
 <link rel="stylesheet" th:href="@{/css/style.css}">
+<link rel="stylesheet" th:href="@{/css/lightbox.min.css}">
+
+
+
 
 
 </head>
 <body>
 
 <script th:src="@{/js/jquery-3.3.1.min.js}"></script>
+<script th:src="@{/js/owl.gallery.js}"></script>
+<script th:src="@{/js/lightbox.min.js}"></script>
+
+ 
 
   <div class="site-wrap">
 
@@ -39,10 +49,19 @@
               </div>
             </div>
 
+		
             <div class="site-navigation">
               <ul class="site-menu js-clone-nav d-none d-md-block">
-                <li><a href="../store/list.html">Store</a></li>
-                <li><a href="../matching/list.html">Matching</a></li>
+              	
+              	<li class="has-children">
+                	<a href="../store/list.html">Store</a>
+                	<ul class="dropdown">
+                		<li><a href="#">매물 찾기</a></li>
+                		<li><a href="#">매물 내놓기</a></li>
+                	</ul>
+                </li>	
+                	
+                <li ><a href="../matching/list.html">Matching</a></li>
                 <li><a href="../community/list.html">Community</a></li>
               </ul>
             </div>
