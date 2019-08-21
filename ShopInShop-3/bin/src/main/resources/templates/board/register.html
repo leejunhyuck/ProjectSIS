@@ -1,0 +1,186 @@
+<html xmlns:th="http://www.thymeleaf.org">
+
+<th:block th:insert="/../include/header.html"></th:block>
+
+<h1>register page</h1>
+
+<div class="panel-body">
+
+	<form class="actionForm" th:action="@{/board/register}" method="post">
+
+		<div class="form-group">
+			<label>Title</label> 
+			<input class="form-control" name="title"/>			
+		</div>
+
+		<div class="form-group">
+			<label>Content</label>
+			<textarea class="form-control" rows="3" name='content'></textarea>
+		</div>
+
+		<div class="form-group" >
+			<label>Writer</label> 
+			<input class="form-control" name="writer"/>
+		</div>
+		<button type="submit" class="insertBtn btn btn-default">Submit Button</button>
+		<button type="reset" class="btn btn-primary">Reset Button</button>
+		<a th:href="@{/board/list}" class="btn btn-secondary"> Go to List </a>
+	</form>
+	
+	<hr>
+	<div class="uploadDiv">
+		<input multiple="multiple" type="file" name="files" />
+	</div>
+
+	<div class="input-field col s6">
+		<button id="save" type="submit">Submit</button>
+	</div>
+
+
+	<div class="uploadResult">
+		<ul>
+		</ul>
+	</div>
+	
+</div>
+
+
+<script th:inline="javascript">
+$(document).ready(function() {
+		
+	var cloneObj = $(".uploadDiv").clone()
+				
+	$("input[type=file]").on("change", function(e) {
+		e.preventDefault();
+		
+		var formData = new FormData();
+		var inputFile = $("input[name='files']");
+		var files = inputFile[0].files;
+		console.log(files);
+		
+		for (var i = 0; i < files.length; i++) {
+			if (!checkExtension(files[i].name, files[i].size)) {
+				return false;
+			}
+			formData.append("uploadFile", files[i]);}
+		
+		
+		$.ajax({
+			url : '/upload/newFiles',
+			processData : false,
+			contentType : false,
+			data : formData,
+			type : 'POST',
+			dataType : 'json',
+			success : function(result) {
+				alert("Uploaded");
+				console.log(result);
+			
+				showUploadFile(result);
+				$(".uploadDiv").html(cloneObj.html());
+				}
+		}); // End $.ajax
+	});// End Upload Event
+	
+	var form = $(".actionForm");
+	
+	$(".insertBtn").on("click",function(e){
+		e.preventDefault();
+		var str ="";
+		
+		$(".uploadResult ul li").each(function(i,obj){
+			var jobj = $(obj);
+			console.log(jobj);
+			
+			str += "<input type='hidden' name='attachList["+i+"].fileName' value='"+jobj.data("filename")+"'>";
+			str += "<input type='hidden' name='attachList["+i+"].uuid' value='"+jobj.data("uuid")+"'>";
+			str += "<input type='hidden' name='attachList["+i+"].uploadPath' value='"+jobj.data("path")+"'>";
+			
+		})
+		form.append(str);
+		form.submit();
+	});// end insert btn
+		
+		
+	var uploadResult = $(".uploadResult ul");
+		
+	$(".uploadResult").on("click", "button", function(e) {
+		console.log("delete file");
+							
+		var targetFile = $(this).data("file");
+		var targetLi = $(this).closest("li");
+
+		console.log(targetFile);
+							
+		$.ajax({
+			url : '/upload/deleteFile',
+								
+			data : {
+				fileName : targetFile,									
+				type : 'image' },
+			dataType : 'text',
+			type : 'POST',
+			success : function(result) {
+				alert(result);
+				targetLi.remove();}
+		});// End &.ajax
+						
+	}); // End Click Event
+	
+	
+	
+	var regex = new RegExp("(.*?)\.(exe|php)$");
+	var maxSize = 5242880;	
+		
+	function checkExtension(fileName, fileSize) {
+
+		if (fileSize >= maxSize) {
+			alert("over Size");
+			return false;
+		}
+
+		if (regex.test(fileName)) {
+			alert("Don't upload this type");
+			return false;
+		}
+		return true;
+	} // check upload
+		
+	function showUploadFile(uploadResultArr) {
+		var str = "";
+		$(uploadResultArr).each(function(i, obj) {
+			var folderFileName = encodeURIComponent(obj.uuid+ "_" + obj.fileName);
+
+			if (!obj.image) {
+				str += "<li><a href='/upload/download?fileName="+
+						folderFileName+ "'>"+ obj.fileName+ "</li>";
+			}else{//var fileCallPath = encodeURIComponent(obj.uploadPath+"/s_"+obj.uuid+"_"+obj.fileName);
+				var folderFileName = "/s_"+ obj.uuid + "_"+ obj.fileName;
+				
+				var originFileName = encodeURIComponent(obj.uploadPath+ obj.uuid+ "_"+obj.fileName);
+				
+				var fileCallPath = encodeURIComponent(obj.uploadPath+ "/s_"+ obj.uuid+ "_"+ obj.fileName);
+				
+				str +="<li data-path='"+obj.uploadPath+"' data-uuid='"+obj.uuid+"' data-filename='"+obj.fileName+"'><div>";
+				str +="<span>"+obj.fileName+"</span>";
+				str +="<button data-file="+fileCallPath+" class='btn btn-warning btn-circle'><i class='fa fa-times'>x</i></button><br>";
+				str +="<img src='/upload/getImage?fileName="+fileCallPath+"'>"
+				str +="</div></li>";
+				
+				
+						
+						
+						//"<span data-file=\'"+folderFileName+"\' data-tpye='image'>x</span></li>";
+			}// End else 
+		}); // End for each
+		uploadResult.append(str);
+	}// end function
+	
+					
+}); // End Document Ready
+
+</script>
+
+
+<th:block th:insert="/../include/footer.html"></th:block>
+

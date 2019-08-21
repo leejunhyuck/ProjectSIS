@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+ <mapper namespace="org.sis.mapper.BoardMapper">
+ 
+ 	<sql id="searchCri">
+ 		  <if test="map != null">
+        <where>
+
+            <foreach index="key" item="val" collection="map" >
+                <trim prefix="OR">
+                
+                    <if test="key == 'T'.toString()">
+                    title like concat('%',#{val},'%')
+                    </if>
+                    
+                    <if test="key == 'C'.toString()">
+                    content like concat('%',#{val},'%')
+                    </if>
+                    
+                    <if test="key == 'W'.toString()">
+                    writer like concat('%',#{val},'%')
+                    </if>
+                    
+                </trim>
+            </foreach>
+        </where>
+    </if>
+ 	
+ 	
+ 	
+ 	
+ 	</sql>
+ 
+ 
+ 
+ 
+ 
+    <insert id = "insert">
+    insert into tbl_board2 (title, content, writer)
+		values
+		(#{title},
+		#{content}, #{writer})
+
+		<selectKey resultType="int" keyProperty="bno" order="AFTER">
+			SELECT LAST_INSERT_ID()
+		</selectKey>
+    </insert>
+    
+    <select id="select" resultType="org.sis.board.test.model.BoardVO">
+    select * from tbl_board2 where bno=#{bno}
+    </select>
+    
+    <select id="selectPage" resultType="org.sis.board.test.model.BoardVO">
+    select *from tbl_board2
+     <include refid="searchCri"></include> 
+    order by bno desc limit #{skip} , #{amount}
+    </select>
+    
+    <update id="update">
+    	update tbl_board2 set title = #{title} , content = #{content} where bno = #{bno}
+    </update>
+    
+    <select id="selectPageCount" resultType="int">
+    select count(bno) from tbl_board2  <include refid="searchCri"></include> 
+    </select>
+    
+    <select id="serach" resultType="org.sis.board.test.model.BoardVO">
+    select * from tbl_board2
+    <if test="map != null">
+        <where>
+            <foreach index="key" item="val" collection="map" >
+                <trim prefix="OR">
+                
+                    <if test="key == 'T'.toString()">
+                    title like concat('%',#{val},'%')
+                    </if>
+                    
+                    <if test="key == 'C'.toString()">
+                    content like concat('%',#{val},'%')
+                    </if>
+                    
+                    <if test="key == 'W'.toString()">
+                    writer like concat('%',#{val},'%')
+                    </if>
+                    
+                </trim>
+            </foreach>
+        </where>
+    </if>
+    order by bno desc limit 0,20
+    </select>
+    
+    
+    
+ </mapper>

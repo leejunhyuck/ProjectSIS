@@ -1,0 +1,146 @@
+<html xmlns:th="http://www.thymeleaf.org">
+
+<body>
+	<h1>List page</h1>
+
+	<h5>
+		<a th:href="@{/board/register}">Register</a>
+	</h5>
+	
+	<div>
+		<select name="typeView">
+			<option value="">--</option>
+			<option value="T" th:attr="selected=${cri.type == 'T'? 'true' : 'false'}">제목</option>
+			<option value="C" th:attr="selected=${cri.type == 'C'? 'true' : 'false'}">내용</option>
+  			<option value="W" th:attr="selected=${cri.type == 'W'? 'true' : 'false'}">작성자</option>
+			<option value="TC" th:attr="selected=${cri.type == 'TC'? 'true' : 'false'}">제목 + 내용</option>
+			<option value="TW" th:attr="selected=${cri.type == 'TW'? 'true' : 'false'}">제목 + 작성자</option>
+			<option value="CW" th:attr="selected=${cri.type == 'CW'? 'true' : 'false'}">내용 + 작성자</option>
+			<option value="TCW" th:attr="selected=${cri.type == 'TCW'? 'true' : 'false'}">제목 + 내용+ 작성자</option>
+		</select>
+		<input type="text" name="keywordView" th:value="${cri.keyword}">
+		<button class="btn btn-primary searchBtn">Search</button>
+	
+	
+		<select class="amount-opt">
+			<option value="10" th:attr="selected=${cri.amount == 10? 'true' : 'false'}">10</option>
+			<option value="20" th:attr="selected=${cri.amount == 20? 'true' : 'false'}">20</option>
+			<option value="50" th:attr="selected=${cri.amount == 50? 'true' : 'false'}">50</option>
+			<option value="100" th:attr="selected=${cri.amount == 100? 'true' : 'false'}">100</option>
+		</select>
+	</div>
+	
+
+	<table border="1">
+		<tr>
+			<td>BNO</td>
+			<td>TITLE</td>
+			<td>WRITER</td>
+			<td>REGDATE</td>
+		</tr>
+		<tr th:each="vo : ${list}">
+			<td th:text="${vo.bno}"></td>
+			<td><a class="view" th:href="${vo.bno}" th:text="${vo.title}"></a><span> ([[${vo.replycnt}]])</span></td>
+			<td th:text="${vo.writer}"></td>
+			<td th:text="${vo.regdate}"></td>
+		</tr>
+	</table>
+
+
+<h4> pagination not complete ... </h4>
+	<ul class="pagination">
+		
+		<li th:if="${pm.prev}" class="page-item"><a class="page-link"
+			th:href='${pm.start-1}'>Previous</a></li>
+		<c:forEach begin="${pm.start}" end="${pm.end}" var="idx">
+			<li class="page-item ${pm.current == idx ? "active":"" } ">
+			<a class="page-link" href='${idx}'>${idx}</a></li>
+		</c:forEach>
+		
+		<li th:each="pageNumber : ${pm.end}">
+			<a class="page-link" th:text=${pageNumber}></a>
+		</li>
+
+			<li th:if="${pm.next}" class="page-item"><a class="page-link" 
+			th:href='${pm.end+1}'>Next</a></li>
+	</ul>
+	
+	
+	<form id="actionForm" action="/board/list" method="get">
+	<input type="hidden" name="page" th:value="${cri.page}">
+	<input type="hidden" name="amount" th:value="${cri.amount}">
+	<input type="hidden" name="type" th:value="${cri.type}">
+	<input type="hidden" name="keyword" th:value="${cri.keyword}">
+	</form>
+
+
+<script
+  src="https://code.jquery.com/jquery-3.4.1.min.js"
+  integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+  crossorigin="anonymous"></script>
+
+<script>
+
+<!-- addFlashAttribute -->
+var flag = '${result}';
+
+if (flag === 'success') {
+	alert("작업이 성공했습니다.");
+}
+
+
+<!-- use action Form -->
+var actionForm = $("#actionForm");
+
+$(".view").on("click",function(e){
+	e.preventDefault();
+	var targetBno = $(this).attr("href");
+	
+	actionForm.attr("action","/board/read");
+	actionForm.append("<input type='hidden' name='bno' value="+targetBno+">");
+	actionForm.submit();
+});
+
+$(".page-link").on("click",function(e){
+	e.preventDefault();
+	var targetPage = $(this).attr("href");
+	console.log(targetPage);
+	actionForm.find("input[name='page']").val(targetPage);
+	actionForm.submit();
+});
+
+
+<!-- seach div -->
+
+$(".searchBtn").on("click",function(e){
+	var keyword =$("input[name='keywordView']");
+	var keywordValue =keyword.val();
+	
+	if(keywordValue.trim().length ==0){
+		alert("검색어를 입력하세요");
+		return;
+	}
+	$("input[name='keyword']").val(keywordValue);
+	$("input[name='page']").val(1);
+	
+	var selectValue = $("select[name='typeView']").val()
+	$("input[name='type']").val(selectValue);
+	actionForm.submit();
+	
+});
+
+
+$(".amount-opt").on("change",function(e){
+	var amountValue = this.value;
+	
+	actionForm.find("input[name='page']").val(1);
+	actionForm.find("input[name='amount']").val(amountValue);
+	actionForm.submit();
+});
+<!-- actionForm End .. -->
+
+</script>
+
+
+</body>
+</html>
