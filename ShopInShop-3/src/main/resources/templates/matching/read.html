@@ -377,8 +377,8 @@ $(document).ready(function(){
 				str += "<div class='item'><div class='block-4 text-center'><figure class='block-4-image'>";
 				//str += "<a class='item' href='http://lorempixel.com/800/400/food/2/' rel='prettyPhoto' title='This is the description'>"
 				//str += "<a href='#' onclick='$(this).galleryShow(); return false;'>";
-				str += "<a class='example-image-link' href='/upload/getImage?fileName="+fileOriginPath+"' data-lightbox='example-set' data-title='title'>";
-				str += "<img class='example-image' src='/upload/getImage?fileName="+fileCallPath+"' alt='Image Read Fail' class='img-fluid'></a>";
+				str += "<a class='example-image-link' href='/upload_matching/getImage?fileName="+fileOriginPath+"' data-lightbox='example-set' data-title='title'>";
+				str += "<img class='example-image' src='/upload_matching/getImage?fileName="+fileCallPath+"' alt='Image Read Fail' class='img-fluid'></a>";
 				str += "</figure><div class='block-4-text p-4'><p class='text-primary font-weight-bold'>"+attach.fileName+"</p>";
 				str += "</div></div></div></div>";
 				$('.owl-carousel').owlCarousel('add', str).owlCarousel('update');

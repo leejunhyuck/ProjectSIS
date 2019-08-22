@@ -3,7 +3,7 @@
  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
- <mapper namespace="org.sis.mapper.MatchingMapper">
+ <mapper namespace="org.sis.mapper.ComMapper">
 
 	<sql id="searchCri">
 		<if test="map != null">
@@ -33,7 +33,7 @@
  
  
     <insert id = "insert">
-    insert into tbl_board_join (title, content, mid)
+    insert into tbl_board_com (title, content, mid)
 		values (#{title},#{content}, #{mid})
 
 		<selectKey resultType="int" keyProperty="bno" order="AFTER">
@@ -41,32 +41,32 @@
 		</selectKey>
     </insert>
     
-    <select id="select" resultType="org.sis.board.test.model.MatchingVO">
-    	select * from tbl_board_join where bno=#{bno}
+    <select id="select" resultType="org.sis.board.test.model.ComVO">
+    	select * from tbl_board_com where bno=#{bno}
     </select>
     
     <update id="update">
-    	update tbl_board_join set title = #{title} , content = #{content} where bno = #{bno}
+    	update tbl_board_com set title = #{title} , content = #{content} where bno = #{bno}
     </update>
     	
     <delete id="delete">
-    	delete from tbl_board_join where bno = #{bno}
+    	delete from tbl_board_com where bno = #{bno}
     </delete>
     
     
-    <select id="selectPage" resultType="org.sis.board.test.model.MatchingVO">
-    select *from tbl_board_join
+    <select id="selectPage" resultType="org.sis.board.test.model.ComVO">
+    select *from tbl_board_com
      <include refid="searchCri"></include> 
     order by bno desc limit #{skip} , #{amount}
     </select>    
 
     
     <select id="selectPageCount" resultType="int">
-    select count(bno) from tbl_board_join  <include refid="searchCri"></include> 
+    select count(bno) from tbl_board_com  <include refid="searchCri"></include> 
     </select>
     
-    <select id="serach" resultType="org.sis.board.test.model.MatchingVO">
-    select * from tbl_board_join
+    <select id="serach" resultType="org.sis.board.test.model.ComVO">
+    select * from tbl_board_com
     <if test="map != null">
         <where>
             <foreach index="key" item="val" collection="map" >

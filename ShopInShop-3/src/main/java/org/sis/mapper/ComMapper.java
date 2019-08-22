@@ -8,28 +8,28 @@ import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 import org.sis.board.test.model.BoardAttachVO;
 import org.sis.board.test.model.Criteria;
-import org.sis.board.test.model.MatchingVO;
+import org.sis.board.test.model.ComVO;
 
-public interface MatchingMapper {
+public interface ComMapper {
 
 	
-	public void insert(MatchingVO vo);	
-	public MatchingVO select(Integer bno);
+	public void insert(ComVO vo);	
+	public ComVO select(Integer bno);
 	
 	public int delete(Integer bno);
-	public int update(MatchingVO vo);
+	public int update(ComVO vo);
 
 
 	public int selectPageCount(Criteria cri);	
-	public List<MatchingVO> selectPage(Criteria cri);
+	public List<ComVO> selectPage(Criteria cri);
 	
 	
-	public List<MatchingVO> search(@Param("map") Map<String,String> map);
+	public List<ComVO> search(@Param("map") Map<String,String> map);
 	
-	@Update("update tbl_board_join set replycnt=replycnt+#{amount} where bno =#{bno}")
+	@Update("update tbl_board_matching set replycnt=replycnt+#{amount} where bno =#{bno}")
 	public int updateReplyCnt(@Param("bno") Integer bno,@Param("amount") int amount);
 	
-	@Select("select * from tbl_board_join_file where bno = #{bno}")
+	@Select("select * from tbl_attach where bno = #{bno}")
 	public List<BoardAttachVO> findbyBno(int bno);
 	
 }

@@ -6,14 +6,17 @@ import java.util.List;
 import lombok.Data;
 
 @Data
-public class MatchingVO {
+public class ComVO {
 
 	
 	private Integer bno;
 	private String title, content,mid;
+	private String category;
 	private Date regdate;
 	private int replycnt;
+	private int comlike;
+	private int viewcnt;
 	
-	private List<MatchingAttachVO> attachList;
+	private List<ComAttachVO> attachList;
 	
 }

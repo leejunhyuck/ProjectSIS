@@ -29,10 +29,9 @@
 			<td th:text="${vo.regdate}"></td>
 		</tr>
 	</table>
+
 	
-	
-	
-	<div class="flex-end">
+	<div>	
 		<select name="typeView">
 			<option value="">--</option>
 			<option value="T" th:attr="selected=${cri.type == 'T'? 'true' : 'false'}">제목</option>
@@ -43,9 +42,9 @@
 			<option value="CW" th:attr="selected=${cri.type == 'CW'? 'true' : 'false'}">내용 + 작성자</option>
 			<option value="TCW" th:attr="selected=${cri.type == 'TCW'? 'true' : 'false'}">제목 + 내용+ 작성자</option>
 		</select>
-		<input type="text" name="keywordView" th:value="${cri.keyword}">
+		
+		<input  type="text" name="keywordView" th:value="${cri.keyword}">
 		<button class="btn-primary btn-sm searchBtn">Search</button>
-	
 	
 		<select class="amount-opt">
 			<option value="10" th:attr="selected=${cri.amount == 10? 'true' : 'false'}">10</option>
@@ -53,7 +52,13 @@
 			<option value="50" th:attr="selected=${cri.amount == 50? 'true' : 'false'}">50</option>
 			<option value="100" th:attr="selected=${cri.amount == 100? 'true' : 'false'}">100</option>
 		</select>
-	</div>	
+		
+	</div>
+	
+	
+	
+		
+
 	
 	
 

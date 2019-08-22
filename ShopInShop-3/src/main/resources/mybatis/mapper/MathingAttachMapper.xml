@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="org.sis.mapper.MatchingAttachMapper">
+
+	<insert id="insert" parameterType="org.sis.board.test.model.MatchingVO">
+		Insert into tbl_board_join_file(bno,fileName,uploadPath,uuid) values(#{bno},#{fileName},#{uploadPath},#{uuid})
+	</insert>
+	
+	<select id="getOldFiles" resultType="org.sis.board.test.model.BoardAttachVO">
+		select * from tbl_board_join_file where uploadpath =  DATE_FORMAT(now()-1 , '%Y\%m\%d')
+	</select>
+	
+	<select id="findbybno" resultType="org.sis.board.test.model.BoardAttachVO">
+		select * from tbl_board_join_file where bno = #{bno}
+	</select>
+	
+	<delete id="deleteAll">
+		delete from tbl_board_join_file where bno = #{bno}
+	</delete>
+
+
+
+
+</mapper>

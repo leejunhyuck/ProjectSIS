@@ -1,16 +1,23 @@
 <html xmlns:th="http://www.thymeleaf.org">
 
+<th:block th:insert="/../include/header.html"></th:block>
+
+
+
 <style>
 .modal-footer .hide {
 	display: none
 }
 </style>
 
-<body>
+<br>
+
+<div class="container">
+
 
 <h1>read page</h1>
 
-<div class="panel-heading">View Page</div>
+
 <div class="panel-body">
 
 	<div class="form-group">
@@ -21,7 +28,6 @@
 	<div class="form-group">
 		<label>Title</label> <input class="form-control" name="title"
 			th:value="${vo.title}" readonly="readonly" />
-		<p class="help-block">Title text here.</p>
 	</div>
 
 	<div class="form-group">
@@ -31,8 +37,8 @@
 	</div>
 
 	<div class="form-group">
-		<label>Writer</label> <input class="form-control" name="writer"
-			th:value="${vo.writer}" readonly="readonly" />
+		<label>Writer</label> <input class="form-control" name="mid"
+			th:value="${vo.mid}" readonly="readonly" />
 	</div>
 
 	<div class="form-group">
@@ -43,13 +49,41 @@
 
 
 	<div class="pull-right" >
-		<button class="btn btn-primary modBtn">Modify/Delete</button> 
-		<button class="btn btn-primary listBtn">Go List</button>
+		<button class="btn-primary btn-sm modBtn">Modify/Delete</button> 
+		<button class="btn-primary btn-sm listBtn">Go List</button>
 	</div>
 	<hr>
-	<button class="btn btn-outline-success addReplyBtn">Add Reply</button>
+	<button class="btn-outline-success btn-sm addReplyBtn">Add Reply</button>
 
 </div>
+
+
+
+<div class="site-section block-3 bg-light">
+      <div class="container bg-light">
+        <div class="row justify-content-center">
+          <div class="col-md-7 site-section-heading text-center pt-4">
+            <h2>Upload Image</h2>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12">
+            <div class="nonloop-block-3 owl-carousel">
+            </div>
+          </div>
+        </div>
+      </div>
+  </div>
+
+
+<hr>
+<div class='uploadResult'>
+	<ul></ul>
+</div>
+<div class='bigPicture'></div>
+
+
+
 
 <div class="card shadow mb-4">
 	<div class="card-body">
@@ -69,7 +103,7 @@
 
 
 
-<form id="actionForm" action="/board/modify" method="get">
+<form id="actionForm" action="/community/modify" method="get">
 	<input type="hidden" name="bno" th:value="${cri.bno}"> 
 	<input type="hidden" name="page" th:value="${cri.page}"> 
 	<input type="hidden" name="amount" th:value="${cri.amount}"> 
@@ -90,30 +124,26 @@
 				</button>
 			</div>
 			<div class="modal-body">
-				<input type="text" class="form-control mbno" name="bno"
+				<input type="text" class="form-control mid" name="bno"
 					th:value="${cri.bno}" readonly="readonly"> <input type="text"
 					class="form-control mrno" name="rno" value="" readonly="readonly">
 				<input type="text" class="form-control" name="reply" value="샘플댓글">
 				<input type="text" class="form-control" name="replyer" value="도라에몽">
 			</div>
 			<div class="modal-footer">
-				<button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-				<button class="btn btn-primary replyBtn">ADD REPLY</button>
-				<button class="btn btn-primary rereBtn hide">ADD REREPLY</button>
-				<button class="btn btn-info modifyBtn hide">Modify Reply</button>
-				<button class="btn btn-danger deleteBtn hide">Delete Reply</button>
+				<button class="btn-secondary btn-sm" type="button" data-dismiss="modal">Cancel</button>
+				<button class="btn-primary btn-sm replyBtn">ADD REPLY</button>
+				<button class="btn-primary btn-sm rereBtn hide">ADD REREPLY</button>
+				<button class="btn-info btn-sm modifyBtn hide">Modify Reply</button>
+				<button class="btn-danger btn-sm deleteBtn hide">Delete Reply</button>
 			</div>
 		</div>
 	</div>
 </div>
 
+</div>
 
-<script
-  src="https://code.jquery.com/jquery-3.4.1.min.js"
-  integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
-  crossorigin="anonymous"></script>
 <script th:src="@{/js/reply.js}"></script>
-
 <script>
 
 <!-- using actionForm -->
@@ -125,7 +155,7 @@ $(".modBtn").on("click", function(e) {
 })
 $(".listBtn").on("click", function(e) {
 	actionForm.find("input[name='bno']").remove();
-	actionForm.attr("action", "/board/list").submit();
+	actionForm.attr("action", "/community/list").submit();
 })
 <!-- actionForm End .. -->
 
@@ -144,7 +174,7 @@ console.log(replyCnt);
 
 	<!-- add reply -->
 $(".addReplyBtn").on("click", function() {
-	//$("#replyModal").modal("show");
+	$("#replyModal").modal("show");
 	$(".modifyBtn").addClass("hide");
 	$(".replyBtn").removeClass("hide");
 	$(".deleteBtn").addClass("hide");
@@ -160,7 +190,7 @@ $(".replyBtn").on("click", function(e) {
 	console.log(obj);
 	replyService.addReply(obj, function() {
 		alert("댓글 등록 성공");
-		//$("#replyModal").modal("hide");
+		$("#replyModal").modal("hide");
 		showPage(-1);
 	});
 	replyCnt +=1 ;
@@ -180,7 +210,7 @@ replyList.on("click","li",function(e){
 		$(".mrno").val(reply.rno);
 		$("input[name='reply']").val(reply.reply);
 		$("input[name='replyer']").val(reply.replyer);
-		//$("#replyModal").modal("show");
+		$("#replyModal").modal("show");
 		
 		$(".modifyBtn").removeClass("hide");
 		$(".replyBtn").addClass("hide");
@@ -199,7 +229,7 @@ $(".modifyBtn").on("click",function(e){
 			};
 	 replyService.modifyReply(obj, function() {
 			alert("댓글 등록 성공");
-			//$("#replyModal").modal("hide");
+			$("#replyModal").modal("hide");
 			showPage(page);
 		});
 });
@@ -211,7 +241,7 @@ $(".deleteBtn").on("click",function(){
 	replyService.removeReply(rno,function(){
 		alert("remove.....")
 		showPage(page);
-		//$("#replyModal").modal("hide");
+		$("#replyModal").modal("hide");
 	})
 	replyCnt +=1 ;
 });
@@ -323,6 +353,72 @@ pageReply.on("click","li a",function(e){
 });
 
 </script>
-</body>
-</html>
 
+
+<script>
+
+$(document).ready(function(){
+	
+	console.log(".... 레디 ")
+	//(function(){
+		var bno = [[${vo.bno}]];
+		$.getJSON("/community/getAttachList",{bno: bno}, function(arr){
+			console.log(arr);
+			
+			
+			$(arr).each(function(i,attach){
+				var fileCallPath = encodeURIComponent( attach.uploadPath+"/s_"+attach.uuid+"_"+attach.fileName);
+				var fileOriginPath = encodeURIComponent( attach.uploadPath+"/"+attach.uuid+"_"+attach.fileName);
+				var str="";
+				//str += "<li data-path='"+attach.uploadPath+"' data-uuid='"+attach.uuid+"' data-filename='"+attach.fileName+"'>";
+				//str += "<div><img src='/upload/getImage?fileName="+fileCallPath+"'>";
+				//str += "</div></li>";
+				
+				str += "<div class='item'><div class='block-4 text-center'><figure class='block-4-image'>";
+				//str += "<a class='item' href='http://lorempixel.com/800/400/food/2/' rel='prettyPhoto' title='This is the description'>"
+				//str += "<a href='#' onclick='$(this).galleryShow(); return false;'>";
+				str += "<a class='example-image-link' href='/upload_com/getImage?fileName="+fileOriginPath+"' data-lightbox='example-set' data-title='title'>";
+				str += "<img class='example-image' src='/upload_com/getImage?fileName="+fileCallPath+"' alt='Image Read Fail' class='img-fluid'></a>";
+				str += "</figure><div class='block-4-text p-4'><p class='text-primary font-weight-bold'>"+attach.fileName+"</p>";
+				str += "</div></div></div></div>";
+				$('.owl-carousel').owlCarousel('add', str).owlCarousel('update');
+			});  
+			//$(".owl-stage").append(str); // ul 추가
+			
+			
+			
+			
+		}); // end json < getImage to read page
+		
+	
+		
+		
+	
+		
+		
+		
+		
+		
+		$(".uploadResult ul").on("click","li",function(e){
+			console.log("view origin Image")
+			var liObj = $(this);
+			console.log(liObj.data);
+			var path = encodeURIComponent(liObj.data("path")+"/"+liObj.data("uuid")+"_"+liObj.data("filename"));
+			showImage(path.replace(new RegExp(/\\/g),"/"));
+			});
+}); 
+
+</script>
+
+
+<script>
+
+$(function () {
+	$("#mdb-lightbox-ui").load("mdb-addons/mdb-lightbox-ui.html");
+	console.log("active light box");
+	});
+	
+
+</script>
+
+<th:block th:insert="/../include/footer.html"></th:block>

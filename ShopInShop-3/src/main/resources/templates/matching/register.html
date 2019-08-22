@@ -79,7 +79,7 @@ $(document).ready(function() {
 		
 		
 		$.ajax({
-			url : '/upload/newFiles',
+			url : '/upload_matching/newFiles',
 			processData : false,
 			contentType : false,
 			data : formData,
@@ -126,7 +126,7 @@ $(document).ready(function() {
 		console.log(targetFile);
 							
 		$.ajax({
-			url : '/upload/deleteFile',
+			url : '/upload_matching/deleteFile',
 								
 			data : {
 				fileName : targetFile,									
@@ -165,7 +165,7 @@ $(document).ready(function() {
 			var folderFileName = encodeURIComponent(obj.uuid+ "_" + obj.fileName);
 
 			if (!obj.image) {
-				str += "<li><a href='/upload/download?fileName="+
+				str += "<li><a href='/upload_matching/download?fileName="+
 						folderFileName+ "'>"+ obj.fileName+ "</li>";
 			}else{//var fileCallPath = encodeURIComponent(obj.uploadPath+"/s_"+obj.uuid+"_"+obj.fileName);
 				var folderFileName = "/s_"+ obj.uuid + "_"+ obj.fileName;
@@ -177,7 +177,7 @@ $(document).ready(function() {
 				str +="<li data-path='"+obj.uploadPath+"' data-uuid='"+obj.uuid+"' data-filename='"+obj.fileName+"'><div>";
 				str +="<span>"+obj.fileName+"</span>";
 				str +="<button data-file="+fileCallPath+" class='btn-warning btn-circle'><i class='fa fa-times'>x</i></button><br>";
-				str +="<img src='/upload/getImage?fileName="+fileCallPath+"'>"
+				str +="<img src='/upload_matching/getImage?fileName="+fileCallPath+"'>"
 				str +="</div></li>";
 				
 				

@@ -3,28 +3,28 @@ package org.sis.board.test.service;
 import java.util.List;
 
 import org.sis.board.test.model.BoardAttachVO;
+import org.sis.board.test.model.ComAttachVO;
 import org.sis.board.test.model.Criteria;
-import org.sis.board.test.model.MatchingAttachVO;
-import org.sis.board.test.model.MatchingVO;
+import org.sis.board.test.model.ComVO;
 import org.sis.mapper.AttachMapper;
-import org.sis.mapper.MatchingAttachMapper;
-import org.sis.mapper.MatchingMapper;
+import org.sis.mapper.ComAttachMapper;
+import org.sis.mapper.ComMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service
-public class MatchingServiceImpl implements MatchingService{
+public class ComServiceImpl implements ComService{
 	
 	@Autowired
-	private MatchingMapper mapper;
+	private ComMapper mapper;
 	
 	@Autowired
-	private MatchingAttachMapper attachMapper;
+	private ComAttachMapper attachMapper;
 	
 
 	@Override
-	public void register(MatchingVO vo) {
+	public void register(ComVO vo) {
 		mapper.insert(vo);
 		
 		if(vo.getAttachList() == null || vo.getAttachList().size() <=0) {
@@ -40,12 +40,12 @@ public class MatchingServiceImpl implements MatchingService{
 	
 	
 	@Override
-	public MatchingVO get(Integer Key) {
+	public ComVO get(Integer Key) {
 		return mapper.select(Key);
 	}
 	
 	@Override
-	public int modify(MatchingVO vo) {
+	public int modify(ComVO vo) {
 		
 		attachMapper.deleteAll(vo.getBno());
 		boolean modifyResult = mapper.update(vo) == 1;
@@ -67,7 +67,7 @@ public class MatchingServiceImpl implements MatchingService{
 	}
 
 	@Override
-	public List<MatchingVO> getList(Criteria cri) {
+	public List<ComVO> getList(Criteria cri) {
 		return mapper.selectPage(cri);
 	}
 
@@ -77,7 +77,7 @@ public class MatchingServiceImpl implements MatchingService{
 	}
 	
 	@Override
-	public List<MatchingAttachVO> getAttachList(Integer bno) {
+	public List<ComAttachVO> getAttachList(Integer bno) {
 		return attachMapper.findbybno(bno);
 	}
 
