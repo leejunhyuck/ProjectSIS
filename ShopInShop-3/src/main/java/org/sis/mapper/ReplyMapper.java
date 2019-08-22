@@ -34,8 +34,6 @@ public interface ReplyMapper {
 	public int CountReply(@Param("bno") Integer bno);
 	
 	
-	
-	
 	@Insert("insert into tbl_s1 (col1) values (#{str})")
 	public void insert1(@Param("str") String str);
 
