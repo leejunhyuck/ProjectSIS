@@ -22,7 +22,11 @@
 <link rel="stylesheet" th:href="@{/css/style.css}">
 <link rel="stylesheet" th:href="@{/css/lightbox.min.css}">
 
+<style>
 
+
+
+</style>
 
 
 
@@ -32,6 +36,7 @@
 <script th:src="@{/js/jquery-3.3.1.min.js}"></script>
 <script th:src="@{/js/owl.gallery.js}"></script>
 <script th:src="@{/js/lightbox.min.js}"></script>
+
 
  
 
@@ -53,9 +58,9 @@
 
               <ul class="site-menu js-clone-nav d-none d-md-block">
 
-                <li><a href="../store/list.html">Store</a></li>
-                <li><a href="../matching/list.html">Matching</a></li>
-                <li><a href="../community/list.html">Community</a></li>
+                <li><a href="../store/list">Store</a></li>
+                <li><a href="../matching/list">Matching</a></li>
+                <li><a href="../community/list">Community</a></li>
 
               </ul>
             </div>
@@ -109,12 +114,8 @@
 				
 
         		
-				<button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+				<button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel...</button>
 				
-				<button class="btn btn-primary replyBtn hide">ADD REPLY</button>
-				<button class="btn btn-primary rereBtn hide">ADD REREPLY</button>
-				<button class="btn btn-info modifyBtn hide">Modify Reply</button>
-				<button class="btn btn-danger deleteBtn hide">Delete Reply</button>
 			</div>
 		</div>
 	</div>
@@ -123,5 +124,32 @@
         </div>
       </div>
     </header>
+    
+    
+ 
+ 
+  <script>
+  
+  var actionForm = $("#serachForm");
+  
+  function login(){
+	  $("#replyModal").modal('show')
+	}
+  	
+
+  	
+	 $("#serch").on("click",function(e){
+		e.preventDefault();
+		
+		//alert($("#keyword").val())
+		$("input[name='keyword']").val($("#keyword").val())
+		serachForm.submit();
+		 
+		 
+		 
+	 })
+	 
+	 
+  </script>
  
     <!-- Header End -->

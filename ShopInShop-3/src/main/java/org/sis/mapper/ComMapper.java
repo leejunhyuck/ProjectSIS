@@ -26,10 +26,10 @@ public interface ComMapper {
 	
 	public List<ComVO> search(@Param("map") Map<String,String> map);
 	
-	@Update("update tbl_board_matching set replycnt=replycnt+#{amount} where bno =#{bno}")
+	@Update("update tbl_board_com set replycnt=replycnt+#{amount} where bno =#{bno}")
 	public int updateReplyCnt(@Param("bno") Integer bno,@Param("amount") int amount);
 	
-	@Select("select * from tbl_attach where bno = #{bno}")
+	@Select("select * from tbl_board_com_file where bno = #{bno}")
 	public List<BoardAttachVO> findbyBno(int bno);
 	
 }

@@ -90,7 +90,7 @@ public class ComController {
 		rttr.addFlashAttribute("result", "success");
 		cri.setPage(1);
 		
-		return "redirect:/matching/list"+cri.getLink();
+		return "redirect:/community/list"+cri.getLink();
 		
 	}
 	

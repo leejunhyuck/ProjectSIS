@@ -8,6 +8,21 @@
 .modal-footer .hide {
 	display: none
 }
+
+
+
+.modal {
+  
+   top: 10px;
+   right: 100px;
+   bottom: 0;
+   left: 0;
+   z-index: 10040;
+   overflow: auto;
+   overflow-y: auto;
+}
+
+
 </style>
 
 <br>
@@ -112,7 +127,7 @@
 </form>
 
 
-<div class="modal fade" id="replyModal" tabindex="-1" role="dialog"
+<div class="modal fade" id="ComReplyModal" tabindex="-1" role="dialog"
 	aria-labelledby="exampleModalLabel" aria-hidden="true">
 	<div class="modal-dialog" role="document">
 		<div class="modal-content">
@@ -143,7 +158,7 @@
 
 </div>
 
-<script th:src="@{/js/reply.js}"></script>
+<script th:src="@{/js/Comreply.js}"></script>
 <script>
 
 <!-- using actionForm -->
@@ -174,7 +189,7 @@ console.log(replyCnt);
 
 	<!-- add reply -->
 $(".addReplyBtn").on("click", function() {
-	$("#replyModal").modal("show");
+	$("#ComReplyModal").modal("show");
 	$(".modifyBtn").addClass("hide");
 	$(".replyBtn").removeClass("hide");
 	$(".deleteBtn").addClass("hide");
@@ -184,13 +199,13 @@ $(".replyBtn").on("click", function(e) {
 
 	let obj = {
 		bno : $("input[name='bno']").val(),
-		reply : $("input[name='reply']").val(),
-		replyer : $("input[name='replyer']").val(),
+		content : $("input[name='reply']").val(),
+		mid : $("input[name='replyer']").val(),
 	};
 	console.log(obj);
 	replyService.addReply(obj, function() {
 		alert("댓글 등록 성공");
-		$("#replyModal").modal("hide");
+		$("#ComReplyModal").modal("hide");
 		showPage(-1);
 	});
 	replyCnt +=1 ;
@@ -208,9 +223,9 @@ replyList.on("click","li",function(e){
 	 replyService.getReply(rno,function(reply){
 		 
 		$(".mrno").val(reply.rno);
-		$("input[name='reply']").val(reply.reply);
-		$("input[name='replyer']").val(reply.replyer);
-		$("#replyModal").modal("show");
+		$("input[name='reply']").val(reply.content);
+		$("input[name='replyer']").val(reply.mid);
+		$("#ComReplyModal").modal("show");
 		
 		$(".modifyBtn").removeClass("hide");
 		$(".replyBtn").addClass("hide");
@@ -224,12 +239,12 @@ $(".modifyBtn").on("click",function(e){
 	 console.log("댓글 수정버든")
 	 let obj = {
 				rno : $("input[name='rno']").val(),
-				reply : $("input[name='reply']").val(),
-				replyer : $("input[name='replyer']").val()
+				content : $("input[name='reply']").val(),
+				mid : $("input[name='replyer']").val()
 			};
 	 replyService.modifyReply(obj, function() {
 			alert("댓글 등록 성공");
-			$("#replyModal").modal("hide");
+			$("#ComReplyModal").modal("hide");
 			showPage(page);
 		});
 });
@@ -241,9 +256,9 @@ $(".deleteBtn").on("click",function(){
 	replyService.removeReply(rno,function(){
 		alert("remove.....")
 		showPage(page);
-		$("#replyModal").modal("hide");
+		$("#ComReplyModal").modal("hide");
 	})
-	replyCnt +=1 ;
+	replyCnt -=1 ;
 });
 	<!-- End Modify&Delete Reply -->
 	
@@ -289,11 +304,11 @@ function showPage(page){
      var str = '';
      var x = 0;
 	 for(var i=0;i<arr.length;i++){
-	 	var {rno,bno,reply,replyer,replyDate} = arr[i];
+	 	var {rno,bno,content,mid,replyDate} = arr[i];
 		str += "<div><li class='list-group-item' data-rno="+rno+">"+ 
                "<div class='rno'>"+rno+"</div>"+
-               "<div class='reply'>"+reply+"</div>"+
-               "<div class='replyer'>"+replyer+"</div>"+
+               "<div class='reply'>"+content+"</div>"+
+               "<div class='replyer'>"+mid+"</div>"+
                "</li></div>";
 		}
         replyList.append(str);
