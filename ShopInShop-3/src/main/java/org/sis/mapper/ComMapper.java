@@ -29,6 +29,9 @@ public interface ComMapper {
 	@Update("update tbl_board_com set replycnt=replycnt+#{amount} where bno =#{bno}")
 	public int updateReplyCnt(@Param("bno") Integer bno,@Param("amount") int amount);
 	
+	@Update("update tbl_board_com set viewcnt=viewcnt+1 where bno =#{bno}")
+	public int updateViewCnt(@Param("bno") Integer bno);
+	
 	@Select("select * from tbl_board_com_file where bno = #{bno}")
 	public List<ComAttachVO> findbyBno(int bno);
 	

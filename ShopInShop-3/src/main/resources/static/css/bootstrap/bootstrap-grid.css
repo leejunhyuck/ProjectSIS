@@ -18,8 +18,6 @@ html {
   -webkit-box-sizing: inherit;
   box-sizing: inherit; }
 
-
-
 .container {
   width: 100%;
   padding-right: 15px;
@@ -39,7 +37,6 @@ html {
     .container {
       max-width: 1140px; } }
 
-      
 .container-fluid {
   width: 100%;
   padding-right: 15px;

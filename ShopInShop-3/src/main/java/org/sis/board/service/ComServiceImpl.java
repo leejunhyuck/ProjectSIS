@@ -8,6 +8,7 @@ import org.sis.board.model.Criteria;
 import org.sis.board.model.ComVO;
 import org.sis.mapper.ComAttachMapper;
 import org.sis.mapper.ComMapper;
+import org.sis.mapper.ComReplyMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -17,6 +18,9 @@ public class ComServiceImpl implements ComService{
 	
 	@Autowired
 	private ComMapper mapper;
+	
+	@Autowired
+	private ComReplyMapper replyMapper;
 	
 	@Autowired
 	private ComAttachMapper attachMapper;
@@ -40,6 +44,7 @@ public class ComServiceImpl implements ComService{
 	
 	@Override
 	public ComVO select(Integer Key) {
+		mapper.updateViewCnt(Key);
 		return mapper.select(Key);
 	}
 	
@@ -61,7 +66,8 @@ public class ComServiceImpl implements ComService{
 	@Override
 	@Transactional
 	public int remove(Integer key) {
-		attachMapper.deleteAll(key);		
+		attachMapper.deleteAll(key);
+		replyMapper.deleteAll(key);
 		return mapper.delete(key);
 	}
 

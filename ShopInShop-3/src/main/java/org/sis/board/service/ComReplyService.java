@@ -13,6 +13,8 @@ public interface ComReplyService extends GenericService<ComReplyVO, Integer>{
 	
 	public int countReply(int bno);
 	
+	
+	
 
 	
 	
