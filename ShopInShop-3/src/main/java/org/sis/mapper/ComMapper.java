@@ -6,9 +6,9 @@ import java.util.Map;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
-import org.sis.board.test.model.BoardAttachVO;
-import org.sis.board.test.model.Criteria;
-import org.sis.board.test.model.ComVO;
+import org.sis.board.model.ComAttachVO;
+import org.sis.board.model.Criteria;
+import org.sis.board.model.ComVO;
 
 public interface ComMapper {
 
@@ -30,6 +30,6 @@ public interface ComMapper {
 	public int updateReplyCnt(@Param("bno") Integer bno,@Param("amount") int amount);
 	
 	@Select("select * from tbl_board_com_file where bno = #{bno}")
-	public List<BoardAttachVO> findbyBno(int bno);
+	public List<ComAttachVO> findbyBno(int bno);
 	
 }

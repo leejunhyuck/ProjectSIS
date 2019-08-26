@@ -41,7 +41,7 @@
 		</selectKey>
     </insert>
     
-    <select id="select" resultType="org.sis.board.test.model.MatchingVO">
+    <select id="select" resultType="org.sis.board.model.MatchingVO">
     	select * from tbl_board_join where bno=#{bno}
     </select>
     
@@ -54,7 +54,7 @@
     </delete>
     
     
-    <select id="selectPage" resultType="org.sis.board.test.model.MatchingVO">
+    <select id="selectPage" resultType="org.sis.board.model.MatchingVO">
     select *from tbl_board_join
      <include refid="searchCri"></include> 
     order by bno desc limit #{skip} , #{amount}
@@ -65,7 +65,7 @@
     select count(bno) from tbl_board_join  <include refid="searchCri"></include> 
     </select>
     
-    <select id="serach" resultType="org.sis.board.test.model.MatchingVO">
+    <select id="serach" resultType="org.sis.board.model.MatchingVO">
     select * from tbl_board_join
     <if test="map != null">
         <where>

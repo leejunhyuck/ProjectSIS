@@ -1,11 +1,11 @@
-package org.sis.board.test.service;
+package org.sis.board.service;
 
 import java.util.List;
 
-import org.sis.board.test.model.BoardAttachVO;
-import org.sis.board.test.model.Criteria;
-import org.sis.board.test.model.MatchingAttachVO;
-import org.sis.board.test.model.MatchingVO;
+
+import org.sis.board.model.Criteria;
+import org.sis.board.model.MatchingAttachVO;
+import org.sis.board.model.MatchingVO;
 import org.sis.mapper.AttachMapper;
 import org.sis.mapper.MatchingAttachMapper;
 import org.sis.mapper.MatchingMapper;
@@ -40,7 +40,7 @@ public class MatchingServiceImpl implements MatchingService{
 	
 	
 	@Override
-	public MatchingVO get(Integer Key) {
+	public MatchingVO select(Integer Key) {
 		return mapper.select(Key);
 	}
 	
@@ -72,7 +72,7 @@ public class MatchingServiceImpl implements MatchingService{
 	}
 
 	@Override
-	public int getListCount(Criteria cri) {
+	public int selectPageCount(Criteria cri) {
 		return mapper.selectPageCount(cri);
 	}
 	

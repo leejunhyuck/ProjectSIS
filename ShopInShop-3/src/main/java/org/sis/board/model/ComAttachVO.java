@@ -1,4 +1,4 @@
-package org.sis.board.test.model;
+package org.sis.board.model;
 
 import lombok.Data;
 

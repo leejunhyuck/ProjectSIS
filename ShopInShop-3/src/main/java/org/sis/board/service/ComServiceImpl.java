@@ -1,12 +1,11 @@
-package org.sis.board.test.service;
+package org.sis.board.service;
 
 import java.util.List;
 
-import org.sis.board.test.model.BoardAttachVO;
-import org.sis.board.test.model.ComAttachVO;
-import org.sis.board.test.model.Criteria;
-import org.sis.board.test.model.ComVO;
-import org.sis.mapper.AttachMapper;
+
+import org.sis.board.model.ComAttachVO;
+import org.sis.board.model.Criteria;
+import org.sis.board.model.ComVO;
 import org.sis.mapper.ComAttachMapper;
 import org.sis.mapper.ComMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,7 +39,7 @@ public class ComServiceImpl implements ComService{
 	
 	
 	@Override
-	public ComVO get(Integer Key) {
+	public ComVO select(Integer Key) {
 		return mapper.select(Key);
 	}
 	
@@ -72,7 +71,7 @@ public class ComServiceImpl implements ComService{
 	}
 
 	@Override
-	public int getListCount(Criteria cri) {
+	public int selectPageCount(Criteria cri) {
 		return mapper.selectPageCount(cri);
 	}
 	

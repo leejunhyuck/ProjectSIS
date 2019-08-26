@@ -52,9 +52,7 @@
 		<button class="btn-primary btn-sm modBtn">Modify/Delete</button> 
 		<button class="btn-primary btn-sm listBtn">Go List</button>
 	</div>
-	<hr>
-	<button class="btn-outline-success btn-sm addReplyBtn">Add Reply</button>
-
+	
 </div>
 
 
@@ -84,25 +82,6 @@
 
 
 
-
-<div class="card shadow mb-4">
-	<div class="card-body">
-		<ul class="replyList list-group">
-			<li class="list-group-item">AAAAAAAAAAAA</li>
-			<li class="list-group-item">BBBBBBBBBBBBBB</li>
-		</ul>
-		
-		<hr>
-		<div class="pageReply">
-		
-		</div>
-	</div>
-</div>
-
-
-
-
-
 <form id="actionForm" action="/matching/modify" method="get">
 	<input type="hidden" name="bno" th:value="${cri.bno}"> 
 	<input type="hidden" name="page" th:value="${cri.page}"> 
@@ -112,34 +91,7 @@
 </form>
 
 
-<div class="modal fade" id="replyModal" tabindex="-1" role="dialog"
-	aria-labelledby="exampleModalLabel" aria-hidden="true">
-	<div class="modal-dialog" role="document">
-		<div class="modal-content">
-			<div class="modal-header">
-				<h5 class="modal-title" id="exampleModalLabel">Add Reply</h5>
-				<button class="close" type="button" data-dismiss="modal"
-					aria-label="Close">
-					<span aria-hidden="true">×</span>
-				</button>
-			</div>
-			<div class="modal-body">
-				<input type="text" class="form-control mid" name="bno"
-					th:value="${cri.bno}" readonly="readonly"> <input type="text"
-					class="form-control mrno" name="rno" value="" readonly="readonly">
-				<input type="text" class="form-control" name="reply" value="샘플댓글">
-				<input type="text" class="form-control" name="replyer" value="도라에몽">
-			</div>
-			<div class="modal-footer">
-				<button class="btn-secondary btn-sm" type="button" data-dismiss="modal">Cancel</button>
-				<button class="btn-primary btn-sm replyBtn">ADD REPLY</button>
-				<button class="btn-primary btn-sm rereBtn hide">ADD REREPLY</button>
-				<button class="btn-info btn-sm modifyBtn hide">Modify Reply</button>
-				<button class="btn-danger btn-sm deleteBtn hide">Delete Reply</button>
-			</div>
-		</div>
-	</div>
-</div>
+
 
 </div>
 
@@ -158,202 +110,7 @@ $(".listBtn").on("click", function(e) {
 	actionForm.attr("action", "/matching/list").submit();
 })
 <!-- actionForm End .. -->
-
-
-
-<!-- reply js -->
-
-var bno = [[${vo.bno}]];
-var replyCnt = [[${vo.replycnt}]];
-var page = 1;
-var replyList = $(".replyList");
-showPage(page)
-
-console.log(replyCnt);
-
-
-	<!-- add reply -->
-$(".addReplyBtn").on("click", function() {
-	$("#replyModal").modal("show");
-	$(".modifyBtn").addClass("hide");
-	$(".replyBtn").removeClass("hide");
-	$(".deleteBtn").addClass("hide");
-	$(".rereBtn").addClass("hide");
-});
-$(".replyBtn").on("click", function(e) {
-
-	let obj = {
-		bno : $("input[name='bno']").val(),
-		reply : $("input[name='reply']").val(),
-		replyer : $("input[name='replyer']").val(),
-	};
-	console.log(obj);
-	replyService.addReply(obj, function() {
-		alert("댓글 등록 성공");
-		$("#replyModal").modal("hide");
-		showPage(-1);
-	});
-	replyCnt +=1 ;
-	
-});
-	<!-- end add reply -->
-
-	
-	
-	<!-- reply Modify & Delete Reply  -->
-	
-replyList.on("click","li",function(e){
-	 var rno =$(this).attr("data-rno");
-	 
-	 replyService.getReply(rno,function(reply){
-		 
-		$(".mrno").val(reply.rno);
-		$("input[name='reply']").val(reply.reply);
-		$("input[name='replyer']").val(reply.replyer);
-		$("#replyModal").modal("show");
-		
-		$(".modifyBtn").removeClass("hide");
-		$(".replyBtn").addClass("hide");
-		$(".deleteBtn").removeClass("hide");
-		$(".rereBtn").addClass("hide");
-	});
-});
-
-
-$(".modifyBtn").on("click",function(e){
-	 console.log("댓글 수정버든")
-	 let obj = {
-				rno : $("input[name='rno']").val(),
-				reply : $("input[name='reply']").val(),
-				replyer : $("input[name='replyer']").val()
-			};
-	 replyService.modifyReply(obj, function() {
-			alert("댓글 등록 성공");
-			$("#replyModal").modal("hide");
-			showPage(page);
-		});
-});
-
-
-$(".deleteBtn").on("click",function(){
-	var rno = $("input[name='rno']").val();
-	
-	replyService.removeReply(rno,function(){
-		alert("remove.....")
-		showPage(page);
-		$("#replyModal").modal("hide");
-	})
-	replyCnt +=1 ;
-});
-	<!-- End Modify&Delete Reply -->
-	
-	
-	
-	<!-- function -- ShowPage  -->
-/* function showPage(){
-
-	replyList.html("");
-    replyService.getList(bno,function (arr) {
-
-     // 구조 분해 할당 문법
-     // 탬플릿 문법 [ 백픽`` ]
-     var str = '';
-     var x = 0;
-	 for(var i=0;i<arr.length;i++){
-	 	var {rno,bno,reply,replyer,replyDate} = arr[i];
-		str += "<div><li class='list-group-item' data-rno="+rno+">"+ 
-               "<div class='rno'>"+rno+"</div>"+
-               "<div class='reply'>"+reply+"</div>"+
-               "<div class='replyer'>"+replyer+"</div>"+
-               "</li></div>";
-		}
-        replyList.append(str);
-     });
-} */
-
-function showPage(page){
-	
-	console.log("show page: "+page);
-	
-	replyList.html("");
-    replyService.getListPage({bno:bno,page: page||1},function (arr) {
-    	
-    if(page == -1){
-    	pageNum = Math.ceil(replyCnt/10.0);
-    	showPage(pageNum);
-    	return;
-    }
-
-     // 구조 분해 할당 문법
-     // 탬플릿 문법 [ 백픽`` ]
-     var str = '';
-     var x = 0;
-	 for(var i=0;i<arr.length;i++){
-	 	var {rno,bno,reply,replyer,replyDate} = arr[i];
-		str += "<div><li class='list-group-item' data-rno="+rno+">"+ 
-               "<div class='rno'>"+rno+"</div>"+
-               "<div class='reply'>"+reply+"</div>"+
-               "<div class='replyer'>"+replyer+"</div>"+
-               "</li></div>";
-		}
-        replyList.append(str);
-        showReplyPage(replyCnt);
-     });
-}
-
-var pageNum = 1;
-var pageReply = $(".pageReply");
-function showReplyPage(replyCnt){
-	
-	pageReply.html("");
-	
-	var endNum = Math.ceil(pageNum/10.0)*10;
-	var startNum = endNum - 9;
-	
-	var prev = startNum != 1;
-	var next = false;
-	
-	if(endNum * 10 >= replyCnt){
-		endNum = Math.ceil(replyCnt/10.0);
-	}
-	
-	if(endNum *10 < replyCnt){
-		next = true;
-	}
-			
-	var str = "<ul class='pagination pull-right'>";
-	
-	if(prev){
-		str += "<li class='page-item'><a class='page-link' href='"+(startNum-1)+"'>Previous</a></li>";
-	}
-	
-	for(var i = startNum ; i<= endNum; i++){
-		var active = pageNum == i? "active":"";
-		
-		str += "<li class='page-item' "+active+"><a class='page-link' href='"+i+"'>"+i+"</a></li>";
-	}
-	if(next){
-		str += "<li class='page-item'><a class='page-link' href='"+(endNum+1)+"'>Next</a></li>";
-	}
-	
-	str += "</ul>";
-	
-	console.log(str);
-	pageReply.append(str);	
-}
-
-pageReply.on("click","li a",function(e){
-	
-	e.preventDefault();
-	var targetPageNum = $(this).attr("href");
-	console.log("targetPageNum: "+ targetPageNum);
-	
-	page = targetPageNum;
-	showPage(page);
-});
-
 </script>
-
 
 <script>
 

@@ -7,8 +7,8 @@ import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
-import org.sis.board.test.model.Criteria;
-import org.sis.board.test.model.ComReplyVO;
+import org.sis.board.model.Criteria;
+import org.sis.board.model.ComReplyVO;
 
 public interface ComReplyMapper {
 	

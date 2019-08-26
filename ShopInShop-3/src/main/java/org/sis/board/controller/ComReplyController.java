@@ -1,10 +1,10 @@
-package org.sis.board.test.controller;
+package org.sis.board.controller;
 
 import java.util.List;
 
-import org.sis.board.test.model.ComReplyVO;
-import org.sis.board.test.model.Criteria;
-import org.sis.board.test.service.ComReplyService;
+import org.sis.board.model.ComReplyVO;
+import org.sis.board.model.Criteria;
+import org.sis.board.service.ComReplyService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -37,7 +37,7 @@ public class ComReplyController {
 		
 		log.info("rno : "+rno);
 		
-		return new ResponseEntity<>(service.get(rno),HttpStatus.OK);
+		return new ResponseEntity<>(service.select(rno),HttpStatus.OK);
 	}
 	
 	@GetMapping("/{bno}/{page}")

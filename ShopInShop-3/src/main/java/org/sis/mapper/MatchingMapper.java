@@ -6,9 +6,9 @@ import java.util.Map;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
-import org.sis.board.test.model.BoardAttachVO;
-import org.sis.board.test.model.Criteria;
-import org.sis.board.test.model.MatchingVO;
+import org.sis.board.model.MatchingAttachVO;
+import org.sis.board.model.Criteria;
+import org.sis.board.model.MatchingVO;
 
 public interface MatchingMapper {
 
@@ -30,6 +30,6 @@ public interface MatchingMapper {
 	public int updateReplyCnt(@Param("bno") Integer bno,@Param("amount") int amount);
 	
 	@Select("select * from tbl_board_join_file where bno = #{bno}")
-	public List<BoardAttachVO> findbyBno(int bno);
+	public List<MatchingAttachVO> findbyBno(int bno);
 	
 }

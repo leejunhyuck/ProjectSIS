@@ -2,7 +2,7 @@ package org.sis.mapper;
 
 import java.util.List;
 
-import org.sis.board.test.model.ComAttachVO;
+import org.sis.board.model.ComAttachVO;
 
 public interface ComAttachMapper {
 	

@@ -1,9 +1,9 @@
-package org.sis.board.test.service;
+package org.sis.board.service;
 
 import java.util.List;
 
-import org.sis.board.test.model.Criteria;
-import org.sis.board.test.model.ComReplyVO;
+import org.sis.board.model.Criteria;
+import org.sis.board.model.ComReplyVO;
 
 public interface ComReplyService extends GenericService<ComReplyVO, Integer>{
 
