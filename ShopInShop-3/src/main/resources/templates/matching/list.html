@@ -25,7 +25,7 @@
 		<tr th:each="vo : ${list}">
 			<td th:text="${vo.bno}"></td>
 			<td><a class="view" th:href="${vo.bno}" th:text="${vo.title}"></a><span> ([[${vo.replycnt}]])</span></td>
-			<td th:text="${vo.mid}"></td>
+			<td th:text="${vo.mmid}"></td>
 			<td th:text="${vo.regdate}"></td>
 		</tr>
 	</table>

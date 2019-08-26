@@ -12,7 +12,7 @@ import org.sis.board.model.ComReplyVO;
 
 public interface ComReplyMapper {
 	
-	@Insert("insert into tbl_reply_com (bno,content,mid) values(#{bno},#{content},#{mid})")
+	@Insert("insert into tbl_reply_com (bno,content,mmid) values(#{bno},#{content},#{mmid})")
 	public int insert(ComReplyVO vo);
 	
 	@Select("select * from tbl_reply_com where bno=#{bno} order by rno asc")

@@ -10,7 +10,7 @@ public class ComReplyVO {
 	private Integer rno;
 	private Integer bno;
 	private String content;
-	private String mid;
+	private String mmid;
 	private Date replyDate;
 	
 	

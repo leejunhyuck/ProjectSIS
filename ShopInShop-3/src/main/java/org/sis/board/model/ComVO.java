@@ -10,7 +10,7 @@ public class ComVO {
 
 	
 	private Integer bno;
-	private String title, content,mid;
+	private String title, content,mmid;
 	private String category;
 	private Date regdate;
 	private int replycnt;

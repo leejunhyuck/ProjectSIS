@@ -21,7 +21,7 @@
 						</if>
 
 						<if test="key == 'W'.toString()">
-							writer like concat('%',#{val},'%')
+							mmid like concat('%',#{val},'%')
 						</if>
 
 					</trim>
@@ -33,8 +33,8 @@
  
  
     <insert id = "insert">
-    insert into tbl_board_join (title, content, mid)
-		values (#{title},#{content}, #{mid})
+    insert into tbl_board_join (title, content, mmid)
+		values (#{title},#{content}, #{mmid})
 
 		<selectKey resultType="int" keyProperty="bno" order="AFTER">
 			SELECT LAST_INSERT_ID()

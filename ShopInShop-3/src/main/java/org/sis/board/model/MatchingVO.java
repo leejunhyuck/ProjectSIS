@@ -10,7 +10,7 @@ public class MatchingVO {
 
 	
 	private Integer bno;
-	private String title, content,mid;
+	private String title, content,mmid;
 	private Date regdate;
 	private int replycnt;
 	
