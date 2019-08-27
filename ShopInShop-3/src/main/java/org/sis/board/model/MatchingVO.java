@@ -1,4 +1,4 @@
-package org.sis.board.test.model;
+package org.sis.board.model;
 
 import java.sql.Date;
 import java.util.List;
@@ -10,7 +10,7 @@ public class MatchingVO {
 
 	
 	private Integer bno;
-	private String title, content,mid;
+	private String title, content,mmid;
 	private Date regdate;
 	private int replycnt;
 	

@@ -1,4 +1,4 @@
-package org.sis.board.test.model;
+package org.sis.board.model;
 
 import java.util.Date;
 
@@ -10,7 +10,7 @@ public class ComReplyVO {
 	private Integer rno;
 	private Integer bno;
 	private String content;
-	private String mid;
+	private String mmid;
 	private Date replyDate;
 	
 	

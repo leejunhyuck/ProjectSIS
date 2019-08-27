@@ -2,7 +2,7 @@ package org.sis.mapper;
 
 import java.util.List;
 
-import org.sis.board.test.model.MatchingAttachVO;
+import org.sis.board.model.MatchingAttachVO;
 
 public interface MatchingAttachMapper {
 	

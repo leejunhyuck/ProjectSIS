@@ -1,30 +1,30 @@
-package org.sis.board.test.service;
+package org.sis.board.service;
 
 import java.util.List;
 
-import org.sis.board.test.model.BoardAttachVO;
-import org.sis.board.test.model.ComAttachVO;
-import org.sis.board.test.model.Criteria;
-import org.sis.board.test.model.ComVO;
+
+import org.sis.board.model.Criteria;
+import org.sis.board.model.MatchingAttachVO;
+import org.sis.board.model.MatchingVO;
 import org.sis.mapper.AttachMapper;
-import org.sis.mapper.ComAttachMapper;
-import org.sis.mapper.ComMapper;
+import org.sis.mapper.MatchingAttachMapper;
+import org.sis.mapper.MatchingMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service
-public class ComServiceImpl implements ComService{
+public class MatchingServiceImpl implements MatchingService{
 	
 	@Autowired
-	private ComMapper mapper;
+	private MatchingMapper mapper;
 	
 	@Autowired
-	private ComAttachMapper attachMapper;
+	private MatchingAttachMapper attachMapper;
 	
 
 	@Override
-	public void register(ComVO vo) {
+	public void register(MatchingVO vo) {
 		mapper.insert(vo);
 		
 		if(vo.getAttachList() == null || vo.getAttachList().size() <=0) {
@@ -40,12 +40,12 @@ public class ComServiceImpl implements ComService{
 	
 	
 	@Override
-	public ComVO get(Integer Key) {
+	public MatchingVO select(Integer Key) {
 		return mapper.select(Key);
 	}
 	
 	@Override
-	public int modify(ComVO vo) {
+	public int modify(MatchingVO vo) {
 		
 		attachMapper.deleteAll(vo.getBno());
 		boolean modifyResult = mapper.update(vo) == 1;
@@ -67,17 +67,17 @@ public class ComServiceImpl implements ComService{
 	}
 
 	@Override
-	public List<ComVO> getList(Criteria cri) {
+	public List<MatchingVO> getList(Criteria cri) {
 		return mapper.selectPage(cri);
 	}
 
 	@Override
-	public int getListCount(Criteria cri) {
+	public int selectPageCount(Criteria cri) {
 		return mapper.selectPageCount(cri);
 	}
 	
 	@Override
-	public List<ComAttachVO> getAttachList(Integer bno) {
+	public List<MatchingAttachVO> getAttachList(Integer bno) {
 		return attachMapper.findbybno(bno);
 	}
 

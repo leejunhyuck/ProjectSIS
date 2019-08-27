@@ -21,7 +21,7 @@
 						</if>
 
 						<if test="key == 'W'.toString()">
-							writer like concat('%',#{val},'%')
+							mmid like concat('%',#{val},'%')
 						</if>
 
 					</trim>
@@ -33,15 +33,15 @@
  
  
     <insert id = "insert">
-    insert into tbl_board_com (title, content, mid)
-		values (#{title},#{content}, #{mid})
+    insert into tbl_board_com (title, content, mmid)
+		values (#{title},#{content}, #{mmid})
 
 		<selectKey resultType="int" keyProperty="bno" order="AFTER">
 			SELECT LAST_INSERT_ID()
 		</selectKey>
     </insert>
     
-    <select id="select" resultType="org.sis.board.test.model.ComVO">
+    <select id="select" resultType="org.sis.board.model.ComVO">
     	select * from tbl_board_com where bno=#{bno}
     </select>
     
@@ -54,7 +54,7 @@
     </delete>
     
     
-    <select id="selectPage" resultType="org.sis.board.test.model.ComVO">
+    <select id="selectPage" resultType="org.sis.board.model.ComVO">
     select *from tbl_board_com
      <include refid="searchCri"></include> 
     order by bno desc limit #{skip} , #{amount}
@@ -65,7 +65,7 @@
     select count(bno) from tbl_board_com  <include refid="searchCri"></include> 
     </select>
     
-    <select id="serach" resultType="org.sis.board.test.model.ComVO">
+    <select id="serach" resultType="org.sis.board.model.ComVO">
     select * from tbl_board_com
     <if test="map != null">
         <where>

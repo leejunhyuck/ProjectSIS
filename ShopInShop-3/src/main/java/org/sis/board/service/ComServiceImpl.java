@@ -1,30 +1,33 @@
-package org.sis.board.test.service;
+package org.sis.board.service;
 
 import java.util.List;
 
-import org.sis.board.test.model.BoardAttachVO;
-import org.sis.board.test.model.Criteria;
-import org.sis.board.test.model.MatchingAttachVO;
-import org.sis.board.test.model.MatchingVO;
-import org.sis.mapper.AttachMapper;
-import org.sis.mapper.MatchingAttachMapper;
-import org.sis.mapper.MatchingMapper;
+
+import org.sis.board.model.ComAttachVO;
+import org.sis.board.model.Criteria;
+import org.sis.board.model.ComVO;
+import org.sis.mapper.ComAttachMapper;
+import org.sis.mapper.ComMapper;
+import org.sis.mapper.ComReplyMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service
-public class MatchingServiceImpl implements MatchingService{
+public class ComServiceImpl implements ComService{
 	
 	@Autowired
-	private MatchingMapper mapper;
+	private ComMapper mapper;
 	
 	@Autowired
-	private MatchingAttachMapper attachMapper;
+	private ComReplyMapper replyMapper;
+	
+	@Autowired
+	private ComAttachMapper attachMapper;
 	
 
 	@Override
-	public void register(MatchingVO vo) {
+	public void register(ComVO vo) {
 		mapper.insert(vo);
 		
 		if(vo.getAttachList() == null || vo.getAttachList().size() <=0) {
@@ -40,12 +43,13 @@ public class MatchingServiceImpl implements MatchingService{
 	
 	
 	@Override
-	public MatchingVO get(Integer Key) {
+	public ComVO select(Integer Key) {
+		mapper.updateViewCnt(Key);
 		return mapper.select(Key);
 	}
 	
 	@Override
-	public int modify(MatchingVO vo) {
+	public int modify(ComVO vo) {
 		
 		attachMapper.deleteAll(vo.getBno());
 		boolean modifyResult = mapper.update(vo) == 1;
@@ -62,22 +66,23 @@ public class MatchingServiceImpl implements MatchingService{
 	@Override
 	@Transactional
 	public int remove(Integer key) {
-		attachMapper.deleteAll(key);		
+		attachMapper.deleteAll(key);
+		replyMapper.deleteAll(key);
 		return mapper.delete(key);
 	}
 
 	@Override
-	public List<MatchingVO> getList(Criteria cri) {
+	public List<ComVO> getList(Criteria cri) {
 		return mapper.selectPage(cri);
 	}
 
 	@Override
-	public int getListCount(Criteria cri) {
+	public int selectPageCount(Criteria cri) {
 		return mapper.selectPageCount(cri);
 	}
 	
 	@Override
-	public List<MatchingAttachVO> getAttachList(Integer bno) {
+	public List<ComAttachVO> getAttachList(Integer bno) {
 		return attachMapper.findbybno(bno);
 	}
 

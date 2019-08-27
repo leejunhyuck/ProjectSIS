@@ -5,15 +5,15 @@
 
 <mapper namespace="org.sis.mapper.MatchingAttachMapper">
 
-	<insert id="insert" parameterType="org.sis.board.test.model.MatchingVO">
+	<insert id="insert" parameterType="org.sis.board.model.MatchingVO">
 		Insert into tbl_board_join_file(bno,fileName,uploadPath,uuid) values(#{bno},#{fileName},#{uploadPath},#{uuid})
 	</insert>
 	
-	<select id="getOldFiles" resultType="org.sis.board.test.model.BoardAttachVO">
+	<select id="getOldFiles" resultType="org.sis.board.model.MatchingAttachVO">
 		select * from tbl_board_join_file where uploadpath =  DATE_FORMAT(now()-1 , '%Y\%m\%d')
 	</select>
 	
-	<select id="findbybno" resultType="org.sis.board.test.model.BoardAttachVO">
+	<select id="findbybno" resultType="org.sis.board.model.MatchingAttachVO">
 		select * from tbl_board_join_file where bno = #{bno}
 	</select>
 	

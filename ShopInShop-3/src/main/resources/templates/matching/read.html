@@ -1,0 +1,181 @@
+<html xmlns:th="http://www.thymeleaf.org">
+
+<th:block th:insert="/../include/header.html"></th:block>
+
+
+
+<style>
+.modal-footer .hide {
+	display: none
+}
+</style>
+
+<br>
+
+<div class="container">
+
+
+<h1>read page</h1>
+
+
+<div class="panel-body">
+
+	<div class="form-group">
+		<label>BNO</label> <input class="form-control" name="bno"
+			th:value="${vo.bno}" readonly="readonly" />
+	</div>
+
+	<div class="form-group">
+		<label>Title</label> <input class="form-control" name="title"
+			th:value="${vo.title}" readonly="readonly" />
+	</div>
+
+	<div class="form-group">
+		<label>Content</label>
+		<textarea class="form-control" rows="3" name='content'
+			th:text="${vo.content}" readonly="readonly"></textarea>
+	</div>
+
+	<div class="form-group">
+		<label>Writer</label> <input class="form-control" name="mmid"
+			th:value="${vo.mmid}" readonly="readonly" />
+	</div>
+
+	<div class="form-group">
+		<label>RegDate</label> <input class="form-control" name="regDate"
+			th:value="${#dates.format(vo.regdate,'yyyy-MM-dd')}"
+			readonly="readonly" />
+	</div>
+
+
+	<div class="pull-right" >
+		<button class="btn-primary btn-sm modBtn">Modify/Delete</button> 
+		<button class="btn-primary btn-sm listBtn">Go List</button>
+	</div>
+	
+</div>
+
+
+
+<div class="site-section block-3 bg-light">
+      <div class="container bg-light">
+        <div class="row justify-content-center">
+          <div class="col-md-7 site-section-heading text-center pt-4">
+            <h2>Upload Image</h2>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12">
+            <div class="nonloop-block-3 owl-carousel">
+            </div>
+          </div>
+        </div>
+      </div>
+  </div>
+
+
+<hr>
+<div class='uploadResult'>
+	<ul></ul>
+</div>
+<div class='bigPicture'></div>
+
+
+
+<form id="actionForm" action="/matching/modify" method="get">
+	<input type="hidden" name="bno" th:value="${cri.bno}"> 
+	<input type="hidden" name="page" th:value="${cri.page}"> 
+	<input type="hidden" name="amount" th:value="${cri.amount}"> 
+	<input type="hidden" name="type" th:value="${cri.type}">
+	<input type="hidden" name="keyword" th:value="${cri.keyword}">
+</form>
+
+
+
+
+</div>
+
+<script th:src="@{/js/reply.js}"></script>
+<script>
+
+<!-- using actionForm -->
+
+var actionForm = $("#actionForm");
+
+$(".modBtn").on("click", function(e) {
+	actionForm.submit();
+})
+$(".listBtn").on("click", function(e) {
+	actionForm.find("input[name='bno']").remove();
+	actionForm.attr("action", "/matching/list").submit();
+})
+<!-- actionForm End .. -->
+</script>
+
+<script>
+
+$(document).ready(function(){
+	
+	console.log(".... 레디 ")
+	//(function(){
+		var bno = [[${vo.bno}]];
+		$.getJSON("/matching/getAttachList",{bno: bno}, function(arr){
+			console.log(arr);
+			
+			
+			$(arr).each(function(i,attach){
+				var fileCallPath = encodeURIComponent( attach.uploadPath+"/s_"+attach.uuid+"_"+attach.fileName);
+				var fileOriginPath = encodeURIComponent( attach.uploadPath+"/"+attach.uuid+"_"+attach.fileName);
+				var str="";
+				//str += "<li data-path='"+attach.uploadPath+"' data-uuid='"+attach.uuid+"' data-filename='"+attach.fileName+"'>";
+				//str += "<div><img src='/upload/getImage?fileName="+fileCallPath+"'>";
+				//str += "</div></li>";
+				
+				str += "<div class='item'><div class='block-4 text-center'><figure class='block-4-image'>";
+				//str += "<a class='item' href='http://lorempixel.com/800/400/food/2/' rel='prettyPhoto' title='This is the description'>"
+				//str += "<a href='#' onclick='$(this).galleryShow(); return false;'>";
+				str += "<a class='example-image-link' href='/upload_matching/getImage?fileName="+fileOriginPath+"' data-lightbox='example-set' data-title='title'>";
+				str += "<img class='example-image' src='/upload_matching/getImage?fileName="+fileCallPath+"' alt='Image Read Fail' class='img-fluid'></a>";
+				str += "</figure><div class='block-4-text p-4'><p class='text-primary font-weight-bold'>"+attach.fileName+"</p>";
+				str += "</div></div></div></div>";
+				$('.owl-carousel').owlCarousel('add', str).owlCarousel('update');
+			});  
+			//$(".owl-stage").append(str); // ul 추가
+			
+			
+			
+			
+		}); // end json < getImage to read page
+		
+	
+		
+		
+	
+		
+		
+		
+		
+		
+		$(".uploadResult ul").on("click","li",function(e){
+			console.log("view origin Image")
+			var liObj = $(this);
+			console.log(liObj.data);
+			var path = encodeURIComponent(liObj.data("path")+"/"+liObj.data("uuid")+"_"+liObj.data("filename"));
+			showImage(path.replace(new RegExp(/\\/g),"/"));
+			});
+}); 
+
+</script>
+
+
+<script>
+
+$(function () {
+	$("#mdb-lightbox-ui").load("mdb-addons/mdb-lightbox-ui.html");
+	console.log("active light box");
+	});
+	
+
+</script>
+
+<th:block th:insert="/../include/footer.html"></th:block>

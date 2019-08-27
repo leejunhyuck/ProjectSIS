@@ -38,7 +38,7 @@
 
 	<div class="form-group">
 		<label>Writer</label> <input class="form-control" name="mid"
-			th:value="${vo.mid}" readonly="readonly" />
+			th:value="${vo.mmid}" readonly="readonly" />
 	</div>
 
 	<div class="form-group">
@@ -173,8 +173,13 @@ $(".addReplyBtn").on("click", function() {
 $(".replyBtn").on("click", function(e) {
 	let obj = {
 		bno : $("input[name='bno']").val(),
+<<<<<<< HEAD
 		reply : $("input[name='reply']").val(),
 		replyer : $("input[name='replyer']").val(),
+=======
+		content : $("input[name='reply']").val(),
+		mmid : $("input[name='replyer']").val(),
+>>>>>>> branch 'master' of https://github.com/Leejunhyuck/ProjectSIS.git
 	};
 	console.log(obj);
 	replyService.addReply(obj, function() {
@@ -196,9 +201,15 @@ replyList.on("click","li",function(e){
 	 replyService.getReply(rno,function(reply){
 		 
 		$(".mrno").val(reply.rno);
+<<<<<<< HEAD
 		$("input[name='reply']").val(reply.reply);
 		$("input[name='replyer']").val(reply.replyer);
 		$("#replyModal").modal("show");
+=======
+		$("input[name='reply']").val(reply.content);
+		$("input[name='replyer']").val(reply.mmid);
+		$("#ComReplyModal").modal("show");
+>>>>>>> branch 'master' of https://github.com/Leejunhyuck/ProjectSIS.git
 		
 		$(".modifyBtn").removeClass("hide");
 		$(".replyBtn").addClass("hide");
@@ -210,8 +221,13 @@ $(".modifyBtn").on("click",function(e){
 	 console.log("댓글 수정버든")
 	 let obj = {
 				rno : $("input[name='rno']").val(),
+<<<<<<< HEAD
 				reply : $("input[name='reply']").val(),
 				replyer : $("input[name='replyer']").val()
+=======
+				content : $("input[name='reply']").val(),
+				mmid : $("input[name='replyer']").val()
+>>>>>>> branch 'master' of https://github.com/Leejunhyuck/ProjectSIS.git
 			};
 	 replyService.modifyReply(obj, function() {
 			alert("댓글 등록 성공");
@@ -269,11 +285,20 @@ function showPage(page){
      var str = '';
      var x = 0;
 	 for(var i=0;i<arr.length;i++){
+<<<<<<< HEAD
 	 	var {rno,bno,reply,replyer,replyDate} = arr[i];
+=======
+	 	var {rno,bno,content,mmid,replyDate} = arr[i];
+>>>>>>> branch 'master' of https://github.com/Leejunhyuck/ProjectSIS.git
 		str += "<div><li class='list-group-item' data-rno="+rno+">"+ 
                "<div class='rno'>"+rno+"</div>"+
+<<<<<<< HEAD
                "<div class='reply'>"+reply+"</div>"+
                "<div class='replyer'>"+replyer+"</div>"+
+=======
+               "<div class='reply'>"+content+"</div>"+
+               "<div class='replyer'>"+mmid+"</div>"+
+>>>>>>> branch 'master' of https://github.com/Leejunhyuck/ProjectSIS.git
                "</li></div>";
 		}
         replyList.append(str);

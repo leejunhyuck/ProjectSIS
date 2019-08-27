@@ -1,9 +1,9 @@
-package org.sis.board.test.service;
+package org.sis.board.service;
 
 import java.util.List;
 
-import org.sis.board.test.model.Criteria;
-import org.sis.board.test.model.ComReplyVO;
+import org.sis.board.model.Criteria;
+import org.sis.board.model.ComReplyVO;
 import org.sis.mapper.ComMapper;
 import org.sis.mapper.ComReplyMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,7 +33,7 @@ public class ComReplyServiceImpl implements ComReplyService {
 	}
 
 	@Override
-	public ComReplyVO get(Integer Key) {
+	public ComReplyVO select(Integer Key) {
 		return mapper.select(Key);
 	}
 
@@ -51,7 +51,7 @@ public class ComReplyServiceImpl implements ComReplyService {
 	}
 
 	@Override
-	public int getListCount(Criteria cri) {
+	public int selectPageCount(Criteria cri) {
 		return mapper.CountReply(cri.getBno());
 	}
 	

@@ -5,15 +5,15 @@
 
 <mapper namespace="org.sis.mapper.ComAttachMapper">
 
-	<insert id="insert" parameterType="org.sis.board.test.model.ComVO">
+	<insert id="insert" parameterType="org.sis.board.model.ComVO">
 		Insert into tbl_board_com_file(bno,fileName,uploadPath,uuid) values(#{bno},#{fileName},#{uploadPath},#{uuid})
 	</insert>
 	
-	<select id="getOldFiles" resultType="org.sis.board.test.model.ComAttachVO">
+	<select id="getOldFiles" resultType="org.sis.board.model.ComAttachVO">
 		select * from tbl_board_com_file where uploadpath =  DATE_FORMAT(now()-1 , '%Y\%m\%d')
 	</select>
 	
-	<select id="findbybno" resultType="org.sis.board.test.model.ComAttachVO">
+	<select id="findbybno" resultType="org.sis.board.model.ComAttachVO">
 		select * from tbl_board_com_file where bno = #{bno}
 	</select>
 	

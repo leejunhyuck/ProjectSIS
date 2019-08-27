@@ -1,9 +1,9 @@
-package org.sis.board.test.service;
+package org.sis.board.service;
 
 import java.util.List;
 
-import org.sis.board.test.model.ComAttachVO;
-import org.sis.board.test.model.ComVO;
+import org.sis.board.model.ComAttachVO;
+import org.sis.board.model.ComVO;
 
 public interface ComService extends GenericService<ComVO, Integer>{
 

@@ -6,32 +6,69 @@
 <br>
 
 <div class="container">
+
+<style>
+	.tableHeader {background-color:#d9d7f9}
+</style>
+
+
+
 	
 
-
-	<h5>
-		<a th:href="@{/community/register}">Register</a>
+	<h5 >
+		<a class="pull-left" th:href="@{/community/register}">Register</a>
 	</h5>
 
-	
-
-	<table  class="table table-bordered table-hover">
-		<tr class="table-primary" >
-			<td>bno</td>
-			<td>TITLE</td>
-			<td>ID</td>
-			<td>REGDATE</td>
-		</tr>
+	<table class="table table-hover">
+		<thead class="tableHeader">
+			<tr>
+		    <th class="text-center"  scope="col">No.</th>
+			<th class="text-center"  scope="col">제목</th>
+			<th class="text-center"  scope="col">작성자</th>
+			<th class="text-center"  scope="col">등록일</th>
+			<th class="text-center"  scope="col">조회</th>
+			</tr>
+        </thead>
+        <tbody>
 		<tr th:each="vo : ${list}">
-			<td th:text="${vo.bno}"></td>
+			<th scope="row" class="text-center" th:text="${vo.bno}"></td>
 			<td><a class="view" th:href="${vo.bno}" th:text="${vo.title}"></a><span> ([[${vo.replycnt}]])</span></td>
-			<td th:text="${vo.mid}"></td>
-			<td th:text="${vo.regdate}"></td>
+			<td class="text-center" th:text="${vo.mmid}"></td>
+			<td class="text-center"  th:if="${vo.regdate.before(#dates.createNow())}">[[${#dates.format(vo.regdate, 'yyyy-MM-dd')}]]</td>
+			<td class="text-center"  th:if="${vo.regdate.after(#dates.createNow())}">[[${#dates.format(vo.regdate, 'H:mm a')}]]</td>
+			<td class="text-center" th:text="${vo.viewcnt}"></td>
 		</tr>
+		<tbody>
 	</table>
 	
 	
-	
+	<div class="row  justify-content-md-end">
+  		<div class="col-8">
+    		<div class="input-group">
+    		<div>
+		<select name="typeView">
+			<option value="">--</option>
+			<option value="T" th:attr="selected=${cri.type == 'T'? 'true' : 'false'}">제목</option>
+			<option value="C" th:attr="selected=${cri.type == 'C'? 'true' : 'false'}">내용</option>
+  			<option value="W" th:attr="selected=${cri.type == 'W'? 'true' : 'false'}">작성자</option>
+			<option value="TC" th:attr="selected=${cri.type == 'TC'? 'true' : 'false'}">제목 + 내용</option>
+			<option value="TW" th:attr="selected=${cri.type == 'TW'? 'true' : 'false'}">제목 + 작성자</option>
+			<option value="CW" th:attr="selected=${cri.type == 'CW'? 'true' : 'false'}">내용 + 작성자</option>
+			<option value="TCW" th:attr="selected=${cri.type == 'TCW'? 'true' : 'false'}">제목 + 내용+ 작성자</option>
+		</select>
+		</div>
+    			<input type="text" name="keywordView" th:value="${cri.keyword}">
+				<button class="btn-primary btn-sm searchBtn">Search</button>
+    		</div><!-- /input-group -->
+  		</div><!-- /.col-lg-6 -->
+	</div><!-- /.row -->
+
+
+
+
+
+
+
 	<div class="flex-end">
 		<select name="typeView">
 			<option value="">--</option>
@@ -55,6 +92,10 @@
 		</select>
 	</div>	
 	
+	
+	
+	
+
 	
 
 
@@ -112,6 +153,7 @@ if (flag === 'success') {
 var actionForm = $("#actionForm");
 $(".view").on("click",function(e){
 	e.preventDefault();
+	
 	var targetbno = $(this).attr("href");
 	
 	actionForm.attr("action","/community/read");
