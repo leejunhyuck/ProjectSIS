@@ -24,8 +24,8 @@ public class LoginTests {
 		MemberVO member = new MemberVO();
 		
 		member.setMpw("hello");
-		member.setMid("id");
-		member.setName("Nick");
+		member.setMmid("id");
+		member.setMname("Nick");
 		
 		mapper.join(member);
 		
@@ -38,7 +38,7 @@ public class LoginTests {
 		MemberVO member = new MemberVO();
 		
 		member.setMpw("hello");
-		member.setMid("id");
+		member.setMmid("id");
 		
 		
 		log.info(""+mapper.login(member));

@@ -22,11 +22,7 @@
 <link rel="stylesheet" th:href="@{/css/style.css}">
 <link rel="stylesheet" th:href="@{/css/lightbox.min.css}">
 
-<style>
 
-
-
-</style>
 
 
 
@@ -36,7 +32,6 @@
 <script th:src="@{/js/jquery-3.3.1.min.js}"></script>
 <script th:src="@{/js/owl.gallery.js}"></script>
 <script th:src="@{/js/lightbox.min.js}"></script>
-
 
  
 
@@ -71,7 +66,13 @@
                   <li><a href="../store/recent.html">관심목록</a></li>
  <!--                  <li><a href="../join.html">회원가입</a></li> -->
 <!--                  <li><a href="../mypage.html">마이페이지</a></li>-->
-                  <li><a href="javascript:login();">회원가입<span>·</span>로그인</a></li> <!-- 로그인 - 모달 -->
+				
+		    
+                 <span th:if="${session.mname}"> 
+                  <li><a href="/user/logout"><span>[[${session.mname}]]님</span></a></li> </span>
+				
+				<span th:unless="${session.mname}">
+                  <li><a href="javascript:login();"><span>회원가입·로그인</span></a></li> </span>
                   
                   
                   
@@ -94,10 +95,14 @@
 					</button>
 				</div>
 				<div class="modal-body">
+
+				    <form id="loginForm" action="/user/login" method="post">
 					<input type="text" class="form-control mbno" 
-						th:value="아이디" > 
-					<input type="text" class="form-control mrno"  value="비밀번호">
-					<button class="btn btn-secondary" type="button" data-dismiss="modal">로그인</button>
+						 placeholder="아이디" id="mmid" name="mmid" > 
+					<input type="text" class="form-control mrno" id="mpw" name="mpw"   placeholder="비밀번호">
+					<button class="btn btn-secondary" type="button" data-dismiss="modal" id="loginButton">로그인</button>
+				    </form>
+				    
 				
 					<div id="naver_id_login" style="text-align:center"><a href="/user/login" target="_blank">
 					<img width="150" src="https://developers.naver.com/doc/review_201802/CK_bEFnWMeEBjXpQ5o8N_20180202_7aot50.png"/></a></div>
@@ -114,8 +119,12 @@
 				
 
         		
-				<button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel...</button>
+				<button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
 				
+				<button class="btn btn-primary replyBtn hide">ADD REPLY</button>
+				<button class="btn btn-primary rereBtn hide">ADD REREPLY</button>
+				<button class="btn btn-info modifyBtn hide">Modify Reply</button>
+				<button class="btn btn-danger deleteBtn hide">Delete Reply</button>
 			</div>
 		</div>
 	</div>
@@ -124,32 +133,5 @@
         </div>
       </div>
     </header>
-    
-    
- 
- 
-  <script>
-  
-  var actionForm = $("#serachForm");
-  
-  function login(){
-	  $("#replyModal").modal('show')
-	}
-  	
-
-  	
-	 $("#serch").on("click",function(e){
-		e.preventDefault();
-		
-		//alert($("#keyword").val())
-		$("input[name='keyword']").val($("#keyword").val())
-		serachForm.submit();
-		 
-		 
-		 
-	 })
-	 
-	 
-  </script>
  
     <!-- Header End -->

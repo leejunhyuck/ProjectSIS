@@ -15,7 +15,7 @@ import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 public class MapperConfig {
 	
 	
-	 @Bean
+	 	@Bean
 	    public SqlSessionFactory sqlSessionFactory(DataSource dataSource) throws Exception {
 
 	        SqlSessionFactoryBean sessionFactory = new SqlSessionFactoryBean();

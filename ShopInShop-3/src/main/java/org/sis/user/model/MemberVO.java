@@ -7,11 +7,11 @@ import lombok.Data;
 public class MemberVO {
 
  
-  private String mid;
+  private String mmid;
   
   
   
-  private String mpw,name,nick,email,mobile,question,answer,country,adress,social_id;
+  private String mpw,mname,nick,email,mobile,question,answer,country,address,social_id;
   
   
 

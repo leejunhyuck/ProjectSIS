@@ -1,20 +1,20 @@
 <html xmlns:th="http://www.thymeleaf.org">
-
-
+​
+​
 <th:block th:insert="/../include/header.html"></th:block>
-
+​
 <br>
-
+​
 <div class="container">
 	
-
-
+​
+​
 	<h5>
 		<a th:href="@{/matching/register}">Register</a>
 	</h5>
-
+​
 	
-
+​
 	<table  class="table table-bordered table-hover">
 		<tr class="table-primary" >
 			<td>bno</td>
@@ -29,7 +29,7 @@
 			<td th:text="${vo.regdate}"></td>
 		</tr>
 	</table>
-
+​
 	
 	<div>	
 		<select name="typeView">
@@ -58,11 +58,11 @@
 	
 	
 		
-
+​
 	
 	
-
-
+​
+​
 <h4> pagination not complete ... </h4>
 	<ul class="pagination" th:with="page=${page}">
 		
@@ -75,7 +75,7 @@
 			<a class="page-link" href='${idx}'>${idx}</a></li>
 		</c:forEach>
 		
-
+​
 	
 		<li th:each="pageNumber : ${page}">
 			<a class="page-link" th:text=${pageNumber}></a>
@@ -84,15 +84,15 @@
 		
 		
 		
-
+​
 			<li th:if="${pm.next}" class="page-item"><a class="page-link" 
 			th:href='${pm.end+1}'>Next</a></li>
 	</ul>
 	
-
-
-
-
+​
+​
+​
+​
 	
 </div>
 	
@@ -104,22 +104,21 @@
 	<input type="hidden" name="type" th:value="${cri.type}">
 	<input type="hidden" name="keyword" th:value="${cri.keyword}">
 	</form>
-
-
-
+​
+​
+​
 <script>
-
 <!-- addFlashAttribute -->
 var flag = '${result}';
-
+​
 if (flag === 'success') {
 	alert("작업이 성공했습니다.");
 }
-
-
+​
+​
 <!-- use action Form -->
 var actionForm = $("#actionForm");
-
+​
 $(".view").on("click",function(e){
 	e.preventDefault();
 	var targetbno = $(this).attr("href");
@@ -128,7 +127,7 @@ $(".view").on("click",function(e){
 	actionForm.append("<input type='hidden' name='bno' value="+targetbno+">");
 	actionForm.submit();
 });
-
+​
 $(".page-link").on("click",function(e){
 	e.preventDefault();
 	var targetPage = $(this).attr("href");
@@ -136,10 +135,10 @@ $(".page-link").on("click",function(e){
 	actionForm.find("input[name='page']").val(targetPage);
 	actionForm.submit();
 });
-
-
+​
+​
 <!-- seach div -->
-
+​
 $(".searchBtn").on("click",function(e){
 	var keyword =$("input[name='keywordView']");
 	var keywordValue =keyword.val();
@@ -156,8 +155,8 @@ $(".searchBtn").on("click",function(e){
 	actionForm.submit();
 	
 });
-
-
+​
+​
 $(".amount-opt").on("change",function(e){
 	var amountValue = this.value;
 	
@@ -166,21 +165,21 @@ $(".amount-opt").on("change",function(e){
 	actionForm.submit();
 });
 <!-- actionForm End .. -->
-
+​
 <!-- make pagenation -->
-
+​
 var page = [] 
-
+​
 for(var i = [[${pm.start}]] ; i <= [[${pm.end}]] ; i++ ){
 	page.push(i);
 }
 console.log(page);
-
+​
 console.log([1 , 2]);
 	
 	
-
+​
 </script>
-
-
+​
+​
 <th:block th:insert="/../include/footer.html"></th:block>

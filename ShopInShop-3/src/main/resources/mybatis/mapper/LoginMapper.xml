@@ -7,15 +7,15 @@
  
  	<select id ="login" resultType="org.sis.user.model.MemberVO">
 
-		select name from tbl_member where mid = #{mid} and mpw = #{mpw}
+		select mmid,mpw,mname from tbl_member where mmid = #{mmid} and mpw = #{mpw}
 
 	</select>
 	
 	
 	<insert id="join" >
 		
-		insert into tbl_member (mid,mpw,name,nick,email,mobile,question,answer,country,adress) 
-		values (#{mid},#{mpw},#{name},#{nick},#{email},#{mobile},#{question},#{answer},#{country},#{adress})
+		insert into tbl_member (mmid,mpw,mname,nick,email,mobile,question,answer,country,address) 
+		values (#{mmid},#{mpw},#{mname},#{nick},#{email},#{mobile},#{question},#{answer},#{country},#{address})
 		
 	</insert>
     

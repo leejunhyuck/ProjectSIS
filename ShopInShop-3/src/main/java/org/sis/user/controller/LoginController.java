@@ -69,13 +69,24 @@ public class LoginController {
 	}
 	
 	@PostMapping("/login")
-	public String login(@ModelAttribute("member") MemberVO member) {
+	public String login(@ModelAttribute("member") MemberVO member, Model model,HttpSession session) {
 		
 		log.info("MEMBER: " + member);
 		
-		log.info(service.logincheck(member));
+		MemberVO resultVO = new MemberVO();
 		
-		return "/user/joinResult";
+		resultVO = service.logincheck(member);
+          
+		session.setAttribute("mname", resultVO.getMname());
+		
+		
+		
+        
+		
+		return "redirect:/";
+            
+       
+		
 	}
 	
 	
@@ -123,7 +134,12 @@ public class LoginController {
 	    log.info("MEMBER: " + member);
 
 	    
-	    service.register(member);
+	    try {
+			service.register(member);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	    
 	    
 	    
@@ -131,9 +147,14 @@ public class LoginController {
 	  }
 	
 	
-	@RequestMapping(value = "/hello")
-	public void hello() {
+	@GetMapping("/logout")
+	public String logout(HttpSession session) {
 
+		session.invalidate();
+		
+		return "redirect:/";
+		
+		
 	}
 
 	@RequestMapping(value = "/oauth")

@@ -60,7 +60,12 @@
  
   <script>
   
-  var actionForm = $("#serachForm");
+  var actionForm = $("#serachForm")
+  var loginForm = $("#loginForm")
+  
+  
+  
+  
   
   function login(){
 	  $("#replyModal").modal('show')
@@ -70,7 +75,7 @@
   	
 	 $("#serch").on("click",function(e){
 		e.preventDefault();
-		
+	 
 		//alert($("#keyword").val())
 		$("input[name='keyword']").val($("#keyword").val())
 		serachForm.submit();
@@ -79,6 +84,14 @@
 		 
 	 })
 	 
+	  $("#loginButton").on("click",function(e){
+	  
+		  
+		  loginForm.submit();
+	  })
+	 
+	  
+	  
 	 
   </script>
 <th:block th:insert="/../include/footer.html"></th:block>

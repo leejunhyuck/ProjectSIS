@@ -40,6 +40,8 @@ public class MatchingController {
 		log.info("list Page.......................");
 		int totalCount = service.getListCount(cri);
 		
+		
+		
 		model.addAttribute("list", service.getList(cri));
 		model.addAttribute("pm", new PageMaker(cri, totalCount));
 	}
@@ -63,7 +65,11 @@ public class MatchingController {
 	public void read(@ModelAttribute("cri") Criteria cri, Model model) {
 		log.info("bno: "+cri.getBno());
 		
+		
+		
 		model.addAttribute("vo", service.get(cri.getBno()));
+		
+		
 	}
 	
 	@PostMapping("/modify")
