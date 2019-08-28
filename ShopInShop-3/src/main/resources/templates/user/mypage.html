@@ -1,0 +1,66 @@
+<html xmlns:th="http://www.thymeleaf.org">
+
+
+<th:block th:insert="/../include/header.html"></th:block>
+    <!-- Header End -->
+
+        <div class="container">
+	
+		
+		<h1>hello</h1>
+	
+		
+	
+
+        </div>
+
+
+ 
+  <style>
+.modal-footer .hide{
+	display:none;
+	
+}
+</style>
+
+  
+ 
+  <script>
+  
+  var actionForm = $("#serachForm")
+  var loginForm = $("#loginForm")
+  
+  
+  
+  
+  
+  function login(){
+	  $("#replyModal").modal('show')
+	}
+  	
+
+  	
+	 $("#serch").on("click",function(e){
+		e.preventDefault();
+	 
+		//alert($("#keyword").val())
+		$("input[name='keyword']").val($("#keyword").val())
+		serachForm.submit();
+		 
+		 
+		 
+	 })
+	 
+	  $("#loginButton").on("click",function(e){
+	  
+		  
+		  loginForm.submit();
+	  })
+	 
+	  
+	  
+	 
+  </script>
+<th:block th:insert="/../include/footer.html"></th:block>
+  
+  
