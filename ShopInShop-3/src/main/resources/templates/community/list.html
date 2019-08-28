@@ -34,8 +34,8 @@
 			<th scope="row" class="text-center" th:text="${vo.bno}"></td>
 			<td><a class="view" th:href="${vo.bno}" th:text="${vo.title}"></a><span> ([[${vo.replycnt}]])</span></td>
 			<td class="text-center" th:text="${vo.mmid}"></td>
-			<td class="text-center"  th:if="${vo.regdate.before(#dates.createNow())}">[[${#dates.format(vo.regdate, 'yyyy-MM-dd')}]]</td>
-			<td class="text-center"  th:if="${vo.regdate.after(#dates.createNow())}">[[${#dates.format(vo.regdate, 'H:mm a')}]]</td>
+			<td class="text-center"  th:if="${vo.regdate.before(#dates.createToday())}">[[${#dates.format(vo.regdate, 'yyyy-MM-dd')}]]</td>
+			<td class="text-center"  th:if="${vo.regdate.after(#dates.createToday())}">[[${#dates.format(vo.regdate, 'H:mm a')}]]</td>
 			<td class="text-center" th:text="${vo.viewcnt}"></td>
 		</tr>
 		<tbody>
@@ -144,13 +144,18 @@
 
 
 <script>
+
 <!-- addFlashAttribute -->
 var flag = '${result}';
+
 if (flag === 'success') {
 	alert("작업이 성공했습니다.");
 }
+
+
 <!-- use action Form -->
 var actionForm = $("#actionForm");
+
 $(".view").on("click",function(e){
 	e.preventDefault();
 	
@@ -160,6 +165,7 @@ $(".view").on("click",function(e){
 	actionForm.append("<input type='hidden' name='bno' value="+targetbno+">");
 	actionForm.submit();
 });
+
 $(".page-link").on("click",function(e){
 	e.preventDefault();
 	var targetPage = $(this).attr("href");
@@ -167,7 +173,10 @@ $(".page-link").on("click",function(e){
 	actionForm.find("input[name='page']").val(targetPage);
 	actionForm.submit();
 });
+
+
 <!-- seach div -->
+
 $(".searchBtn").on("click",function(e){
 	var keyword =$("input[name='keywordView']");
 	var keywordValue =keyword.val();
@@ -184,6 +193,8 @@ $(".searchBtn").on("click",function(e){
 	actionForm.submit();
 	
 });
+
+
 $(".amount-opt").on("change",function(e){
 	var amountValue = this.value;
 	
@@ -192,15 +203,20 @@ $(".amount-opt").on("change",function(e){
 	actionForm.submit();
 });
 <!-- actionForm End .. -->
+
 <!-- make pagenation -->
+
 var page = [] 
+
 for(var i = [[${pm.start}]] ; i <= [[${pm.end}]] ; i++ ){
 	page.push(i);
 }
 console.log(page);
+
 console.log([1 , 2]);
 	
 	
+
 </script>
 
 

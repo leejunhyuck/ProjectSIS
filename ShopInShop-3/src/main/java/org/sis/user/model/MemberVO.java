@@ -11,7 +11,7 @@ public class MemberVO {
   
   
   
-  private String mpw,mname,nick,email,mobile,question,answer,country,address,social_id;
+  private String mpw,mname,nick,email,mobile,question,answer,country,address,social_id,regdate;
   
   
 

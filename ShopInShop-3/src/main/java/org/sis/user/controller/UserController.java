@@ -158,6 +158,17 @@ public class UserController {
 		
 	}
 	
+	
+	@PostMapping("/infoModify")
+	public void infoModify(@ModelAttribute("member") MemberVO member,Model model) {
+
+		log.info("infoModify...");
+		
+		log.info(""+member);
+		
+		
+		
+	}
 
 	@RequestMapping(value = "/oauth")
 	public String login(@RequestParam("code") String code, HttpSession session) {

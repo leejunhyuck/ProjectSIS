@@ -11,45 +11,43 @@
 	<div class="col-lg-12">
 		<div class="panel panel-default">
 			<div class="panel-heading">My page</div>
-			<h1>[[${user.mmid}]]</h1>
 			<div class="panel-body">
+			<form name="userform" method="post" action="/user/infoModify">
 					<div class="form-group">
+					
 						<label>아이디</label>
-						<input class="form-control" name="userid" type="text" placeholder="아이디" maxlength="20" value="[[${user.mmid}]]" readonly="readonly">
+						<input class="form-control" id="mmid" name="mmid" type="text" placeholder="아이디" maxlength="20" value="${user.mmid}" readonly="readonly">
 					</div>
 					<div class="form-group">
 						<label>비밀번호</label>
-						<input class="form-control" name="password" type="password" placeholder="비밀번호" maxlength="15" readonly="readonly">
+						<input class="form-control" id="password"  type="password" placeholder="비밀번호" maxlength="15" readonly="readonly">
 					</div>
 					<div class="form-group">
 						<label>비밀번호 확인</label>
-						<input class="form-control" name="is_password" type="password" placeholder="비밀번호 확인" maxlength="15" readonly="readonly">
+						<input class="form-control" id="is_password" type="password" placeholder="비밀번호 확인" maxlength="15" readonly="readonly">
 					</div>
 					<div class="form-group">
 						<label>이름</label>
-						<input class="form-control" name="username" type="text" placeholder="이름" maxlength="20" value="${user.username}" readonly="readonly">
+						<input class="form-control" id="mname" name="mname" type="text" placeholder="이름" maxlength="20" th:value="${user.mname}" readonly="readonly">
 					</div>
 					<div class="form-group">
 						<label>닉네임</label>
-						<input class="form-control" name="nick" type="text" placeholder="닉네임" maxlength="20" value="${user.username}" readonly="readonly">
+						<input class="form-control" id="nick" name="nick" type="text" placeholder="닉네임" maxlength="20" th:value="${user.nick}" readonly="readonly">
 					</div>
 					<div class="form-group">
 						<label>가입날짜</label>
-						<input class="form-control" name="birthday" type="text" maxlength="8" value="${user.birthday}" readonly="readonly">
+						<input class="form-control" type="text" maxlength="8" th:value="${user.regdate}" readonly="readonly">
 					</div>
 					<div class="form-group">
 						<label>이메일</label> 
-						<input class="form-control" name="email" type="text" placeholder="이메일" value="${user.email}" readonly="readonly">
+						<input class="form-control" id="email" name="email" type="text" placeholder="이메일" th:value="${user.email}" readonly="readonly">
 					</div>
 					<div class="form-group">
 						<label>연락처</label>
-						<input class="form-control" name="phone" type="text" placeholder="ex)01012345678" maxlength="11" value="${user.phone}" readonly="readonly">
+						<input class="form-control" id="mobile" name="mobile" type="text" placeholder="ex)01012345678" maxlength="11" th:value="${user.mobile}" readonly="readonly">
 					</div>
-				<button type="button" data-oper="modify" class="btn btn-default">Modify</button>
-				<form name="userform" method="post" action="/kjh/user/userModify">
-					<input type="hidden" name="userno">
+				<button id=modifybutton type="button" data-oper="modify" class="btn btn-default">Modify</button>
 				</form>
-
         </div>
 </div>
 </div>
@@ -73,7 +71,7 @@
   
   var actionForm = $("#serachForm")
   var loginForm = $("#loginForm")
-  
+  var userForm = $("#userform")
   
   
   
@@ -102,6 +100,17 @@
 	  })
 	 
 	  
+	  $("#loginButton").on("click",function(e){
+	  
+		  
+		  loginForm.submit();
+	  })
+	 
+	   $("#modifybutton").on("click",function(e){
+	  
+		  alert("asdsa");
+		  userform.submit();
+	  })
 	  
 	 
   </script>

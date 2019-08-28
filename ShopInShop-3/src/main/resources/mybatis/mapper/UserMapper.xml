@@ -21,7 +21,7 @@
 	
 	 	<select id ="mypage" resultType="org.sis.user.model.MemberVO">
 
-		select mmid,mpw,mname,nick,email,mobile,question,answer,country,address from tbl_member where mmid = #{mmid} 
+		select mmid,mpw,mname,nick,email,mobile,question,answer,country,address,regdate from tbl_member where mmid = #{mmid} 
 	</select>
     
     
