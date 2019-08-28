@@ -1,6 +1,6 @@
 package org.sis.user.service;
 
-import org.sis.mapper.LoginMapper;
+import org.sis.mapper.UserMapper;
 import org.sis.user.model.MemberVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -9,13 +9,10 @@ import lombok.Setter;
 import lombok.extern.java.Log;
 
 @Service
-public class LoginService {
+public class UserService {
 
 	@Setter(onMethod_=@Autowired )
-	private LoginMapper mapper;
-	
-	@Setter(onMethod_=@Autowired )
-	private MemberService memberserice;
+	private UserMapper mapper;
 	
 
 	public void register(MemberVO member) {
@@ -27,10 +24,16 @@ public class LoginService {
 		
 	}
 	
-	public MemberVO logincheck(MemberVO member){
+	public MemberVO loginCheck(MemberVO member){
 		
 		return mapper.login(member);
 		
+		
+	}
+	
+	public MemberVO userInfo(String mmid) {
+		
+		return mapper.mypage(mmid);
 		
 	}
 	

@@ -12,7 +12,7 @@ import org.sis.mapper.ReplyMapper;
 import org.sis.user.model.MemberVO;
 import org.sis.user.oauth.KakaoApi;
 import org.sis.user.oauth.NaverLoginBO;
-import org.sis.user.service.LoginService;
+import org.sis.user.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;

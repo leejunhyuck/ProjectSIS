@@ -1,0 +1,78 @@
+<html xmlns:th="http://www.thymeleaf.org">
+
+<th:block th:insert="/../include/header.html"></th:block>
+
+
+
+<div class="container">
+
+<h1>read page</h1>
+
+<div class="panel-body ">
+
+	
+
+	<div class="form-group">
+		<label>Title</label> <input class="form-control" name="title"
+			th:value="${vo.title}" readonly="readonly" />
+	</div>
+
+	<div class="form-group">
+		<label>Content</label>
+		<textarea class="form-control" rows="3" name='content'
+			th:text="${vo.content}" readonly="readonly"></textarea>
+	</div>
+
+	<div class="form-group">
+		<label>Writer</label> <input class="form-control" name="mid"
+			th:value="${vo.mmid}" readonly="readonly" />
+	</div>
+
+	<div class="form-group">
+		<label>RegDate</label> <input class="form-control" name="regDate"
+			th:value="${#dates.format(vo.regdate,'yyyy-MM-dd ')}"
+			readonly="readonly" />
+	</div>
+	</div>
+
+	<div class="pull-right" >
+		<a th:href="@{/msg/remove?msgnum={id}(id=${vo.msgnum})}" class="btn-dark btn-sm deleteBtn">Delete</a> 
+		<a th:href="@{/msg/register}" class="btn-dark btn-sm deleteBtn">Register</a>
+		<button class="btn-dark btn-sm listBtn" >Go List</button>
+		
+	</div>
+	</div>
+	
+	
+	<form id="actionForm" action="/msg/remove" method="get">
+	<input type="hidden" name="msgnum" th:value="${cri.msgnum}"> 
+	<input type="hidden" name="page" th:value="${cri.page}"> 
+	<input type="hidden" name="amount" th:value="${cri.amount}"> 
+	<input type="hidden" name="type" th:value="${cri.type}">
+	<input type="hidden" name="keyword" th:value="${cri.keyword}">
+</form>
+	
+	
+<script th:src="@{/js/reply.js}"></script>
+<script>
+
+<!-- using actionForm -->
+
+var actionForm = $("#actionForm");
+
+
+$(".listBtn").on("click", function(e) {
+	console.log("list")
+	
+	
+	actionForm.find("input[name='msgnum']").remove();
+	actionForm.attr("action", "/msg/list").submit();
+})
+
+
+
+</script>
+	
+	
+
+<th:block th:insert="/../include/footer.html"></th:block>

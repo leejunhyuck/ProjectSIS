@@ -8,6 +8,21 @@
 .modal-footer .hide {
 	display: none
 }
+
+
+
+.modal {
+  
+   top: 10px;
+   right: 100px;
+   bottom: 0;
+   left: 0;
+   z-index: 10040;
+   overflow: auto;
+   overflow-y: auto;
+}
+
+
 </style>
 
 <br>
@@ -103,7 +118,7 @@
 
 
 
-<form id="actionForm" action="/matching/modify" method="get">
+<form id="actionForm" action="/community/modify" method="get">
 	<input type="hidden" name="bno" th:value="${cri.bno}"> 
 	<input type="hidden" name="page" th:value="${cri.page}"> 
 	<input type="hidden" name="amount" th:value="${cri.amount}"> 
@@ -112,7 +127,7 @@
 </form>
 
 
-<div class="modal fade" id="replyModal" tabindex="-1" role="dialog"
+<div class="modal fade" id="ComReplyModal" tabindex="-1" role="dialog"
 	aria-labelledby="exampleModalLabel" aria-hidden="true">
 	<div class="modal-dialog" role="document">
 		<div class="modal-content">
@@ -143,54 +158,61 @@
 
 </div>
 
-<script th:src="@{/js/reply.js}"></script>
+<script th:src="@{/js/Comreply.js}"></script>
 <script>
+
 <!-- using actionForm -->
+
 var actionForm = $("#actionForm");
+
 $(".modBtn").on("click", function(e) {
 	actionForm.submit();
 })
 $(".listBtn").on("click", function(e) {
 	actionForm.find("input[name='bno']").remove();
-	actionForm.attr("action", "/matching/list").submit();
+	actionForm.attr("action", "/community/list").submit();
 })
 <!-- actionForm End .. -->
+
+
+
 <!-- reply js -->
+
 var bno = [[${vo.bno}]];
 var replyCnt = [[${vo.replycnt}]];
 var page = 1;
 var replyList = $(".replyList");
 showPage(page)
+
 console.log(replyCnt);
+
+
 	<!-- add reply -->
 $(".addReplyBtn").on("click", function() {
-	$("#replyModal").modal("show");
+	$("#ComReplyModal").modal("show");
 	$(".modifyBtn").addClass("hide");
 	$(".replyBtn").removeClass("hide");
 	$(".deleteBtn").addClass("hide");
 	$(".rereBtn").addClass("hide");
 });
 $(".replyBtn").on("click", function(e) {
+
 	let obj = {
 		bno : $("input[name='bno']").val(),
-<<<<<<< HEAD
-		reply : $("input[name='reply']").val(),
-		replyer : $("input[name='replyer']").val(),
-=======
 		content : $("input[name='reply']").val(),
 		mmid : $("input[name='replyer']").val(),
->>>>>>> branch 'master' of https://github.com/Leejunhyuck/ProjectSIS.git
 	};
 	console.log(obj);
 	replyService.addReply(obj, function() {
 		alert("댓글 등록 성공");
-		$("#replyModal").modal("hide");
+		$("#ComReplyModal").modal("hide");
 		showPage(-1);
 	});
 	replyCnt +=1 ;
 	
 });
 	<!-- end add reply -->
+
 	
 	
 	<!-- reply Modify & Delete Reply  -->
@@ -201,15 +223,9 @@ replyList.on("click","li",function(e){
 	 replyService.getReply(rno,function(reply){
 		 
 		$(".mrno").val(reply.rno);
-<<<<<<< HEAD
-		$("input[name='reply']").val(reply.reply);
-		$("input[name='replyer']").val(reply.replyer);
-		$("#replyModal").modal("show");
-=======
 		$("input[name='reply']").val(reply.content);
 		$("input[name='replyer']").val(reply.mmid);
 		$("#ComReplyModal").modal("show");
->>>>>>> branch 'master' of https://github.com/Leejunhyuck/ProjectSIS.git
 		
 		$(".modifyBtn").removeClass("hide");
 		$(".replyBtn").addClass("hide");
@@ -217,33 +233,32 @@ replyList.on("click","li",function(e){
 		$(".rereBtn").addClass("hide");
 	});
 });
+
+
 $(".modifyBtn").on("click",function(e){
 	 console.log("댓글 수정버든")
 	 let obj = {
 				rno : $("input[name='rno']").val(),
-<<<<<<< HEAD
-				reply : $("input[name='reply']").val(),
-				replyer : $("input[name='replyer']").val()
-=======
 				content : $("input[name='reply']").val(),
 				mmid : $("input[name='replyer']").val()
->>>>>>> branch 'master' of https://github.com/Leejunhyuck/ProjectSIS.git
 			};
 	 replyService.modifyReply(obj, function() {
 			alert("댓글 등록 성공");
-			$("#replyModal").modal("hide");
+			$("#ComReplyModal").modal("hide");
 			showPage(page);
 		});
 });
+
+
 $(".deleteBtn").on("click",function(){
 	var rno = $("input[name='rno']").val();
 	
 	replyService.removeReply(rno,function(){
 		alert("remove.....")
 		showPage(page);
-		$("#replyModal").modal("hide");
+		$("#ComReplyModal").modal("hide");
 	})
-	replyCnt +=1 ;
+	replyCnt -=1 ;
 });
 	<!-- End Modify&Delete Reply -->
 	
@@ -251,8 +266,10 @@ $(".deleteBtn").on("click",function(){
 	
 	<!-- function -- ShowPage  -->
 /* function showPage(){
+
 	replyList.html("");
     replyService.getList(bno,function (arr) {
+
      // 구조 분해 할당 문법
      // 탬플릿 문법 [ 백픽`` ]
      var str = '';
@@ -268,6 +285,7 @@ $(".deleteBtn").on("click",function(){
         replyList.append(str);
      });
 } */
+
 function showPage(page){
 	
 	console.log("show page: "+page);
@@ -280,31 +298,24 @@ function showPage(page){
     	showPage(pageNum);
     	return;
     }
+
      // 구조 분해 할당 문법
      // 탬플릿 문법 [ 백픽`` ]
      var str = '';
      var x = 0;
 	 for(var i=0;i<arr.length;i++){
-<<<<<<< HEAD
-	 	var {rno,bno,reply,replyer,replyDate} = arr[i];
-=======
 	 	var {rno,bno,content,mmid,replyDate} = arr[i];
->>>>>>> branch 'master' of https://github.com/Leejunhyuck/ProjectSIS.git
 		str += "<div><li class='list-group-item' data-rno="+rno+">"+ 
                "<div class='rno'>"+rno+"</div>"+
-<<<<<<< HEAD
-               "<div class='reply'>"+reply+"</div>"+
-               "<div class='replyer'>"+replyer+"</div>"+
-=======
                "<div class='reply'>"+content+"</div>"+
                "<div class='replyer'>"+mmid+"</div>"+
->>>>>>> branch 'master' of https://github.com/Leejunhyuck/ProjectSIS.git
                "</li></div>";
 		}
         replyList.append(str);
         showReplyPage(replyCnt);
      });
 }
+
 var pageNum = 1;
 var pageReply = $(".pageReply");
 function showReplyPage(replyCnt){
@@ -345,6 +356,7 @@ function showReplyPage(replyCnt){
 	console.log(str);
 	pageReply.append(str);	
 }
+
 pageReply.on("click","li a",function(e){
 	
 	e.preventDefault();
@@ -354,16 +366,18 @@ pageReply.on("click","li a",function(e){
 	page = targetPageNum;
 	showPage(page);
 });
+
 </script>
 
 
 <script>
+
 $(document).ready(function(){
 	
 	console.log(".... 레디 ")
 	//(function(){
 		var bno = [[${vo.bno}]];
-		$.getJSON("/matching/getAttachList",{bno: bno}, function(arr){
+		$.getJSON("/community/getAttachList",{bno: bno}, function(arr){
 			console.log(arr);
 			
 			
@@ -378,8 +392,8 @@ $(document).ready(function(){
 				str += "<div class='item'><div class='block-4 text-center'><figure class='block-4-image'>";
 				//str += "<a class='item' href='http://lorempixel.com/800/400/food/2/' rel='prettyPhoto' title='This is the description'>"
 				//str += "<a href='#' onclick='$(this).galleryShow(); return false;'>";
-				str += "<a class='example-image-link' href='/upload_matching/getImage?fileName="+fileOriginPath+"' data-lightbox='example-set' data-title='title'>";
-				str += "<img class='example-image' src='/upload_matching/getImage?fileName="+fileCallPath+"' alt='Image Read Fail' class='img-fluid'></a>";
+				str += "<a class='example-image-link' href='/upload_com/getImage?fileName="+fileOriginPath+"' data-lightbox='example-set' data-title='title'>";
+				str += "<img class='example-image' src='/upload_com/getImage?fileName="+fileCallPath+"' alt='Image Read Fail' class='img-fluid'></a>";
 				str += "</figure><div class='block-4-text p-4'><p class='text-primary font-weight-bold'>"+attach.fileName+"</p>";
 				str += "</div></div></div></div>";
 				$('.owl-carousel').owlCarousel('add', str).owlCarousel('update');
@@ -408,15 +422,18 @@ $(document).ready(function(){
 			showImage(path.replace(new RegExp(/\\/g),"/"));
 			});
 }); 
+
 </script>
 
 
 <script>
+
 $(function () {
 	$("#mdb-lightbox-ui").load("mdb-addons/mdb-lightbox-ui.html");
 	console.log("active light box");
 	});
 	
+
 </script>
 
 <th:block th:insert="/../include/footer.html"></th:block>

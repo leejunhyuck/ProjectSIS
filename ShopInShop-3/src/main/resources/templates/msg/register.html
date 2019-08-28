@@ -1,0 +1,57 @@
+<html xmlns:th="http://www.thymeleaf.org">
+
+<th:block th:insert="/../include/header.html"></th:block>
+
+
+
+<div class="container">
+	<h1>register page</h1>
+	<div class="panel-body ">
+
+		<form class="actionForm" th:action="@{/msg/register}" method="post">
+
+			<div class="form-group">
+				<label>Title</label> <input class="form-control" name="title"
+					th:value="${vo.title}" />
+			</div>
+
+			<div class="form-group">
+				<label>Content</label>
+				<textarea class="form-control" rows="3" name='content'
+					th:text="${vo.content}"></textarea>
+			</div>
+
+
+			<div class="form-group">
+				<label>Whom</label> <input class="form-control" name="whom"
+					th:text="${vo.whom}" />
+			</div>
+
+			<div class="form-group">
+				<label>Writer</label><input class="form-control" name="mid"
+			th:value="${vo.mmid}" readonly="readonly" />
+			</div>
+
+
+		</form>
+	</div>
+
+	<div class="pull-right" >
+		<button type="submit" class="insertBtn btn-dark btn-sm">Submit Button</button>
+		<a th:href="@{/msg/list}" class="btn-dark btn-sm"> Go to List </a>
+	</div>
+	</div>
+<script th:inline="javascript">
+	var form = $(".actionForm");
+
+	$(".insertBtn").on("click", function(e) {
+		e.preventDefault();
+		var str = "";
+
+		form.append(str);
+		form.submit();
+	});
+	// end insert btn
+</script>
+
+<th:block th:insert="/../include/footer.html"></th:block>

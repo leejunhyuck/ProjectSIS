@@ -3,49 +3,33 @@
 
 <th:block th:insert="/../include/header.html"></th:block>
 
-<br>
 
 <div class="container">
-
-<style>
-	.tableHeader {background-color:#d9d7f9}
-</style>
-
-
-
 	
-
-	<h5 >
-		<a class="pull-left" th:href="@{/community/register}">Register</a>
+	<h1>쪽지함</h1>
+	<h5>
+		<a th:href="@{/msg/register}">Register</a>
 	</h5>
-
-	<table class="table table-hover">
-		<thead class="tableHeader">
-			<tr>
-		    <th class="text-center"  scope="col">No.</th>
-			<th class="text-center"  scope="col">제목</th>
-			<th class="text-center"  scope="col">작성자</th>
-			<th class="text-center"  scope="col">등록일</th>
-			<th class="text-center"  scope="col">조회</th>
-			</tr>
-        </thead>
-        <tbody>
-		<tr th:each="vo : ${list}">
-			<th scope="row" class="text-center" th:text="${vo.bno}"></td>
-			<td><a class="view" th:href="${vo.bno}" th:text="${vo.title}"></a><span> ([[${vo.replycnt}]])</span></td>
-			<td class="text-center" th:text="${vo.mmid}"></td>
-			<td class="text-center"  th:if="${vo.regdate.before(#dates.createToday())}">[[${#dates.format(vo.regdate, 'yyyy-MM-dd')}]]</td>
-			<td class="text-center"  th:if="${vo.regdate.after(#dates.createToday())}">[[${#dates.format(vo.regdate, 'H:mm a')}]]</td>
-			<td class="text-center" th:text="${vo.viewcnt}"></td>
+	
+	
+<div>
+	<table class="table-msg table table-hover">
+		<tr class="table-primary">
+			<td>MSGNUM</td>
+			<td>TITLE</td>
+			<td>Whom</td>
+			<td>REGDATE</td>
 		</tr>
-		<tbody>
+		<tr th:each="vo : ${list}">
+			<td th:text="${vo.msgnum}"></td>
+			<td><a class="view" th:href="${vo.msgnum}" th:text="${vo.title}"></a></td>
+			<td th:text="${vo.whom}"></td>
+			<td th:if="${vo.regdate.before(#dates.createToday())}">[[${#dates.format(vo.regdate, 'yyyy-MM-dd')}]]</td>
+            <td th:if="${vo.regdate.after(#dates.createToday())}">[[${#dates.format(vo.regdate, 'H:mm a')}]]</td>
+            
+		</tr>
 	</table>
-	
-	
-	<div class="row  justify-content-md-end">
-  		<div class="col-8">
-    		<div class="input-group">
-    		<div>
+<div>	
 		<select name="typeView">
 			<option value="">--</option>
 			<option value="T" th:attr="selected=${cri.type == 'T'? 'true' : 'false'}">제목</option>
@@ -56,33 +40,9 @@
 			<option value="CW" th:attr="selected=${cri.type == 'CW'? 'true' : 'false'}">내용 + 작성자</option>
 			<option value="TCW" th:attr="selected=${cri.type == 'TCW'? 'true' : 'false'}">제목 + 내용+ 작성자</option>
 		</select>
-		</div>
-    			<input type="text" name="keywordView" th:value="${cri.keyword}">
-				<button class="btn-primary btn-sm searchBtn">Search</button>
-    		</div><!-- /input-group -->
-  		</div><!-- /.col-lg-6 -->
-	</div><!-- /.row -->
-
-
-
-
-
-
-
-	<div class="flex-end">
-		<select name="typeView">
-			<option value="">--</option>
-			<option value="T" th:attr="selected=${cri.type == 'T'? 'true' : 'false'}">제목</option>
-			<option value="C" th:attr="selected=${cri.type == 'C'? 'true' : 'false'}">내용</option>
-  			<option value="W" th:attr="selected=${cri.type == 'W'? 'true' : 'false'}">작성자</option>
-			<option value="TC" th:attr="selected=${cri.type == 'TC'? 'true' : 'false'}">제목 + 내용</option>
-			<option value="TW" th:attr="selected=${cri.type == 'TW'? 'true' : 'false'}">제목 + 작성자</option>
-			<option value="CW" th:attr="selected=${cri.type == 'CW'? 'true' : 'false'}">내용 + 작성자</option>
-			<option value="TCW" th:attr="selected=${cri.type == 'TCW'? 'true' : 'false'}">제목 + 내용+ 작성자</option>
-		</select>
-		<input type="text" name="keywordView" th:value="${cri.keyword}">
+		
+		<input  type="text" name="keywordView" th:value="${cri.keyword}">
 		<button class="btn-primary btn-sm searchBtn">Search</button>
-	
 	
 		<select class="amount-opt">
 			<option value="10" th:attr="selected=${cri.amount == 10? 'true' : 'false'}">10</option>
@@ -90,17 +50,9 @@
 			<option value="50" th:attr="selected=${cri.amount == 50? 'true' : 'false'}">50</option>
 			<option value="100" th:attr="selected=${cri.amount == 100? 'true' : 'false'}">100</option>
 		</select>
-	</div>	
-	
-	
-	
-	
-
-	
-
-
-<h4> pagination not complete ... </h4>
-	<ul class="pagination" th:with="page=${page}">
+		
+	</div>
+		<ul class="pagination" th:with="page=${page}">
 		
 		<li th:if="${pm.prev}" class="page-item"><a class="page-link"
 			th:href='${pm.start-1}'>Previous</a></li>
@@ -132,9 +84,9 @@
 	
 </div>
 	
-	
-	
-	<form id="actionForm" action="/community/list" method="get">
+
+
+	<form id="actionForm" action="/msg/list" method="get">
 	<input type="hidden" name="page" th:value="${cri.page}">
 	<input type="hidden" name="amount" th:value="${cri.amount}">
 	<input type="hidden" name="type" th:value="${cri.type}">
@@ -143,7 +95,9 @@
 
 
 
+</div>
 <script>
+
 
 <!-- addFlashAttribute -->
 var flag = '${result}';
@@ -152,19 +106,18 @@ if (flag === 'success') {
 	alert("작업이 성공했습니다.");
 }
 
-
-<!-- use action Form -->
 var actionForm = $("#actionForm");
 
 $(".view").on("click",function(e){
 	e.preventDefault();
+	var targetmsgnum = $(this).attr("href");
 	
-	var targetbno = $(this).attr("href");
-	
-	actionForm.attr("action","/community/read");
-	actionForm.append("<input type='hidden' name='bno' value="+targetbno+">");
+	actionForm.attr("action","/msg/read");
+	actionForm.append("<input type='hidden' name='msgnum' value="+targetmsgnum+">");
 	actionForm.submit();
 });
+
+
 
 $(".page-link").on("click",function(e){
 	e.preventDefault();
@@ -218,6 +171,7 @@ console.log([1 , 2]);
 	
 
 </script>
+
 
 
 <th:block th:insert="/../include/footer.html"></th:block>
