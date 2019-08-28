@@ -10,7 +10,7 @@ import org.json.simple.parser.ParseException;
 import org.sis.user.model.MemberVO;
 import org.sis.user.oauth.KakaoApi;
 import org.sis.user.oauth.NaverLoginBO;
-import org.sis.user.service.LoginService;
+import org.sis.user.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -35,7 +35,7 @@ import lombok.extern.java.Log;
 public class UserController {
 
 	@Setter(onMethod_=@Autowired )
-	private LoginService service;
+	private UserService service;
 	
 	@Setter(onMethod_=@Autowired )
 	private KakaoApi kakao;
@@ -64,11 +64,11 @@ public class UserController {
 		
 		MemberVO resultVO = new MemberVO();
 		
-		resultVO = service.logincheck(member);
+		resultVO = service.loginCheck(member);
           
 		session.setAttribute("mname", resultVO.getMname());
 		
-		
+		session.setAttribute("mmid", resultVO.getMmid());
 		
         
 		
@@ -147,9 +147,13 @@ public class UserController {
 	}
 	
 	@GetMapping("/mypage")
-	public void mypage() {
+	public void mypage(HttpSession session,Model model) {
 
 		log.info("mypage...");
+		
+	
+		
+		model.addAttribute("user", service.userInfo((String)session.getAttribute("mmid")));
 		
 		
 	}
