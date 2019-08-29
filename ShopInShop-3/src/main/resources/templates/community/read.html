@@ -29,53 +29,30 @@
 
 <div class="container">
 
-
-<h1>read page</h1>
-
-
-<div class="panel-body">
-
-	<div class="form-group">
-		<label>BNO</label> <input class="form-control" name="bno"
-			th:value="${vo.bno}" readonly="readonly" />
+<div class="card shadow mb-4">
+<div class="card-body">
+	<div class="d-flex">
+		<span class="mr-auto align-self-center">[[${vo.title}]] ( [[${vo.replycnt}]] )  </span>
+		<div class="ml-auto">
+			<a class="align-self-center btn-sm btn-info" th:href="@{/community/register}">이전글</a>
+			<a class="align-self-center btn-sm btn-primary listBtn" href="#">목록으로</a>
+			<a class="align-self-center btn-sm btn-info" th:href="@{/community/register}">다음글</a>
+		</div>
 	</div>
-
-	<div class="form-group">
-		<label>Title</label> <input class="form-control" name="title"
-			th:value="${vo.title}" readonly="readonly" />
+	
+	<div class="d-flex">
+		<span class="mr-auto align-self-center">작성자: [[${vo.mmid}]]</span>
+		<div class="ml-auto align-self-end">
+			<span>등록날짜: [[ ${#dates.format(vo.regdate,'yyyy.MM.dd ( H:mm:ss )')} ]]</span>
+		</div>
 	</div>
+	
+	
+	<hr style="border: outset">
 
-	<div class="form-group">
-		<label>Content</label>
-		<textarea class="form-control" rows="3" name='content'
-			th:text="${vo.content}" readonly="readonly"></textarea>
-	</div>
-
-	<div class="form-group">
-		<label>Writer</label> <input class="form-control" name="mid"
-			th:value="${vo.mmid}" readonly="readonly" />
-	</div>
-
-	<div class="form-group">
-		<label>RegDate</label> <input class="form-control" name="regDate"
-			th:value="${#dates.format(vo.regdate,'yyyy-MM-dd')}"
-			readonly="readonly" />
-	</div>
-
-
-	<div class="pull-right" >
-		<button class="btn-primary btn-sm modBtn">Modify/Delete</button> 
-		<button class="btn-primary btn-sm listBtn">Go List</button>
-	</div>
-	<hr>
-	<button class="btn-outline-success btn-sm addReplyBtn">Add Reply</button>
-
-</div>
-
-
-
-<div class="site-section block-3 bg-light">
-      <div class="container bg-light">
+<div class="uploadBox" style="display:none">
+	<div class="site-section block-3 uploadBox">
+      <div class="container">
         <div class="row justify-content-center">
           <div class="col-md-7 site-section-heading text-center pt-4">
             <h2>Upload Image</h2>
@@ -88,30 +65,54 @@
           </div>
         </div>
       </div>
-  </div>
+  	</div> 
+  	<hr style="border: outset">
+</div> <!--  image box -->
+	
+	<div class="form-group">
+		<textarea class="form-control" rows="30" name='content'
+			th:text="${vo.content}" readonly="readonly"></textarea>
+	</div>
+
+	<div class="d-flex">
+		<div class="mr-auto">
+			<button class="btn-outline-success btn-sm addReplyBtn">Add Reply</button>
+		</div>
+		
+		<div class="ml-auto">
+			<button class="btn-primary btn-sm">register</button>
+			<button class="btn-warning btn-sm modBtn">Modify/Delete</button> 
+			<button class="btn-primary btn-sm listBtn">Go List</button>
+		</div>
+	</div>
+</div>
+</div>
+	
+
+
+
+
+
+
 
 
 <hr>
 <div class='uploadResult'>
 	<ul></ul>
 </div>
-<div class='bigPicture'></div>
 
 
 
-
+<div class="replyBox"  th:if="${vo.replycnt} != 0">
 <div class="card shadow mb-4">
 	<div class="card-body">
 		<ul class="replyList list-group">
-			<li class="list-group-item">AAAAAAAAAAAA</li>
-			<li class="list-group-item">BBBBBBBBBBBBBB</li>
 		</ul>
-		
 		<hr>
 		<div class="pageReply">
-		
 		</div>
 	</div>
+</div>
 </div>
 
 
@@ -169,6 +170,7 @@ $(".modBtn").on("click", function(e) {
 	actionForm.submit();
 })
 $(".listBtn").on("click", function(e) {
+	e.preventDefault();
 	actionForm.find("input[name='bno']").remove();
 	actionForm.attr("action", "/community/list").submit();
 })
@@ -378,7 +380,11 @@ $(document).ready(function(){
 	//(function(){
 		var bno = [[${vo.bno}]];
 		$.getJSON("/community/getAttachList",{bno: bno}, function(arr){
-			console.log(arr);
+			console.log(arr);			
+			if(arr.length != 0){
+				$(".uploadBox").attr('style', "display:block;");
+			}
+			
 			
 			
 			$(arr).each(function(i,attach){
@@ -392,7 +398,7 @@ $(document).ready(function(){
 				str += "<div class='item'><div class='block-4 text-center'><figure class='block-4-image'>";
 				//str += "<a class='item' href='http://lorempixel.com/800/400/food/2/' rel='prettyPhoto' title='This is the description'>"
 				//str += "<a href='#' onclick='$(this).galleryShow(); return false;'>";
-				str += "<a class='example-image-link' href='/upload_com/getImage?fileName="+fileOriginPath+"' data-lightbox='example-set' data-title='title'>";
+				str += "<a class='example-image-link' href='/upload_com/getImage?fileName="+fileOriginPath+"' data-lightbox='example-set' data-title='Uploaded Image'>";
 				str += "<img class='example-image' src='/upload_com/getImage?fileName="+fileCallPath+"' alt='Image Read Fail' class='img-fluid'></a>";
 				str += "</figure><div class='block-4-text p-4'><p class='text-primary font-weight-bold'>"+attach.fileName+"</p>";
 				str += "</div></div></div></div>";
