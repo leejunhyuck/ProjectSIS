@@ -70,6 +70,12 @@ public class ComReplyServiceImpl implements ComReplyService {
 		return mapper.CountReply(bno);
 	}
 
+	@Override
+	public int getListCount(Criteria cri) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
 
 	
 	

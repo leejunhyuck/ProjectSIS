@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+	
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+<style>
+    #map-canvas {
+        width: 600px ;
+        height: 600px ;
+    }
+</style>
+
+</head>
+<body>
+<h1>map</h1>
+<!-- canvas -->
+<div id="map-canvas"></div>
+
+<script src="//maps.googleapis.com/maps/api/js?key=AIzaSyCyfhfvTsgc8w7P_BrNXZbsLW0LaChuChI&language=ko"></script>
+
+<!-- Map -->
+<script>
+    var mapDiv = document.getElementById( "map-canvas" ) ;
+    var map = new google.maps.Map( mapDiv, {
+        center: new google.maps.LatLng( 37.504520, 127.024236 ) ,
+        zoom: 15 ,
+    } ) ;
+    // Event ,, Change Center
+    map.addListener( "center_changed", function ( argument ) {
+        console.log(JSON.stringify( argument ));
+        console.log( argument ) ;
+    } ) ;
+
+
+<!--Marker-->
+    var marker = new google.maps.Marker( {
+        map: map ,
+        position: new google.maps.LatLng( 37.504100, 127.024026 ) ,
+    } ) ;
+
+<!--InfoWindow , 말풍선 -->
+    var infoWindow = new google.maps.InfoWindow( {
+        position: new google.maps.LatLng( 37.514094, 127.030716 ) ,
+        content: "몇개의 매물이 있는지 표시할놈 .. " ,
+    } ) ;
+    infoWindow.open( map ) ;
+
+    var infoWindow = new google.maps.InfoWindow( {
+        position: new google.maps.LatLng( 37.501074, 127.037018 ) ,
+        content: "(Ex)역삼동:20 " ,
+    } ) ;
+    infoWindow.open( map ) ;
+
+    var infoWindow = new google.maps.InfoWindow( {
+        position: new google.maps.LatLng( 37.501228, 127.000434 ) ,
+        content: "(Ex)반포동:25 " ,
+    } ) ;
+    infoWindow.open( map ) ;
+
+<!-- Polygon , 구역 나누기 -->
+    var polygon_Nonhyeon = new google.maps.Polygon( {
+        map: map,
+        paths: [
+            new google.maps.LatLng( 37.515933, 127.019600 ) ,
+            new google.maps.LatLng( 37.522910, 127.038829 ) ,
+            new google.maps.LatLng( 37.510212, 127.043718 ) ,
+            new google.maps.LatLng( 37.504563, 127.024493 )
+        ] ,
+        fillColor: "tomato",
+        strokeColor: "white"
+    } ) ;
+    var polygon_Yeoksam = new google.maps.Polygon( {
+        map: map ,
+        paths: [
+            new google.maps.LatLng( 37.510212, 127.043718 ) ,
+            new google.maps.LatLng( 37.504563, 127.024493 ) ,
+            new google.maps.LatLng( 37.489701, 127.031694 ) ,
+            new google.maps.LatLng( 37.496372, 127.052896 )
+        ] ,
+        fillColor: "skyblue",
+        strokeColor: "white"
+    } ) ;
+    var polygon_Banpo = new google.maps.Polygon( {
+        map: map ,
+        paths: [
+            new google.maps.LatLng( 37.510965, 127.021035 ) ,
+            new google.maps.LatLng( 37.504292, 127.024210 ) ,
+            new google.maps.LatLng( 37.492103, 127.001549 ) ,
+            new google.maps.LatLng( 37.502794, 126.980434 ) ,
+            new google.maps.LatLng( 37.517436, 126.997001 ) ,
+            new google.maps.LatLng( 37.505450, 127.003610 )
+        ] ,
+        fillColor: "pink",
+        strokeColor: "white"
+    } ) ;
+
+    <!-- Circle, 역주변 -->
+/*    var circle = new google.maps.Circle( {
+        map: map ,
+        center: new google.maps.LatLng( 37.504426, 127.024457 ) ,
+        radius: 500 , // 단위: m
+        fillColor: "Indigo",
+        strokeColor: "white"
+    } ) ;*/
+
+    // fit bounds , 나눈 구역에 맞춰서 지도보여주는 놈 ..
+    /*var latLngBounds = new google.maps.LatLngBounds() ;
+
+    polygon.getPaths().forEach( function ( latLngs ) {
+        latLngs.forEach( function ( latLng ) {
+            latLngBounds.extend( latLng ) ;
+        } ) ;
+    } ) ;
+    map.fitBounds( latLngBounds )*/
+</script>
+</body>
+</html>

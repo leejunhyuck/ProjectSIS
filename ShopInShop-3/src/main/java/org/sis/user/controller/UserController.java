@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.github.scribejava.core.model.OAuth2AccessToken;
@@ -158,15 +159,33 @@ public class UserController {
 		
 	}
 	
+	@GetMapping("/recent")
+	public void recent(HttpSession session,Model model) {
+
+		log.info("recent...");
+		
+	
+		
+	
+		
+		
+	}
+	
 	
 	@PostMapping("/infoModify")
-	public void infoModify(@ModelAttribute("member") MemberVO member,Model model) {
+	public String infoModify(@ModelAttribute("member") MemberVO member,RedirectAttributes rttr) {
 
 		log.info("infoModify...");
 		
 		log.info(""+member);
 		
 		
+		String result = service.userModify(member) == true ? "success":"fail";
+		
+		rttr.addFlashAttribute("result",result);
+		
+		
+		return "redirect:/user/mypage";
 		
 	}
 

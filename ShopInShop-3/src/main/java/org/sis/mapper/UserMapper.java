@@ -11,4 +11,6 @@ public interface UserMapper {
 	
 	public MemberVO mypage(String mmid);
 	
+	public int infoUpdate(MemberVO member);
+	
 }

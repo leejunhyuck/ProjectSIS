@@ -86,4 +86,11 @@ public class ComServiceImpl implements ComService{
 		return attachMapper.findbybno(bno);
 	}
 
+
+	@Override
+	public int getListCount(Criteria cri) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
 }

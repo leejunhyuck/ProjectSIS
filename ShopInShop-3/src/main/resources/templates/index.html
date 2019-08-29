@@ -14,7 +14,7 @@
             </div>
             <div>
             
-            <form id="serachForm" action="/store/google" method="get">
+            <form id="serachForm" action="/shop/list" method="get">
              <div class="bd-highlight valign"><button class="btn btn-sm btn-primary" id="serch">검색</button></div>
              <input type="hidden" name="keyword" > 
             </form>
@@ -130,6 +130,8 @@
     </div> <!-- site-section -->
 
 
+
+
  
   <style>
 .modal-footer .hide{
@@ -137,7 +139,47 @@
 	
 }
 </style>
+<script>
 
+var actionForm = $("#serachForm")
+var loginForm = $("#loginForm")
+
+
+
+
+function login(){
+	  $("#replyModal").modal('show')
+	}
+	
+
+	
+	 $("#serch").on("click",function(e){
+		e.preventDefault();
+	 
+		//alert($("#keyword").val())
+		$("input[name='keyword']").val($("#keyword").val())
+		serachForm.submit();
+		 
+		 
+		 
+	 })
+	 
+	  $("#loginButton").on("click",function(e){
+	  
+		  
+		  loginForm.submit();
+	  })
+	 
+	  
+	  $("#loginButton").on("click",function(e){
+	  
+		  
+		  loginForm.submit();
+	  })
+
+
+
+</script>
 
  
 <th:block th:insert="/../include/footer.html"></th:block>

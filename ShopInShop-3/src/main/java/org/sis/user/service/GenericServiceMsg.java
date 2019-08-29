@@ -5,7 +5,7 @@ import java.util.List;
 import org.sis.user.model.CriteriaMsg;
 
 
-public interface GenericServiceMsg<VO, K> {
+public interface GenericServiceMsg<VO, K>  {
 
 	public void register(VO vo);
 	

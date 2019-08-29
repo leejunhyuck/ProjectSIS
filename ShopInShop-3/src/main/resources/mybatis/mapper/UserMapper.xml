@@ -24,5 +24,12 @@
 		select mmid,mpw,mname,nick,email,mobile,question,answer,country,address,regdate from tbl_member where mmid = #{mmid} 
 	</select>
     
+    <update id="infoUpdate" >
+    
+    	update tbl_member set mname=#{mname}, nick=#{nick}, email=#{email}, mobile= #{mobile}
+		where mmid = #{mmid}
+    	
+    
+    </update>
     
  </mapper>

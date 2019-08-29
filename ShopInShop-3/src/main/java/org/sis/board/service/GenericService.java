@@ -17,6 +17,9 @@ public interface GenericService<VO, Key> {
 	public List<VO> getList(Criteria cri);
 	
 	public int selectPageCount(Criteria cri);
+	
+	
+	public int getListCount( Criteria cri ); // R - selectPageCount
 
 	
 	

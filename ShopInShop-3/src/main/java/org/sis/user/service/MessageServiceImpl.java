@@ -22,6 +22,7 @@ public class MessageServiceImpl implements MessageService {
 		mapper.insert(vo);
 		
 	}
+	
 	@Override
 	public MessageVO get(Integer Key) {
 		// TODO Auto-generated method stub

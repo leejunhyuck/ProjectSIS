@@ -11,31 +11,35 @@ import lombok.extern.java.Log;
 @Service
 public class UserService {
 
-	@Setter(onMethod_=@Autowired )
+	@Setter(onMethod_ = @Autowired)
 	private UserMapper mapper;
-	
 
 	public void register(MemberVO member) {
-		
-		
-		mapper.join(member);		
-		
-		//memberserice.insertMembership(member);
-		
+
+		mapper.join(member);
+
 	}
-	
-	public MemberVO loginCheck(MemberVO member){
-		
+
+	public MemberVO loginCheck(MemberVO member) {
+
 		return mapper.login(member);
-		
-		
+
 	}
-	
+
 	public MemberVO userInfo(String mmid) {
-		
+
 		return mapper.mypage(mmid);
+
+	}
+	
+	public boolean userModify(MemberVO member) {
+		
+		
+		
+		
+		return mapper.infoUpdate(member)==1?true:false; 
 		
 	}
 	
-	
+
 }

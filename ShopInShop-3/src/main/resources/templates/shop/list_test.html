@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+
+<th:block th:insert="/../include/header.html"></th:block>
+
+
+<style>
+    html, body {
+        position: relative;
+        margin: 0;
+        padding: 0;
+        height: 100%;
+        width: 100%;
+        max-width: 100%;
+        overflow: hidden;
+    }
+    header, nav, section, article, aside, footer {
+        display: block;
+    }
+    header {
+        width: 96%;
+    }
+    container {
+        min-height: 100%;
+        width: 100%
+    }
+    nav {
+        float: both;
+        width: 100%;
+        height: 70px;
+        padding: 15px;
+        background-color: yellow;
+    }
+    section {
+        float: left;
+        width: 55%;
+        height: 100%;
+        background-color: pink;
+        overflow: auto;
+    }
+    aside {
+        float: right;
+        max-width: 45%;
+        height: 100%;
+        background-color: purple;
+        border: 1px solid gray;
+        overflow: auto;
+    }
+    #map-canvas {
+        width: 850px;
+        height: 730px;
+        overflow: auto;
+    }
+    .simple-box {
+        width: 100%;
+        height: 730px;
+        overflow: auto;
+    }
+    .search-bar {
+        width: 96%;
+        height: 100%;
+
+    }
+    img{
+        width: 50px;
+        height: 30px;
+    }
+</style>
+
+<container>
+
+    <nav>
+        <div class="search-bar"></div>
+    </nav>
+
+    <section>
+        <div class="simple-box">
+            <table>
+                <tr>
+                    <th>FirstName</th>
+                    <th>Lastname</th>
+                    <th>Age</th>
+                </tr>
+                <tr>
+                    <td>Jill</td>
+                    <td>Smith</td>
+                    <td>50</td>
+                    <td><img onmouseover="imgHover(37.504980, 127.025082)" onmouseleave="imgLeave()" th:src="@{/images/cloth_1.jpg}"></td>
+                </tr>
+                <tr>
+                    <td>Eve</td>
+                    <td>Jackson</td>
+                    <td>94</td>
+                    <td><img onmouseover="imgHover(37.501460, 127.024228)" onmouseleave="imgLeave()" th:src="@{/images/cloth_2.jpg}"></td>
+                </tr>
+                <tr>
+                    <td>Eve</td>
+                    <td>Jackson</td>
+                    <td>94</td>
+                    <td><img onmouseover="imgHover(37.503202, 127.025512)" onmouseleave="imgLeave()" th:src="@{/images/cloth_3.jpg}"></td>
+                </tr>
+            </table>
+        </div>
+    </section>
+
+    <aside>
+
+        <div id="map-canvas">
+
+            <script src="//maps.googleapis.com/maps/api/js?key=AIzaSyCyfhfvTsgc8w7P_BrNXZbsLW0LaChuChI&language=ko"></script>
+
+            <!-- Map -->
+            <script>
+
+                var subwayStation = [
+                    {	title : '신논현역',
+                        latlng: new google.maps.LatLng( 37.504438, 127.024488 ) },
+                    {	title : '논현역',
+                        latlng: new google.maps.LatLng( 37.511077, 127.021347 ) },
+                    {	title : '강남역',
+                        latlng: new google.maps.LatLng( 37.497945, 127.027549 ) },
+                    {	title : '역삼역',
+                        latlng: new google.maps.LatLng( 37.500631, 127.036432 ) },
+                    {	title : '언주역',
+                        latlng: new google.maps.LatLng( 37.507313, 127.033933 ) },
+                    {	title : '학동역',
+                        latlng: new google.maps.LatLng( 37.514311, 127.031761 ) },
+                ];
+
+                var subwayStationLoc = {
+                    '신논현역' : { position: { lat: 37.504438, lng: 127.024488 } },
+                    '논현역' : { position: { lat: 37.511077, lng: 127.021347 } },
+                    '강남역' : { position: { lat: 37.497945, lng: 127.027549 } },
+                    '역삼역' : { position: { lat: 37.500631, lng: 127.036432 } },
+                    '언주역' : { position: { lat: 37.507313, lng: 127.033933 } },
+                    '학동역' : { position: { lat: 37.514311, lng: 127.031761 } }
+                }
+
+                function initMap() {
+                    var image = 'https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png';
+                    var map = new google.maps.Map( document.getElementById( "map-canvas" ), {
+                        center: new google.maps.LatLng( 37.504520, 127.024236 ) ,
+                        zoom: 15 ,
+                    } ) ;
+
+                    // Event ,, Change Center
+                    map.addListener( "center_changed", function ( argument ) {
+                        console.log( JSON.stringify( argument ));
+                        console.log( argument ) ;
+                    } ) ;
+
+                    for (var station in subwayStationLoc) {
+                        var beachMarker = new google.maps.Marker({
+                            position: subwayStationLoc[station].position,
+                            map: map,
+                            icon: image
+                        });
+                    }
+                }
+
+                <!--Marker-->
+                var marker = new google.maps.Marker( {
+                    map: map
+                } ) ;
+
+                var shopMarker;
+
+                function imgHover( mlat, mlng ) {
+
+                    console.log("lat: " + mlat + ", lng : " + mlng )
+
+                    var image = 'https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png';
+
+                    shopMarker = new google.maps.Marker({
+                        position: {lat: mlat, lng: mlng},
+                        icon: image
+                    });
+
+                    shopMarker.setMap(map)
+                }
+
+                function imgLeave() {
+
+                    shopMarker.setMap(null)
+                }
+
+            </script>
+        </div>
+    </aside>
+</container>
+
+
+<th:block th:insert="/../include/footer.html"></th:block>
+
