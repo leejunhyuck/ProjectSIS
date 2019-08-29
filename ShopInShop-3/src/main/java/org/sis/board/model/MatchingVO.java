@@ -1,6 +1,6 @@
 package org.sis.board.model;
 
-import java.sql.Date;
+import java.util.Date;
 import java.util.List;
 
 import lombok.Data;
@@ -13,6 +13,7 @@ public class MatchingVO {
 	private String title, content,mmid;
 	private Date regdate;
 	private int replycnt;
+	private int viewcnt;
 	
 	private List<MatchingAttachVO> attachList;
 	
