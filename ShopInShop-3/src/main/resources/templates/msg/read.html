@@ -1,21 +1,62 @@
 <html xmlns:th="http://www.thymeleaf.org">
 
-<th:block th:insert="/../include/header.html"></th:block>
+
+<head>
+<meta charset="UTF-8" />
+<title>Shop In Shop</title>
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+<link rel="stylesheet"
+	href="https://fonts.googleapis.com/css?family=Mukta:300,400,700">
+<link rel="stylesheet" th:href="@{/fonts/icomoon/style.css}">
+
+<link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+<link rel="stylesheet" th:href="@{/css/magnific-popup.css}">
+<link rel="stylesheet" th:href="@{/css/jquery-ui.css}">
+<link rel="stylesheet" th:href="@{/css/owl.carousel.min.css}">
+<link rel="stylesheet" th:href="@{/css/owl.theme.default.min.css}">
+
+
+
+
+<link rel="stylesheet" th:href="@{/css/aos.css}">
+<link rel="stylesheet" th:href="@{/css/style.css}">
+<link rel="stylesheet" th:href="@{/css/lightbox.min.css}">
+
+</head>
+<body>
+
+<script th:src="@{/js/jquery-3.3.1.min.js}"></script>
+<script th:src="@{/js/owl.gallery.js}"></script>
+<script th:src="@{/js/lightbox.min.js}"></script>
 
 
 
 <div class="container">
 
-<h1>read page</h1>
 
-<div class="panel-body ">
 
+<div class="card-body">
+<div class="d-flex">
 	
 
-	<div class="form-group">
-		<label>Title</label> <input class="form-control" name="title"
-			th:value="${vo.title}" readonly="readonly" />
+	<div>
+		<label>Title : </label> <span class=" r-auto align-self-center"
+			 >[[${vo.title}]]</span>
 	</div>
+	</div>
+	
+	<div class="d-flex">
+	<div >
+		<label>작성자 : </label> <span class=" r-auto align-self-center"
+			 >[[${vo.whom}]]</span>
+	
+		<div class="ml-auto align-self-end"><span >RegDate : [[${#dates.format(vo.regdate,'yyyy.MM.dd ( H:mm:ss )')}]]</span></div>
+	</div>
+	</div>
+	
+	<hr style="border: outset">
 
 	<div class="form-group">
 		<label>Content</label>
@@ -23,26 +64,18 @@
 			th:text="${vo.content}" readonly="readonly"></textarea>
 	</div>
 
-	<div class="form-group">
-		<label>Writer</label> <input class="form-control" name="mid"
-			th:value="${vo.mmid}" readonly="readonly" />
-	</div>
+	
 
-	<div class="form-group">
-		<label>RegDate</label> <input class="form-control" name="regDate"
-			th:value="${#dates.format(vo.regdate,'yyyy-MM-dd ')}"
-			readonly="readonly" />
-	</div>
-	</div>
 
 	<div class="pull-right" >
 		<a th:href="@{/msg/remove?msgnum={id}(id=${vo.msgnum})}" class="btn-dark btn-sm deleteBtn">Delete</a> 
-		<a th:href="@{/msg/register}" class="btn-dark btn-sm deleteBtn">Register</a>
+		
+		<button class="btn-dark btn-sm regBtn" >register</button>
 		<button class="btn-dark btn-sm listBtn" >Go List</button>
 		
 	</div>
 	</div>
-	
+	</div>
 	
 	<form id="actionForm" action="/msg/remove" method="get">
 	<input type="hidden" name="msgnum" th:value="${cri.msgnum}"> 
@@ -52,6 +85,10 @@
 	<input type="hidden" name="keyword" th:value="${cri.keyword}">
 </form>
 	
+	<form id="registerForm" action="msg/register" method="get">
+	<input type="hidden" name="mmid" th:value="${vo.mmid}">
+	<input type="hidden" name="whom" th:value="${vo.whom}">
+	</form>
 	
 <script th:src="@{/js/reply.js}"></script>
 <script>
@@ -60,6 +97,7 @@
 
 var actionForm = $("#actionForm");
 
+var registerForm = $("#registerForm");
 
 $(".listBtn").on("click", function(e) {
 	console.log("list")
@@ -70,9 +108,27 @@ $(".listBtn").on("click", function(e) {
 })
 
 
+$(".regBtn").on("click", function(e) {
+	console.log("list~~~~~~~~~`")
+	
+ 	registerForm.attr("action", "/msg/register").submit();
+})
+
 
 </script>
 	
 	
+<script th:src="@{/js/jquery-ui.js}"></script>
+<script th:src="@{/js/popper.min.js}"></script>
+<script th:src="@{/js/bootstrap.min.js}"></script>
+<script th:src="@{/js/owl.carousel.min.js}"></script>
+<script th:src="@{/js/jquery.magnific-popup.min.js}"></script>
+<script th:src="@{/js/aos.js}"></script>
 
-<th:block th:insert="/../include/footer.html"></th:block>
+<script th:src="@{/js/main.js}"></script>
+
+<script th:src="@{/js/loginModal.js}"></script>
+
+
+</body>
+</html>

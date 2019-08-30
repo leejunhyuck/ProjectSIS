@@ -46,6 +46,7 @@ public class MessageController {
 		
 		model.addAttribute("list", service.getList(member,cri));
 		model.addAttribute("pm", new PageMakerMsg(cri, totalCount));
+		model.addAttribute("member" ,member);
 	}
 	
 	@GetMapping("/read")

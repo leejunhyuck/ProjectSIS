@@ -1,15 +1,41 @@
 <html xmlns:th="http://www.thymeleaf.org">
 
 
-<th:block th:insert="/../include/header.html"></th:block>
+<head>
+<meta charset="UTF-8" />
+<title>Shop In Shop</title>
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
+<link rel="stylesheet"
+	href="https://fonts.googleapis.com/css?family=Mukta:300,400,700">
+<link rel="stylesheet" th:href="@{/fonts/icomoon/style.css}">
+
+<link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+<link rel="stylesheet" th:href="@{/css/magnific-popup.css}">
+<link rel="stylesheet" th:href="@{/css/jquery-ui.css}">
+<link rel="stylesheet" th:href="@{/css/owl.carousel.min.css}">
+<link rel="stylesheet" th:href="@{/css/owl.theme.default.min.css}">
+
+
+
+
+<link rel="stylesheet" th:href="@{/css/aos.css}">
+<link rel="stylesheet" th:href="@{/css/style.css}">
+<link rel="stylesheet" th:href="@{/css/lightbox.min.css}">
+
+</head>
+<body>
+
+<script th:src="@{/js/jquery-3.3.1.min.js}"></script>
+<script th:src="@{/js/owl.gallery.js}"></script>
+<script th:src="@{/js/lightbox.min.js}"></script>
 
 <div class="container">
 	
 	<h1>쪽지함</h1>
-	<h5>
-		<a th:href="@{/msg/register}">Register</a>
-	</h5>
+	
+	<button class="btn-dark btn-sm regBtn" >register</button>
 	
 	
 <div>
@@ -93,7 +119,10 @@
 	<input type="hidden" name="keyword" th:value="${cri.keyword}">
 	</form>
 
-
+	<form id="registerForm" action="msg/register" method="get">
+	<input type="hidden" name="mmid" th:value="${member.mmid}">
+	
+	</form>
 
 </div>
 <script>
@@ -116,6 +145,18 @@ $(".view").on("click",function(e){
 	actionForm.append("<input type='hidden' name='msgnum' value="+targetmsgnum+">");
 	actionForm.submit();
 });
+
+
+
+var registerForm = $("#registerForm");
+
+
+$(".regBtn").on("click", function(e) {
+	console.log("list~~~~~~~~~`")
+	
+ 	registerForm.attr("action", "/msg/register").submit();
+	
+})
 
 
 
@@ -173,5 +214,17 @@ console.log([1 , 2]);
 </script>
 
 
+<script th:src="@{/js/jquery-ui.js}"></script>
+<script th:src="@{/js/popper.min.js}"></script>
+<script th:src="@{/js/bootstrap.min.js}"></script>
+<script th:src="@{/js/owl.carousel.min.js}"></script>
+<script th:src="@{/js/jquery.magnific-popup.min.js}"></script>
+<script th:src="@{/js/aos.js}"></script>
 
-<th:block th:insert="/../include/footer.html"></th:block>
+<script th:src="@{/js/main.js}"></script>
+
+<script th:src="@{/js/loginModal.js}"></script>
+
+
+</body>
+</html>
