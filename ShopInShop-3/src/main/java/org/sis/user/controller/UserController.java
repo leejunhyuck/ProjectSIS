@@ -132,6 +132,7 @@ public class UserController {
 		}
 	    
 	    
+	 
 	    
 	    return "/user/joinResult";
 	  }

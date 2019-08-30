@@ -3,90 +3,174 @@
 
 
 <th:block th:insert="/../include/header.html"></th:block>
-            
 
-     <div class="container">
-			<form method="post">
-				<p>
-					<label>아이디</label> <input type="text" name="mmid" placeholder="아이디"  required="required" value="mmid"  />
-					<input type="button" value="중복확인" class="btn btn-primary btn-lg">
-				</p>
-				<p>
-					<label>비밀번호</label> <input type="password" name="mpw"  placeholder="비밀번호" required="required" value="mpw" />
-				</p>
-				<p>
-					<label>비밀번호 확인</label> <input type="password"  name="isPassword" placeholder="비밀번호 확인" required="required" />
-				</p>
-				<p>
-					<label>이름</label> <input type="text"  placeholder="이름"  name="mname" required="required" value="mname" />
-				</p>
-				<p>
-					<label>닉네임</label> <input type="text" name="nick" placeholder="닉네임" required="required" value="nick" />
-				</p>
-				<p>
-					<label>email</label> <input type="email" name="email"   required="required" value="email@naver.com"/>
-				</p>
-				<p>
-					<label>phone</label> <input type="tel" pattern="(010)-\d{3,4}-\d{4}" name="mobile"  required="required" value="010-2222-2222"/>
-				</p>
-				<p>
-					<label>질문</label> <input type="text"  name="question" required="required" value="question"/>
-				</p>
-				<p>
-					<label>답변</label> <input type="text"  name="answer"  required="required" value="answer"/>
-				</p>
-				<p>
-					<label>나라</label> <input type="text"  name="country" required="required" value="country" />
-				</p>
-				<p>
-					<label>주소</label> <input type="text"  name="address" required="required" value="address"/>
-				</p>
-				<p>
-				
-					<label>성별</label><br>
-						<input name="gender" value="M" type="radio">남&nbsp;&nbsp;
-						<input name="gender" value="W" type="radio">여			
-						</p>
-				
-				
-				<button type="submit" class="btn">join</button>
-			</form>
-			
- </div>
+
+<div class="container">
+	<div class="col-md-7" style="margin: auto;">
+ 		<div class="row">
+          <div class="col-md-12">
+          <p></p>
+            <h2 class="h3 mb-3 text-black">회원가입</h2>
+          </div>
+          </div>
+
+		<form method="post">
+
+			<div class="p-3 p-lg-5 border">
+				<div class="form-group row">
+					<div class="col-md-6">
+						<label for="c_fname" class="text-black">아이디 <span
+							class="text-danger">*</span></label> <input type="text"
+							class="form-control" name="mmid" placeholder="아이디"
+							required="required" value="mmid" />
+					</div>
+					<div class="col-md-3">
+					<label for="c_fname" class="text-black">중복 체크</label>
+						<input type="button" value="중복확인"
+							class="btn btn-primary btn-lg btn-block">
+					</div>
+				</div>
+				<div class="form-group row">
+					<div class="col-md-6">
+						<label for="c_fname" class="text-black">비밀번호 <span
+							class="text-danger">*</span></label> <input type="password"
+							class="form-control" name="mpw" placeholder="비밀번호"
+							required="required" value="mpw" />
+					</div>
+					<div class="col-md-6">
+						<label for="c_fname" class="text-black">비밀번호 확인 <span
+							class="text-danger">*</span></label> <input type="password"
+							class="form-control" name="isPassword" placeholder="비밀번호 확인"
+							required="required" />
+					</div>
+
+
+				</div>
+
+				<div class="form-group row">
+					<div class="col-md-6">
+						<label for="c_fname" class="text-black">이름 <span
+							class="text-danger">*</span></label> <input type="text"
+							class="form-control" name="mmid" placeholder="아이디"
+							required="required" value="mmid" />
+
+
+					</div>
+				</div>
+
+				<div class="form-group row">
+					<div class="col-md-6">
+						<label for="c_email" class="text-black">Email <span
+							class="text-danger">*</span></label> <input type="email"
+							class="form-control" name="email" required="required"
+							value="email@naver.com" />
+					</div>
+
+					<div class="col-md-6">
+						<label for="c_email" class="text-black"> 공백 <span
+							class="text-danger"></span></label> <input type="email"
+							class="form-control" name="email" required="required"
+							value="email@naver.com" />
+					</div>
+				</div>
+
+				<div class="form-group row">
+					<div class="col-md-6">
+						<label for="c_fname" class="text-black">Phone <span
+							class="text-danger">*</span></label> <input type="tel"
+							class="form-control" pattern="(010)-\d{3,4}-\d{4}" name="mobile"
+							required="required" value="010-2222-2222" />
+					</div>
+				</div>
+
+				<div class="form-group row">
+					<div class="col-md-6">
+						<label for="c_fname" class="text-black">질문 <span
+							class="text-danger">*</span></label> <input type="text"
+							class="form-control" name="question" required="required"
+							value="question" />
+					</div>
+				</div>
+
+				<div class="form-group row">
+					<div class="col-md-6">
+						<label for="c_fname" class="text-black">답변 <span
+							class="text-danger">*</span></label> <input type="text"
+							class="form-control" name="answer" required="required"
+							value="answer" />
+					</div>
+				</div>
+
+
+				<div class="form-group row">
+					<div class="col-md-6">
+						<label for="c_fname" class="text-black">나라 <span
+							class="text-danger">*</span></label><input type="text"
+							class="form-control" name="country" required="required"
+							value="country" />
+					</div>
+				</div>
+				<div class="form-group row">
+					<div class="col-md-6">
+						<label for="c_fname" class="text-black">주소 <span
+							class="text-danger">*</span></label><input type="text"
+							class="form-control" name="address" required="required"
+							value="address" />
+					</div>
+				</div>
+				<div class="form-group row">
+
+					<div class="col-md-12">
+						<label>성별</label><br> <input name="gender" value="M"
+							type="radio">남&nbsp;&nbsp; <input name="gender" value="W"
+							type="radio">여
+					</div>
+				</div>
+				<div class="form-group row">
+					<div class="col-md-12">
+						<label for="c_message" class="text-black">Message </label>
+						<textarea name="c_message" id="c_message" cols="30" rows="7"
+							class="form-control"></textarea>
+					</div>
+				</div>
+				<div class="form-group row">
+					<div class="col-lg-3">
+						<input type="submit" class="btn btn-primary btn-lg btn-block"
+							value="회원가입">
+					</div>
+				</div>
+			</div>
+		</form>
+	</div>
+
+
+</div>
 <!--        </div>-->
 
 
-  </div>
-   <style>
-.modal-footer .hide{
-	display:none;
-	
+
+<style>
+.modal-footer .hide {
+	display: none;
 }
 </style>
 
-  
- 
-  <script>
-  
-  function login(){
-	  $("#replyModal").modal('show')
+
+
+<script>
+	function login() {
+		$("#replyModal").modal('show')
 	}
-  	
-  
-	 $("#joinpage").on("click",function(e){
-		 e.preventDefault();
-	  	
-  	})
-	 
-    $("#loginButton").on("click",function(e){
-	  
-		  
-		  loginForm.submit();
-	  })
-	 
 
-  	
-  </script>
+	$("#joinpage").on("click", function(e) {
+		e.preventDefault();
 
-  <th:block th:insert="/../include/footer.html"></th:block>
- 
+	})
+
+	$("#loginButton").on("click", function(e) {
+
+		loginForm.submit();
+	})
+</script>
+
+<th:block th:insert="/../include/footer.html"></th:block>
