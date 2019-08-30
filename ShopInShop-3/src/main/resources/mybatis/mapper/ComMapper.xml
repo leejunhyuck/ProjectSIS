@@ -58,7 +58,17 @@
     select *from tbl_board_com
      <include refid="searchCri"></include> 
     order by bno desc limit #{skip} , #{amount}
-    </select>    
+    </select>
+    
+    <select id="NextPrevBno" resultType="Integer">
+    <![CDATA[
+    select bno FROM tbl_board_com  WHERE bno IN 
+    ( 
+    (SELECT bno  FROM tbl_board_com WHERE bno < #{bno}  ORDER BY bno DESC LIMIT 1), 
+    (SELECT bno  FROM tbl_board_com WHERE bno > #{bno}  ORDER BY bno LIMIT 1) 
+    )
+    ]]> 
+    </select>     
 
     
     <select id="selectPageCount" resultType="int">

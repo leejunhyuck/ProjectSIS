@@ -29,14 +29,16 @@
 
 <div class="container">
 
+
+
 <div class="card shadow mb-4">
 <div class="card-body">
 	<div class="d-flex">
 		<span class="mr-auto align-self-center">[[${vo.title}]] ( [[${vo.replycnt}]] )  </span>
 		<div class="ml-auto">
-			<a class="align-self-center btn-sm btn-info" th:href="@{/community/register}">이전글</a>
+			<a class="align-self-center btn-sm btn-info prevBtn" href="#">이전글</a>
 			<a class="align-self-center btn-sm btn-primary listBtn" href="#">목록으로</a>
-			<a class="align-self-center btn-sm btn-info" th:href="@{/community/register}">다음글</a>
+			<a class="align-self-center btn-sm btn-info nextBtn" href="#">다음글</a>
 		</div>
 	</div>
 	
@@ -51,7 +53,7 @@
 	<hr style="border: outset">
 
 <div class="uploadBox" style="display:none">
-	<div class="site-section block-3 uploadBox">
+	<div class="site-section block-3 card shadow mb-4">
       <div class="container">
         <div class="row justify-content-center">
           <div class="col-md-7 site-section-heading text-center pt-4">
@@ -64,8 +66,9 @@
             </div>
           </div>
         </div>
+        <br>
       </div>
-  	</div> 
+  	</div>
   	<hr style="border: outset">
 </div> <!--  image box -->
 	
@@ -76,13 +79,14 @@
 
 	<div class="d-flex">
 		<div class="mr-auto">
-			<button class="btn-outline-success btn-sm addReplyBtn">Add Reply</button>
+			<button class="btn-outline-success btn-sm addReplyBtn">댓글 달기</button>
+			<button class="btn-outline-primary btn-sm likeBtn">좋아요 ([[${vo.comlike}]])</button>
 		</div>
 		
 		<div class="ml-auto">
-			<button class="btn-primary btn-sm">register</button>
-			<button class="btn-warning btn-sm modBtn">Modify/Delete</button> 
-			<button class="btn-primary btn-sm listBtn">Go List</button>
+			<button class="btn-primary btn-sm regBtn">글쓰기</button>
+			<button class="btn-warning btn-sm modBtn">수정 및 삭제</button> 
+			<button class="btn-primary btn-sm listBtn">목록으로</button>
 		</div>
 	</div>
 </div>
@@ -114,8 +118,6 @@
 	</div>
 </div>
 </div>
-
-
 
 
 
@@ -174,8 +176,72 @@ $(".listBtn").on("click", function(e) {
 	actionForm.find("input[name='bno']").remove();
 	actionForm.attr("action", "/community/list").submit();
 })
+$(".regBtn").on("click", function(e) {
+	actionForm.html("");
+	actionForm.attr("action","/community/register").submit();
+})
+
+var prevnext = [[${bnoPrevNext}]];
+
+$(".prevBtn").on("click", function(e){
+	e.preventDefault();
+	if(prevnext.length == 1 && prevnext > bno){
+		alert("이전글이 없습니다.")
+	}else{
+		$("input[name='bno']").val(prevnext[0])
+		actionForm.attr("action","/community/read").submit();
+	}
+	
+})
+$(".nextBtn").on("click", function(e){
+	e.preventDefault();
+	if(prevnext.length == 1 && prevnext < bno){
+		alert("다음글이 없습니다.")
+	}else if((prevnext.length == 1 && prevnext > bno)){
+		$("input[name='bno']").val(prevnext)
+		actionForm.attr("action","/community/read").submit();
+	}else{
+		$("input[name='bno']").val(prevnext[1])
+		actionForm.attr("action","/community/read").submit();
+	}
+	
+})
 <!-- actionForm End .. -->
 
+
+<!-- like Btn -->
+
+$(".likeBtn").on("click",function(e){
+	e.preventDefault();
+	let obj = {
+			bno : [[${vo.bno}]],
+			mmid : "[[${vo.mmid}]]"
+		};
+	comLikeBtn(obj,function(){
+		alert("종아요성공 !")},
+		function(){
+			alert("좋아요 중복!!")
+		});
+
+	
+});
+function comLikeBtn(obj, callback,callback2) {
+	$.ajax({
+		type : "post",
+		url : "/like_com/" + "new",
+		data : JSON.stringify(obj),
+		contentType : "application/json;charset=UTF-8",
+		success : function() {
+			if (callback) {
+				callback();
+				}},
+		error : function() {
+			if (callback2) {
+				callback2();
+				}}
+	});
+};
+<!-- like Btn -->
 
 
 <!-- reply js -->
@@ -355,7 +421,7 @@ function showReplyPage(replyCnt){
 	
 	str += "</ul>";
 	
-	console.log(str);
+	
 	pageReply.append(str);	
 }
 

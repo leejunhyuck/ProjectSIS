@@ -64,6 +64,7 @@ public class ComController {
 		log.info("bno: "+cri.getBno());
 		
 		model.addAttribute("vo", service.select(cri.getBno()));
+		model.addAttribute("bnoPrevNext",service.getPrevNext(cri.getBno()));
 	}
 	
 	@PostMapping("/modify")

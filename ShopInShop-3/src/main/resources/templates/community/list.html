@@ -38,7 +38,7 @@
         <tbody>
 		<tr th:each="vo : ${list}">
 			<th scope="row" class="text-center" th:text="${vo.bno}"></td>
-			<td><a class="view" th:href="${vo.bno}" th:text="${vo.title}"></a><span> ([[${vo.replycnt}]])</span></td>
+			<td><a class="view" th:href="${vo.bno}" th:text="${vo.title}"></a><span> ([[${vo.replycnt}]]) 좋아요([[${vo.comlike}]])</span></td>
 			<td class="text-center" th:text="${vo.mmid}"></td>
 			<td class="text-center"  th:if="${vo.regdate.before(#dates.createToday())}">[[${#dates.format(vo.regdate, 'yyyy-MM-dd')}]]</td>
 			<td class="text-center"  th:if="${vo.regdate.after(#dates.createToday())}">[[${#dates.format(vo.regdate, 'H:mm a')}]]</td>
@@ -77,28 +77,20 @@
 
 
 
-	<ul class="pagination" th:with="page=${page}">
+	<ul class="pagination">
 		
 		<li th:if="${pm.prev}" class="page-item"><a class="page-link"
 			th:href='${pm.start-1}'>Previous</a></li>
 			
 			
-		<c:forEach begin="${pm.start}" end="${pm.end}" var="idx">
-			<li class="page-item ${pm.current == idx ? "active":"" } ">
-			<a class="page-link" href='${idx}'>${idx}</a></li>
-		</c:forEach>
 		
-
-	
-		<li th:each="pageNumber : ${page}">
-			<a class="page-link" th:text=${pageNumber}></a>
+		<li  th:class="${pageNumber == pm.current} ? 'page-item active' : 'page-item'" th:each="pageNumber : ${pm.pageList}">
+			<a class="page-link" th:href='${pageNumber}' th:text='${pageNumber}'></a>
 		</li>
 		
 		
-		
-		
 
-			<li th:if="${pm.next}" class="page-item"><a class="page-link" 
+		<li th:if="${pm.next}" class="page-item"><a class="page-link" 
 			th:href='${pm.end+1}'>Next</a></li>
 	</ul>
 	
@@ -181,16 +173,7 @@ $(".amount-opt").on("change",function(e){
 });
 <!-- actionForm End .. -->
 
-<!-- make pagenation -->
 
-var page = [] 
-
-for(var i = [[${pm.start}]] ; i <= [[${pm.end}]] ; i++ ){
-	page.push(i);
-}
-console.log(page);
-
-console.log([1 , 2]);
 	
 	
 

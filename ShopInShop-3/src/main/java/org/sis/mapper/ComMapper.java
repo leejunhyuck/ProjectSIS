@@ -23,6 +23,8 @@ public interface ComMapper {
 	public int selectPageCount(Criteria cri);	
 	public List<ComVO> selectPage(Criteria cri);
 	
+	public List<Integer> NextPrevBno(Integer bno); 
+	
 	
 	public List<ComVO> search(@Param("map") Map<String,String> map);
 	
@@ -32,7 +34,12 @@ public interface ComMapper {
 	@Update("update tbl_board_com set viewcnt=viewcnt+1 where bno =#{bno}")
 	public int updateViewCnt(@Param("bno") Integer bno);
 	
+	@Update("update tbl_board_com set comlike=comlike+1 where bno =#{bno}")
+	public int updateLikeCnt(@Param("bno") Integer bno);
+	
 	@Select("select * from tbl_board_com_file where bno = #{bno}")
 	public List<ComAttachVO> findbyBno(int bno);
+	
+	
 	
 }

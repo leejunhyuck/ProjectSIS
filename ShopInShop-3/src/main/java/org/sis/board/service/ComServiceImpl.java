@@ -93,4 +93,12 @@ public class ComServiceImpl implements ComService{
 		return 0;
 	}
 
+
+	@Override
+	public List<Integer> getPrevNext(Integer bno) {
+		
+		return mapper.NextPrevBno(bno);
+	}
+
+
 }
