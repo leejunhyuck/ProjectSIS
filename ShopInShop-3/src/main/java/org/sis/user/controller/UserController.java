@@ -1,7 +1,12 @@
 package org.sis.user.controller;
 
+import java.io.DataInputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.net.Socket;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpSession;
 
 import org.json.simple.JSONObject;
@@ -14,6 +19,7 @@ import org.sis.user.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -161,9 +167,90 @@ public class UserController {
 	}
 	
 	@GetMapping("/recent")
-	public void recent(HttpSession session,Model model) {
+	public void recent(HttpSession session,Model model,@CookieValue(value="productItems", required=false ) Cookie genderCookie) {			
 
 		log.info("recent...");
+		
+		if(genderCookie != null) {
+			String a =genderCookie.getValue();
+			log.info(a);
+			
+			String[] words = a.split("%2C");
+		
+
+			for (String string : words) {
+			
+			log.info(string);
+			}
+			
+		}
+		
+		
+		
+		
+	
+		
+		
+	}
+	
+	@PostMapping("/socket")
+	public void socket1() {
+
+		log.info("socket");
+		
+		 try{
+
+
+             // 1. 서버의 IP와 서버의 동작 포트 값(10001)을 인자로 넣어 socket 생성
+
+             Socket sock = new Socket("192.168.41.64", 9000);
+
+             String msg = "123";
+            
+
+             // 2. 생성된 Socket으로부터 InputStream과 OutputStream을 구함
+
+             OutputStream out = sock.getOutputStream();
+             
+             out.write(msg.getBytes());
+             
+             out.flush();
+             
+             
+             
+             InputStream in = sock.getInputStream();
+             
+             byte[] arr = new byte[1024];
+
+             int count = in.read(arr);
+             
+             System.out.println(new String(arr));
+             
+             System.out.println(count);
+                          
+             in.close();
+
+             out.close();
+             
+             sock.close();
+
+      }catch(Exception e){
+
+             System.out.println(e);
+             e.printStackTrace();
+
+      }
+
+}
+		
+	
+	
+	
+	@GetMapping("/socket")
+	public void socket() {
+
+		log.info("socket page");
+		
 		
 	
 		

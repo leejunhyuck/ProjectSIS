@@ -13,4 +13,5 @@ public interface UserMapper {
 	
 	public int infoUpdate(MemberVO member);
 	
+	
 }

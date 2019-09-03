@@ -25,7 +25,6 @@ public class UserService {
 		return mapper.login(member);
 
 	}
-
 	public MemberVO userInfo(String mmid) {
 
 		return mapper.mypage(mmid);
@@ -40,6 +39,7 @@ public class UserService {
 		return mapper.infoUpdate(member)==1?true:false; 
 		
 	}
+	
 	
 
 }
