@@ -49,6 +49,11 @@ a {
     visibility: visible; }
 
 .btn {
+  height: 65px;
+  vertical-align: middle;
+  text-align: center;
+  display: table-cell;
+  margin-left: 20px;
   text-transform: uppercase;
   position: relative;
   -webkit-transition: 0.2s all ease-in-out !important;
@@ -70,14 +75,14 @@ a {
   .btn.btn-primary {
     font-size: 17px;
     font-weight: 300;
-    letter-spacing: .2em; }
+     }
   .btn:hover {
     -webkit-box-shadow: 0 5px 20px -7px rgba(0, 0, 0, 0.9) !important;
     box-shadow: 0 5px 20px -7px rgba(0, 0, 0, 0.9) !important;
     top: -2px; }
-
 .form-control {
-  height: 43px; }
+  height: 43px;
+  }
   .form-control:active, .form-control:focus {
     border-color: #7971ea; }
   .form-control:hover, .form-control:active, .form-control:focus {
@@ -751,3 +756,24 @@ a {
   width: 120px;
   border-radius: 50%;
   margin-bottom: 20px; }
+  
+  .my-search-box {
+  height: 65px;
+  border: 0.5rem solid #7971ea;
+}
+.marginn-left {
+   margin-left: 10px;
+ }
+ .marginn-top {
+  margin-top: 10px;
+}
+.marginn-right {
+  margin-right: 10px;
+}
+.marginn-right-2 {
+  margin-right: 20px;
+}
+
+.search-box-input-form {
+	width: 400px;
+}

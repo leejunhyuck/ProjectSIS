@@ -108,9 +108,12 @@
 
 				    <form id="loginForm" action="/user/login" method="post">
 					<input type="text" class="form-control mbno" 
-						 placeholder="아이디" id="mmid" name="mmid" > 
-					<input type="text" class="form-control mrno" id="mpw" name="mpw"   placeholder="비밀번호">
-					<button class="btn btn-secondary" type="button" data-dismiss="modal" id="loginButton">로그인</button>
+						 placeholder="아이디" id="mmid" name="mmid" required="required" > 
+					<input type="text" class="form-control mrno" id="mpw" name="mpw" placeholder="비밀번호" required="required">
+					<div class="col-lg-3">
+						<input type="submit" class="btn btn-primary btn-lg btn-block"
+							value="로그인">
+					</div>
 				    </form>
 				    
 				
