@@ -1,5 +1,7 @@
 package org.sis.user.controller;
 
+import java.util.function.Supplier;
+
 import javax.servlet.http.HttpSession;
 
 import org.sis.user.model.CriteriaMsg;
@@ -36,17 +38,36 @@ public class MessageController {
 	
 	@GetMapping("/list")
 	public void listPage(@ModelAttribute("cri") CriteriaMsg cri,@ModelAttribute("vo") MessageVO vo ,Model model,HttpSession session) {		
-		int totalCount = service.getListCount(cri);
+		
 		
 		session.getAttribute("mmid");
 		
 		MemberVO member = new MemberVO();
-		
 		member.setMmid((String)session.getAttribute("mmid"));
-		
+		int totalCount = service.selectPageCount(member,cri);
 		model.addAttribute("list", service.getList(member,cri));
+		model.addAttribute("vo", member);
 		model.addAttribute("pm", new PageMakerMsg(cri, totalCount));
-		model.addAttribute("member" ,member);
+		model.addAttribute("cnt", service.countmsg(member));
+		model.addAttribute("recnt", service.counturmsg(member));
+		
+	}
+	
+	@GetMapping("/sendlist")
+	public void sendlistPage(@ModelAttribute("cri") CriteriaMsg cri,@ModelAttribute("vo") MessageVO vo ,Model model,HttpSession session) {		
+		
+		
+		session.getAttribute("mmid");
+		
+		MemberVO member = new MemberVO();
+		member.setMmid((String)session.getAttribute("mmid"));
+		int totalCount = service.selectsendPageCount(member,cri);
+		model.addAttribute("list", service.getsendList(member,cri));
+		model.addAttribute("vo", member);
+		model.addAttribute("pm", new PageMakerMsg(cri, totalCount));
+		model.addAttribute("cnt", service.countmsg(member));
+		model.addAttribute("recnt", service.counturmsg(member));
+		
 	}
 	
 	@GetMapping("/read")

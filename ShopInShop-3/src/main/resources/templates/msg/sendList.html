@@ -33,41 +33,27 @@
 
 <div class="container">
 	
-	<h1>받은 쪽지함</h1>
+	<h1>보낸 쪽지함</h1>
 	
 	<button class="btn-dark btn-sm regBtn" >register</button>
-	<a th:href="@{/msg/sendlist}" class="btn-dark btn-sm deleteBtn">send</a> 
 	
+	<a th:href="@{/msg/list}" class="btn-dark btn-sm deleteBtn">list</a>
+	<h2></h2>
 	
-	<span style="
-font-weight: bold;  
-font-size: 1em;
-line-height: 1.0em;  
-color: gray;
-font-family: arial;
-float:right;
-padding:15px 0 0 0;
-">
-읽지 않은 메세지 /받은 메세지 :[[${recnt}]] / [[${cnt}]]
-</span>
-	
-	
-	<hr style="border: outset">
-		
 	
 <div>
 	<table class="table-msg table table-hover">
 		<tr class="table-primary">
 			<td>MSGNUM</td>
 			<td>제목</td>
-			<td>보낸사람</td>
+			<td>받은사람</td>
 			<td>REGDATE</td>
 			<td>read</td>
 		</tr>
 		<tr th:each="vo : ${list}">
 			<td th:text="${vo.msgnum}"></td>
 			<td><a class="view" th:href="${vo.msgnum}" th:text="${vo.title}"></a></td>
-			<td th:text="${vo.mmid}"></td>
+			<td th:text="${vo.whom}"></td>
 			<td th:if="${vo.regdate.before(#dates.createToday())}">[[${#dates.format(vo.regdate, 'yyyy-MM-dd')}]]</td>
             <td th:if="${vo.regdate.after(#dates.createToday())}">[[${#dates.format(vo.regdate, 'H:mm a')}]]</td>
             <td th:if="${vo.readed}==false">안읽음</td>
@@ -97,7 +83,8 @@ padding:15px 0 0 0;
 			<option value="100" th:attr="selected=${cri.amount == 100? 'true' : 'false'}">100</option>
 		</select>
 		
-	<ul class="pagination">
+	</div>
+		<ul class="pagination">
 		
 		<li th:if="${pm.prev}" class="page-item"><a class="page-link"
 			th:href='${pm.start-1}'>Previous</a></li>
@@ -116,12 +103,14 @@ padding:15px 0 0 0;
 
 
 
+
+
 	
 </div>
 	
 
 
-	<form id="actionForm" action="/msg/list" method="get">
+	<form id="actionForm" action="/msg/sendlist" method="get">
 	<input type="hidden" name="page" th:value="${cri.page}">
 	<input type="hidden" name="amount" th:value="${cri.amount}">
 	<input type="hidden" name="type" th:value="${cri.type}">

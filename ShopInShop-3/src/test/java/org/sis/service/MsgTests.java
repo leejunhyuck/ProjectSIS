@@ -28,13 +28,28 @@ public class MsgTests {
 			
 	
 		MessageVO vo = new MessageVO();
-		vo.setMmid("mmid3");
+		vo.setMmid("mmid11");
 		vo.setContent("content"+i);
 		vo.setTitle("title1"+i);
 		vo.setWhom("user123");
 		mapper.insert(vo);
 		}
 	}
+	
+	
+	@Test
+	public void insertTests1() {
+		
+			
+	
+		MessageVO vo = new MessageVO();
+		vo.setMmid("user123");
+		vo.setContent("您好，见到您很高兴。");
+		vo.setTitle("您好");
+		vo.setWhom("mmid3");
+		mapper.insert(vo);
+		}
+	
 	@Test
 	public void timetest() {
 		tmapper.getTime();

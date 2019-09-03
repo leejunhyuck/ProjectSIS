@@ -1,5 +1,8 @@
 package org.sis.user.model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.web.util.UriComponentsBuilder;
 
 import lombok.Getter;
@@ -13,6 +16,7 @@ public class PageMakerMsg {
 	private boolean prev, next;
 	private int totalCount;
 	private int current, start, end;
+	private List<Integer> pageList;
 	
 	public PageMakerMsg(CriteriaMsg cri, int totalCount) {
 		
@@ -35,6 +39,12 @@ public class PageMakerMsg {
 		}
 		
 		next = tempTotal < totalCount;		
+		
+		List<Integer> pages = new ArrayList<>();
+		for(int i = start; i<=end ; i++) {
+			pages.add(i);
+		}
+		pageList = pages;
 	}
 	
 	public String getLink(String path, int pageNum) {

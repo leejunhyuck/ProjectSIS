@@ -3,6 +3,7 @@ package org.sis.user.service;
 import java.util.List;
 
 import org.sis.user.model.CriteriaMsg;
+import org.sis.user.model.MemberVO;
 
 
 public interface GenericServiceMsg<VO, K>  {
@@ -18,6 +19,8 @@ public interface GenericServiceMsg<VO, K>  {
 	public List<VO> getList(CriteriaMsg cri);
 	
 	public int getListCount(CriteriaMsg cri);
+
+	
 
 	
 	

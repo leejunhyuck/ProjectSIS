@@ -40,6 +40,11 @@ public class MessageServiceImpl implements MessageService {
 	}
 	
 
+	@Override
+	public List<MessageVO> getsendList(MemberVO vo, CriteriaMsg cri) {
+		// TODO Auto-generated method stub
+		return mapper.msgsendListPage(vo, cri);
+	}
 	
 
 	@Override
@@ -67,5 +72,30 @@ public class MessageServiceImpl implements MessageService {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+	@Override
+	public int countmsg(MemberVO vo) {
+		
+		return mapper.Countmsg(vo);
+	}
+
+	@Override
+	public int counturmsg(MemberVO vo) {
+		// TODO Auto-generated method stub
+		return mapper.Countreadmsg(vo);
+	}
+
+	@Override
+	public int selectPageCount(MemberVO vo,CriteriaMsg cri) {
+		// TODO Auto-generated method stub
+		return mapper.selectPageCount(vo,cri);
+	}
+
+	@Override
+	public int selectsendPageCount(MemberVO vo, CriteriaMsg cri) {
+		// TODO Auto-generated method stub
+		return mapper.selectsendPageCount(vo,cri);
+	}
+
 	
 	}
