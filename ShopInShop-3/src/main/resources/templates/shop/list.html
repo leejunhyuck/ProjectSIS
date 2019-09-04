@@ -4,232 +4,237 @@
 	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 
 <th:block th:insert="/../include/header.html"></th:block>
+<link rel="stylesheet"
+	href="https://netdna.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+
+<link rel="stylesheet" href="/css/bootstrap-multiselect.css"
+	type="text/css">
+<script type="text/javascript" src="/js/bootstrap-multiselect.js"></script>
 
 
 <style>
-	html, body {
-		position: relative;
-		margin: 0;
-		padding: 0;
-		height: 100%;
-		width: 100%;
-		max-width: 100%;
-		overflow: hidden;
-	}
-	nav, section, article, aside, footer {
-		display: block;
-	}
-	header {
-		width: 96%;
-	}
-	container {
-		min-height: 100%;
-		width: 100%
-	}
-	nav {
-		float: both;
-		width: 100%;
-		height: 70px;
-		padding: 15px;
-		background-color: yellow;
-	}
-	section {
-		float: left;
-		width: 55%;
-		height: 100%;
-		background-color: pink;
-		overflow: auto;
-	}
-	aside {
-		float: right;
-		max-width: 45%;
-		height: 100%;
-		background-color: purple;
-		border: 1px solid gray;
-		overflow: auto;
-	}
-    #map-canvas {
-        width: 850px;
-        height: 730px; 
-        overflow: auto;
-    }
-    .simple-box {
-    	width: 100%;
-		height: 730px;
-		overflow: auto;
-    }
-    .search-bar {
-    	width: 96%;
-		height: 100%;
+html, body {
+	position: relative;
+	margin: 0;
+	padding: 0;
+	height: 100%;
+	width: 100%;
+	max-width: 100%;
+	overflow: hidden;
+}
 
-    }
-    img{
-    	width: 50px;
-    	height: 30px;
-    }
+nav, section, article, aside, footer {
+	display: block;
+}
+
+header {
+	width: 96%;
+}
+
+container {
+	min-height: 100%;
+	width: 100%
+}
+
+nav {
+	float: both;
+	width: 100%;
+	height: 70px;
+	padding: 15px;
+	background-color: yellow;
+}
+
+section {
+	float: left;
+	width: 55%;
+	height: 100%;
+	background-color: pink;
+	overflow: auto;
+}
+
+aside {
+	float: right;
+	max-width: 45%;
+	height: 100%;
+	background-color: purple;
+	border: 1px solid gray;
+	overflow: auto;
+}
+
+#map-canvas {
+	width: 850px;
+	height: 730px;
+	overflow: auto;
+}
+
+.simple-box {
+	width: 100%;
+	height: 730px;
+	overflow: auto;
+}
+
+.search-bar {
+	width: 96%;
+	height: 100%;
+}
+
+img {
+	width: 50px;
+	height: 30px;
+}
 </style>
 
 <container>
 
-	<nav>
-		<div class="search-bar"></div>
-	</nav>
-	
-	<section>
-		<div class="simple-box">
-			<table>
-			  <tr>
-			    <th>FirstName</th>
-			    <th>Lastname</th> 
-			    <th>Age</th>
-			  </tr>
-			  <tr>
-			    <td>Jill</td>
-			    <td>Smith</td> 
-			    <td>50</td>
-			    <td><img onmouseover="imgHover(37.504980, 127.025082)" onmouseleave="imgLeave()" th:src="@{/images/cloth_1.jpg}"></td>
-			  </tr>
-			  <tr>
-			    <td>Eve</td>
-			    <td>Jackson</td> 
-			    <td>94</td>
-			    <td><img onmouseover="imgHover(37.501460, 127.024228)" onmouseleave="imgLeave()" th:src="@{/images/cloth_2.jpg}"></td>
-			  </tr>
-			  <tr>
-			    <td>Eve</td>
-			    <td>Jackson</td> 
-			    <td>94</td>
-			    <td><img onmouseover="imgHover(37.503202, 127.025512)" onmouseleave="imgLeave()" th:src="@{/images/cloth_3.jpg}"></td>
-			  </tr>
-			</table>
-		</div>
-	</section>
-	
-	<aside>
-	
-		<div id="map-canvas">
-		
-			<script src="//maps.googleapis.com/maps/api/js?key=AIzaSyCyfhfvTsgc8w7P_BrNXZbsLW0LaChuChI&language=ko"></script>
-			
-			<!-- Map -->
-			<script>
-			
-				var centerLoc = { lat : 37.504520, lng : 127.024236 }
-			
-				function setCenterLoc( latVal, lngVal ) {
-					centerLoc = { lat : latVal, lng : lngVal }
-				}
-				
-				var mapContainer = document.getElementById( "map-canvas" ) ;
-				var mapOption = {
-				        center: centerLoc ,
-				        zoom: 15,
-				}
-				
-				var map = new google.maps.Map( mapContainer, mapOption ) ;
-				
-			    // Event ,, Change Center
-			    map.addListener( "center_changed", function ( argument ) {
-			        console.log( JSON.stringify( argument ));
-			        console.log( argument ) ;
-			    } ) ;
-			    
-				var centerMarker; // 검색한 지역 ( 지도의 중심 )
-				var shopSpecifiedLocMarker; // 특정 매물의 위치
-				//var shopCountInArea; // 매물 개수 ( 현재 지도의 범위 내 )
-				var subwayStationMarker; // 지하철역 ( 현재 지도의 범위 내 )
-				
-				var subwayStationLoc2 = {
-						'신논현역' : { position: { lat: 37.504438, lng: 127.024488 } },
-		                '논현역' : { position: { lat: 37.511077, lng: 127.021347 } },
-		                '강남역' : { position: { lat: 37.497945, lng: 127.027549 } },
-		                '역삼역' : { position: { lat: 37.500631, lng: 127.036432 } },
-		                '언주역' : { position: { lat: 37.507313, lng: 127.033933 } },
-		                '학동역' : { position: { lat: 37.514311, lng: 127.031761 } }
-                }
-				var subwayStationLoc = [
-					{ content : '<div>신논현역</div>', position: { lat: 37.504438, lng: 127.024488 } },
-	                { content : '<div>논현역</div>', position: { lat: 37.511077, lng: 127.021347 } },
-	                { content : '<div>강남역</div>', position: { lat: 37.497945, lng: 127.027549 } },
-	                { content : '<div>역삼역</div>', position: { lat: 37.500631, lng: 127.036432 } },
-	                { content : '<div>언주역</div>', position: { lat: 37.507313, lng: 127.033933 } },
-	                { content : '<div>학동역</div>', position: { lat: 37.514311, lng: 127.031761 } }
-			    ]
-				
-			    //function initMap() {
-			    	
-				    var image = 'https://img.icons8.com/office/40/000000/subway.png';
-				
-					<!--Marker-->
-					/* centerMarker = new google.maps.Marker( {
-				        map: map,
-				        position: {lat: 37.504520, lng: 127.024236 }
-				    } ) ; */
-				    
-				    var subwayCircle;
-				    
-				    for ( var station in subwayStationLoc ) {
-				    	
-				    	subwayStationMarker = new google.maps.Marker({
-                            position: subwayStationLoc[station].position,
-                            map: map,
-                            icon: image,
-                            clickable: true
-                        });
-				    	
-				    	subwayStationMarker.addListener("click", function() {
- 				    		subwayCircle = new google.maps.Circle({
-				    			strokeColor: '#9B59B6',
-				    			strokeOpacity: 0.8,
-				    		    strokeWeight: 2,
-				    		    fillColor: '#9B59B6',
-				    		    fillOpacity: 0.35,
-					            map: map,
-					            center: subwayStationLoc[station].position,
-					            radius: 500
-					    	}); 
-					    });
-                    }	    
-			    //}
-				
-/* 				var subwayCircle2 = new google.maps.Circle({
-	    			strokeColor: '#FF0000',
-	    			strokeOpacity: 0.8,
-	    		    strokeWeight: 2,
-	    		    fillColor: '#FF0000',
-	    		    fillOpacity: 0.35,
-		            map: map,
-		            center: centerLoc,
-		            radius: 500
-		    	});; */
-			    
-			    function imgHover( mlat, mlng ) {
-			    	
-			    	console.log("lat: " + mlat + ", lng : " + mlng )
-			    	
-			        var imageSrc = 'https://img.icons8.com/office/40/000000/marker.png'
-			        //var imageSize = new google.maps.Size(10,10);
-			    	//var markerImage = new google.maps.MarkerImage(imageSrc, imageSize)
-			    	shopSpecifiedLocMarker = new google.maps.Marker({
-			          position: {lat: mlat, lng: mlng},
-			          icon : imageSrc
-			          //icon: markerImage
-			   		});
-			        
-			    	shopSpecifiedLocMarker.setMap(map)
-			    }
-			    
-			    function imgLeave() {
+<nav>
+	<div class="search-bar row">
+		<input class="form-control col-2 " placeholder="검색하세요.">
+		<button class="btn-primary btn-sm searchBtn">Search</button>
 
-			    	shopSpecifiedLocMarker.setMap(null)
-			    }
+		<select id="multi-select1" multiple="multiple">
+			<option value="jQuery" selected>식당</option>
+			<option value="Bootstrap">디저트</option>
+			<option value="HTML">카페</option>
+			<option value="CSS">생활</option>
+			<option value="angular">오락시설</option>
+		</select>
 
-			        
-			</script>
+		<div class="dropdown">
+			<button class="btn btn-secondary dropdown-toggle" type="button"
+				id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true"
+				aria-expanded="false">보증금</button>
+			<div class="dropdown-menu" aria-labelledby="dropdownMenu2">
+				<div class="border p-4 rounded mb-4">
+					<div class="mb-4">
+						<h3 class="mb-3 h6 text-uppercase text-black d-block">Filter
+							by Price</h3>
+						<div id="slider-range" class="border-primary"></div>
+						<input type="text" name="text" id="amount"
+							class="form-control border-0 pl-0 bg-white" disabled="" />
+					</div>
+				</div>
+
+			</div>
 		</div>
-	</aside>
+
+		<div class="dropdown">
+			<button class="btn btn-secondary dropdown-toggle" type="button"
+				id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true"
+				aria-expanded="false">월세</button>
+			<div class="dropdown-menu" aria-labelledby="dropdownMenu2">
+				<div class="border p-4 rounded mb-4">
+					<div class="mb-4">
+						<h3 class="mb-3 h6 text-uppercase text-black d-block">Filter
+							by Price</h3>
+						<div id="slider-range2" class="border-primary"></div>
+						<input type="text" name="text" id="amount2"
+							class="form-control border-0 pl-0 bg-white" disabled="" />
+					</div>
+				</div>
+
+			</div>
+		</div>
+
+		<div class="dropdown">
+			<button class="btn btn-secondary dropdown-toggle" type="button"
+				id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true"
+				aria-expanded="false">제곱면적</button>
+			<div class="dropdown-menu" aria-labelledby="dropdownMenu2">
+				<div class="border p-4 rounded mb-4">
+					<div class="mb-4">
+						<h3 class="mb-3 h6 text-uppercase text-black d-block">Filter
+							by Price</h3>
+						<div id="slider-range3" class="border-primary"></div>
+						<input type="text" name="text" id="amount3"
+							class="form-control border-0 pl-0 bg-white" disabled="" />
+					</div>
+				</div>
+
+			</div>
+		</div>
+
+		<select id="multi-select2">
+			<option value="jQuery" selected>주차장 존재</option>
+			<option value="Bootstrap">주차장 없음</option>
+
+
+		</select> <select id="multi-select3">
+			<option value="jQuery" selected>엘리베이터 존재</option>
+			<option value="Bootstrap">엘리베이터 없음</option>
+
+
+		</select> <select id="multi-select4">
+			<option value="jQuery" selected>화장실 존재</option>
+			<option value="Bootstrap">화장실 없음</option>
+
+		</select> <select id="multi-select5">
+			<option value="Bootstrap">지하</option>
+			<option value="jQuery"selected>1층</option>
+			<option value="Bootp">2층</option>
+			<option value="HTML">3층</option>
+			<option value="CSS">4층</option>
+			<option value="angular">5층</option>
+			<option value="angular">6층</option>
+			<option value="angular">7층</option>
+			<option value="angular">그 이상 층</option>
+		</select>
+
+
+
+
+
+
+
+	</div>
+
+</nav>
+
+<section>
+	<div class="simple-box">
+		<table>
+			<tr>
+				<th>FirstName</th>
+				<th>Lastname</th>
+				<th>Age</th>
+			</tr>
+			<tr>
+				<td>Jill</td>
+				<td>Smith</td>
+				<td>50</td>
+				<td><img onmouseover="imgHover(37.504980, 127.025082)"
+					onmouseleave="imgLeave()" th:src="@{/images/cloth_1.jpg}"></td>
+			</tr>
+			<tr>
+				<td>Eve</td>
+				<td>Jackson</td>
+				<td>94</td>
+				<td><img onmouseover="imgHover(37.501460, 127.024228)"
+					onmouseleave="imgLeave()" th:src="@{/images/cloth_2.jpg}"></td>
+			</tr>
+			<tr>
+				<td>Eve</td>
+				<td>Jackson</td>
+				<td>94</td>
+				<td><img onmouseover="imgHover(37.503202, 127.025512)"
+					onmouseleave="imgLeave()" th:src="@{/images/cloth_3.jpg}"></td>
+			</tr>
+		</table>
+	</div>
+</section>
+
+<aside>
+
+	<div id="map-canvas"></div>
+</aside>
 </container>
 
+
+</body>
 
 <script th:src="@{/js/jquery-ui.js}"></script>
 <script th:src="@{/js/popper.min.js}"></script>
@@ -242,7 +247,197 @@
 
 <script th:src="@{/js/loginModal.js}"></script>
 
+<script
+	src="//maps.googleapis.com/maps/api/js?key=AIzaSyCyfhfvTsgc8w7P_BrNXZbsLW0LaChuChI&language=ko"></script>
 
-</body>
+<!-- Map -->
+<script>
+	var centerLoc = {
+		lat : 37.504520,
+		lng : 127.024236
+	}
+
+	function setCenterLoc(latVal, lngVal) {
+		centerLoc = {
+			lat : latVal,
+			lng : lngVal
+		}
+	}
+
+	var mapContainer = document.getElementById("map-canvas");
+	var mapOption = {
+		center : centerLoc,
+		zoom : 15,
+	}
+
+	var map = new google.maps.Map(mapContainer, mapOption);
+
+	// Event ,, Change Center
+	map.addListener("center_changed", function(argument) {
+		console.log(JSON.stringify(argument));
+		console.log(argument);
+	});
+
+	var centerMarker; // 검색한 지역 ( 지도의 중심 )
+	var shopSpecifiedLocMarker; // 특정 매물의 위치
+	//var shopCountInArea; // 매물 개수 ( 현재 지도의 범위 내 )
+	var subwayStationMarker; // 지하철역 ( 현재 지도의 범위 내 )
+
+	var subwayStationLoc2 = {
+		'신논현역' : {
+			position : {
+				lat : 37.504438,
+				lng : 127.024488
+			}
+		},
+		'논현역' : {
+			position : {
+				lat : 37.511077,
+				lng : 127.021347
+			}
+		},
+		'강남역' : {
+			position : {
+				lat : 37.497945,
+				lng : 127.027549
+			}
+		},
+		'역삼역' : {
+			position : {
+				lat : 37.500631,
+				lng : 127.036432
+			}
+		},
+		'언주역' : {
+			position : {
+				lat : 37.507313,
+				lng : 127.033933
+			}
+		},
+		'학동역' : {
+			position : {
+				lat : 37.514311,
+				lng : 127.031761
+			}
+		}
+	}
+	var subwayStationLoc = [ {
+		content : '<div>신논현역</div>',
+		position : {
+			lat : 37.504438,
+			lng : 127.024488
+		}
+	}, {
+		content : '<div>논현역</div>',
+		position : {
+			lat : 37.511077,
+			lng : 127.021347
+		}
+	}, {
+		content : '<div>강남역</div>',
+		position : {
+			lat : 37.497945,
+			lng : 127.027549
+		}
+	}, {
+		content : '<div>역삼역</div>',
+		position : {
+			lat : 37.500631,
+			lng : 127.036432
+		}
+	}, {
+		content : '<div>언주역</div>',
+		position : {
+			lat : 37.507313,
+			lng : 127.033933
+		}
+	}, {
+		content : '<div>학동역</div>',
+		position : {
+			lat : 37.514311,
+			lng : 127.031761
+		}
+	} ]
+
+	//function initMap() {
+
+	var image = 'https://img.icons8.com/office/40/000000/subway.png';
+
+	<!--Marker-->
+	/* centerMarker = new google.maps.Marker( {
+	    map: map,
+	    position: {lat: 37.504520, lng: 127.024236 }
+	} ) ; */
+
+	var subwayCircle;
+
+	for ( var station in subwayStationLoc) {
+
+		subwayStationMarker = new google.maps.Marker({
+			position : subwayStationLoc[station].position,
+			map : map,
+			icon : image,
+			clickable : true
+		});
+
+		subwayStationMarker.addListener("click", function() {
+			subwayCircle = new google.maps.Circle({
+				strokeColor : '#9B59B6',
+				strokeOpacity : 0.8,
+				strokeWeight : 2,
+				fillColor : '#9B59B6',
+				fillOpacity : 0.35,
+				map : map,
+				center : subwayStationLoc[station].position,
+				radius : 500
+			});
+		});
+	}
+	//}
+
+	/* 				var subwayCircle2 = new google.maps.Circle({
+	 strokeColor: '#FF0000',
+	 strokeOpacity: 0.8,
+	 strokeWeight: 2,
+	 fillColor: '#FF0000',
+	 fillOpacity: 0.35,
+	 map: map,
+	 center: centerLoc,
+	 radius: 500
+	 });; */
+
+	function imgHover(mlat, mlng) {
+
+		console.log("lat: " + mlat + ", lng : " + mlng)
+
+		var imageSrc = 'https://img.icons8.com/office/40/000000/marker.png'
+		//var imageSize = new google.maps.Size(10,10);
+		//var markerImage = new google.maps.MarkerImage(imageSrc, imageSize)
+		shopSpecifiedLocMarker = new google.maps.Marker({
+			position : {
+				lat : mlat,
+				lng : mlng
+			},
+			icon : imageSrc
+		//icon: markerImage
+		});
+
+		shopSpecifiedLocMarker.setMap(map)
+	}
+
+	function imgLeave() {
+
+		shopSpecifiedLocMarker.setMap(null)
+	}
+
+	$(document).ready(function() {
+		$('#multi-select1').multiselect();
+		$('#multi-select2').multiselect();
+		$('#multi-select3').multiselect();
+		$('#multi-select4').multiselect();
+		$('#multi-select5').multiselect();
+	});
+</script>
+
 </html>
 

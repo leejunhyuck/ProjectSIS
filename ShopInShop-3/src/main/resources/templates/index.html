@@ -11,9 +11,12 @@
             <div class="d-flex justify-content-center bd-highlight mb-3">
               <div class="d-flex justify-content-center my-search-box marginn-right-2">
                 <div class="marginn-left marginn-top"><span class="icon icon-search2"></span></div>
-                <div class="marginn-left"><input type="text" class="form-control border-0 search-box-input-form" placeholder="매물을 검색하세요"></div>
+                <div class="marginn-left"><input type="text" class="form-control border-0 search-box-input-form" placeholder="매물을 검색하세요" id="keyword" ></div>
               </div>
-              <div><a href="#" class="btn btn-sm btn-primary">검색</a></div> <!--  class="p-2 bd-highlight" -->
+             <form id="serachForm" action="/shop/list" method="get">
+            <div class="bd-highlight valign"><button class="btn btn-sm btn-primary" id="serch">검색</button></div>
+            <input type="hidden" name="keyword" >
+           </form>
             </div>
             </div>
           </div>
@@ -143,8 +146,9 @@
 		e.preventDefault();
 
 		//alert($("#keyword").val())
+		
 		$("input[name='keyword']").val($("#keyword").val())
-		serachForm.submit();
+		actionForm.submit();
 
 	})
 </script>

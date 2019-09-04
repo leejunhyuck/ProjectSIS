@@ -15,8 +15,6 @@
 <link rel="stylesheet" th:href="@{/css/owl.theme.default.min.css}">
 
 
-
-
 <link rel="stylesheet" th:href="@{/css/aos.css}">
 <link rel="stylesheet" th:href="@{/css/style.css}">
 <link rel="stylesheet" th:href="@{/css/lightbox.min.css}">
@@ -24,123 +22,129 @@
 </head>
 <body>
 
-<script th:src="@{/js/jquery-3.3.1.min.js}"></script>
-<script th:src="@{/js/owl.gallery.js}"></script>
-<script th:src="@{/js/lightbox.min.js}"></script>
-
- 
+	<script th:src="@{/js/jquery-3.3.1.min.js}"></script>
+	<script th:src="@{/js/owl.gallery.js}"></script>
+	<script th:src="@{/js/lightbox.min.js}"></script>
 
 
 
-    <!-- Header Start -->
-    <header class="site-navbar" role="banner">
-      <div class="site-navbar-top">
-        <div class="container">
-          <div class="row align-items-center">
 
-            <div class="text-center">
-              <div class="site-logo">
-                <a href="/" class="js-logo-clone">Shop In Shop</a>
-              </div>
-            </div>
 
-            <div class="site-navigation">
+	<!-- Header Start -->
+	<header class="site-navbar" role="banner">
+		<div class="site-navbar-top">
+			<div class="container">
+				<div class="row align-items-center">
 
-              <ul class="site-menu js-clone-nav d-none d-md-block">
-
-                <li><a href="../shop/list">Shop</a></li>
-                <li><a href="../matching/list">Matching</a></li>
-                <li><a href="../community/list">Community</a></li>
-
-              </ul>
-            </div>
-
-            <div class="col-6 col-md-4 order-3 "> <!--  text-right -->
-              <div class="site-top-icons">
-                 <div class="site-navigation" role="navigation"> <!--  text-right text-md-center"  -->
-                 	<ul class="site-menu js-clone-nav d-noned-md-block">
-                  		<li><a href="../user/recent">관심목록</a></li>
- <!--                  	<li><a href="../join.html">회원가입</a></li> -->
-<!--                  	<li><a href="../mypage.html">마이페이지</a></li>-->
-					
-                 		<span th:if="${session.mname}">
-                 		
-	                 		<li class="has-children">
-				              <a href="#"><span>[[${session.mname}]]님</span></a>
-				              <ul class="dropdown">
-				                <li><a href="/user/mypage">정보 수정</a></li>
-				                <li><a href="#">거래 진행</a></li>
-				                <li><a href="/msg/list" onclick="window.open('msg/list', '쪽지함','width=550, height=700'); return false">쪽지함</a></li>
-				                <li><a href="/user/logout">로그아웃</a></li>
-				              </ul>
-				            </li>
-			            
-                  		</span>	
-                  		
-                  		<span th:unless="${session.mname}">
-				 
-                   			<li>
-                   				<a href="javascript:login();"><span>회원가입·로그인</span></a>
-                   			</li>
-                   		</span>
-                 	</ul>
-                 </div>
-              </div>
-           </div>       
-                  
-
-<!--                  <li><a href="#">로그아웃</a></li>-->
-<!--                  <li class="d-inline-block d-md-none ml-md-0"><a href="#" class="site-menu-toggle js-menu-toggle"><span class="icon-menu"></span></a></li>-->
-                
-            
-	<div class="modal fade" id="replyModal" tabindex="-1" role="dialog"
-		aria-labelledby="exampleModalLabel" aria-hidden="true">
-		<div class="modal-dialog" role="document">
-			<div class="modal-content">
-				<div class="modal-header">
-					<h6 class="modal-title" id="exampleModalLabel">로그인</h6>
-					<button class="close" type="button" data-dismiss="modal"
-						aria-label="Close">
-						<span aria-hidden="true">×</span>
-					</button>
-				</div>
-				<div class="modal-body">
-
-				    <form id="loginForm" action="/user/login" method="post">
-					<input type="text" class="form-control mbno" 
-						 placeholder="아이디" id="mmid" name="mmid" required="required" > 
-					<input type="text" class="form-control mrno" id="mpw" name="mpw" placeholder="비밀번호" required="required">
-					<div class="col-lg-3">
-						<input type="submit" class="btn btn-primary btn-lg btn-block"
-							value="로그인">
+					<div class="text-center">
+						<div class="site-logo">
+							<a href="/" class="js-logo-clone">Shop In Shop</a>
+						</div>
 					</div>
-				    </form>
-				    
-				
-					<div id="naver_id_login" style="text-align:center"><a href="/user/login" target="_blank">
-					<img width="150" src="https://developers.naver.com/doc/review_201802/CK_bEFnWMeEBjXpQ5o8N_20180202_7aot50.png"/></a></div>
-	
-					<div id ="kakao_id_Login" style="text-align:center">	
-					<a href="https://kauth.kakao.com/oauth/authorize?client_id=4eb1e6b4b8d8a1e1a9a46592616e1cb0&redirect_uri=http://localhost:8080/user/oauth&response_type=code"
-					target="_blank">
-          	 		<img width="150" src="/images/kakao_account_login_btn_medium_narrow.png"></a>
-        			</div>
-        		
-			</div>
-			<div class="modal-footer">
-				<button class="btn btn-secondary" type="button" id="joinpage" data-dismiss="modal" onclick="location.href='/user/join'">회원가입</button>
-				
 
-        		
-				<button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-				
+					<div class="site-navigation">
+
+						<ul class="site-menu js-clone-nav d-none d-md-block">
+
+							<li><a href="../shop/list">Shop</a></li>
+							<li><a href="../matching/list">Matching</a></li>
+							<li><a href="../community/list">Community</a></li>
+
+						</ul>
+					</div>
+
+					<div class="col-6 col-md-4 order-3 ">
+						<!--  text-right -->
+						<div class="site-top-icons">
+							<div class="site-navigation" role="navigation">
+								<!--  text-right text-md-center"  -->
+								<ul class="site-menu js-clone-nav d-noned-md-block">
+									<li><a href="../user/recent">관심목록</a></li>
+									<!--                  	<li><a href="../join.html">회원가입</a></li> -->
+									<!--                  	<li><a href="../mypage.html">마이페이지</a></li>-->
+
+									<span th:if="${session.mname}">
+
+										<li class="has-children"><a href="#"><span>[[${session.mname}]]님</span></a>
+											<ul class="dropdown">
+												<li><a href="/user/mypage">정보 수정</a></li>
+												<li><a href="#">거래 진행</a></li>
+												<li><a href="/msg/list"
+													onclick="window.open('msg/list', '쪽지함','width=550, height=700'); return false">쪽지함</a></li>
+												<li><a href="/user/logout">로그아웃</a></li>
+											</ul></li>
+
+									</span>
+
+									<span th:unless="${session.mname}">
+
+										<li><a href="javascript:login();"><span>회원가입·로그인</span></a>
+									</li>
+									</span>
+								</ul>
+							</div>
+						</div>
+					</div>
+
+
+					<!--                  <li><a href="#">로그아웃</a></li>-->
+					<!--                  <li class="d-inline-block d-md-none ml-md-0"><a href="#" class="site-menu-toggle js-menu-toggle"><span class="icon-menu"></span></a></li>-->
+
+
+					<div class="modal fade" id="replyModal" tabindex="-1" role="dialog"
+						aria-labelledby="exampleModalLabel" aria-hidden="true">
+						<div class="modal-dialog" role="document">
+							<div class="modal-content">
+								<div class="modal-header">
+									<h6 class="modal-title" id="exampleModalLabel">로그인</h6>
+									<button class="close" type="button" data-dismiss="modal"
+										aria-label="Close">
+										<span aria-hidden="true">×</span>
+									</button>
+								</div>
+								<div class="modal-body">
+
+									<form id="loginForm" action="/user/login" method="post">
+										<input type="text" class="form-control mbno" placeholder="아이디"
+											id="mmid" name="mmid" required="required"> <input
+											type="text" class="form-control mrno" id="mpw" name="mpw"
+											placeholder="비밀번호" required="required">
+										<div class="col-lg-3">
+											<input type="submit" class="btn btn-primary btn-lg btn-block"
+												value="로그인">
+										</div>
+									</form>
+
+
+									<div id="naver_id_login" style="text-align: center">
+										<a href="/user/login" target="_blank"> <img width="150"
+											src="https://developers.naver.com/doc/review_201802/CK_bEFnWMeEBjXpQ5o8N_20180202_7aot50.png" /></a>
+									</div>
+
+									<div id="kakao_id_Login" style="text-align: center">
+										<a
+											href="https://kauth.kakao.com/oauth/authorize?client_id=4eb1e6b4b8d8a1e1a9a46592616e1cb0&redirect_uri=http://localhost:8080/user/oauth&response_type=code"
+											target="_blank"> <img width="150"
+											src="/images/kakao_account_login_btn_medium_narrow.png"></a>
+									</div>
+
+								</div>
+								<div class="modal-footer">
+									<button class="btn btn-secondary" type="button" id="joinpage"
+										data-dismiss="modal" onclick="location.href='/user/join'">회원가입</button>
+
+
+
+									<button class="btn btn-secondary" type="button"
+										data-dismiss="modal">Cancel</button>
+
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
 			</div>
 		</div>
-	</div>
-</div>
-          </div>
-        </div>
-      </div>
-    </header>
- 
-    <!-- Header End -->
+	</header>
+
+	<!-- Header End -->
