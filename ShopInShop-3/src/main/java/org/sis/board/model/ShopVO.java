@@ -17,16 +17,19 @@ public class ShopVO {
 	@DateTimeFormat( pattern = "yyyy/MM/dd HH:mm:ss" )
 	private Timestamp updatedate;
 	private String stype;
+	private String sname;
 	private Integer deposit;
 	private Integer rent;
-	private Integer floor;
-	private Integer surface;
-	private Integer p_surface;
-	private Integer park;
-	private Integer elev;
+	private String floor;
+	private double surface;
+	private double p_surface;
+	private boolean park;
+	private boolean elev;
 	private String location;
-	private Integer toilet;
+	private boolean toilet;
 	private Integer viewcnt;
 	private String mmid; //_fk
+	private double lat;
+	private double lng;
 	
 }

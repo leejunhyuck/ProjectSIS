@@ -6,14 +6,11 @@
 <th:block th:insert="/../include/header.html"></th:block>
 <link rel="stylesheet"
 	href="https://netdna.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
-
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
-
-<link rel="stylesheet" href="/css/bootstrap-multiselect.css"
-	type="text/css">
+<link rel="stylesheet" href="/css/bootstrap-multiselect.css" type="text/css">	
 <script type="text/javascript" src="/js/bootstrap-multiselect.js"></script>
 
 
@@ -25,7 +22,6 @@ html, body {
 	height: 100%;
 	width: 100%;
 	max-width: 100%;
-	overflow: hidden;
 }
 
 nav, section, article, aside, footer {
@@ -61,14 +57,14 @@ aside {
 	float: right;
 	max-width: 45%;
 	height: 100%;
-	background-color: purple;
+	
 	border: 1px solid gray;
 	overflow: auto;
 }
 
 #map-canvas {
 	width: 850px;
-	height: 730px;
+	height: 950px;
 	overflow: auto;
 }
 
@@ -83,9 +79,10 @@ aside {
 	height: 100%;
 }
 
-img {
-	width: 50px;
-	height: 30px;
+.itemFixed {
+	position: fixed;
+	top: 0px;
+	right:0;
 }
 </style>
 
@@ -183,49 +180,65 @@ img {
 			<option value="angular">7층</option>
 			<option value="angular">그 이상 층</option>
 		</select>
-
-
-
-
-
-
-
 	</div>
 
 </nav>
 
+	
+
 <section>
-	<div class="simple-box">
-		<table>
-			<tr>
-				<th>FirstName</th>
-				<th>Lastname</th>
-				<th>Age</th>
-			</tr>
-			<tr>
-				<td>Jill</td>
-				<td>Smith</td>
-				<td>50</td>
-				<td><img onmouseover="imgHover(37.504980, 127.025082)"
-					onmouseleave="imgLeave()" th:src="@{/images/cloth_1.jpg}"></td>
-			</tr>
-			<tr>
-				<td>Eve</td>
-				<td>Jackson</td>
-				<td>94</td>
-				<td><img onmouseover="imgHover(37.501460, 127.024228)"
-					onmouseleave="imgLeave()" th:src="@{/images/cloth_2.jpg}"></td>
-			</tr>
-			<tr>
-				<td>Eve</td>
-				<td>Jackson</td>
-				<td>94</td>
-				<td><img onmouseover="imgHover(37.503202, 127.025512)"
-					onmouseleave="imgLeave()" th:src="@{/images/cloth_3.jpg}"></td>
-			</tr>
-		</table>
-	</div>
-</section>
+		<div class="row">
+			<div class="col-md-1"></div>
+			<div class="col-md-5">
+				<div class="site-section-heading pt-3 mb-4">
+					<h5>조건에 맞는 매물 : N개</h5>
+				</div>
+			</div>
+		</div>
+		<!-- list Header -->
+
+
+		<div class="row justify-content-center">
+		
+			<div class="col-sm-5 mb-4" 
+				th:each="vo : ${list}">
+				<div class="block-4">
+					<img src="/images/shop.jpg" alt="Image placeholder" th:attr="onmouseover=|imgHover(${vo.lat},${vo.lng})|" 
+					 onmouseleave="imgLeave()"
+						class="img-fluid">
+					<div class="block-4-text p-1">
+						<p class="mb-0">업종: [[${vo.stype}]]</p>
+						<p style="text-align: right;" class="mb-0">원하는 업종</p>
+						<p class="text-primary font-weight-bold mb-0">전세금:
+							[[${vo.deposit}]]만원 / 월세: [[${vo.rent}]] 만원</p>
+						<p class="mb-0">제공가능면적: [[${vo.p_surface}]] 평</p>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- DIV Container -->
+
+	<ul class="pagination justify-content-center">
+
+		<li th:if="${pm.prev}" class="page-item"><a class="page-link"
+			th:href='${pm.start-1}'>Previous</a></li>
+		<li
+			th:class="${pageNumber == pm.current} ? 'page-item active' : 'page-item'"
+			th:each="pageNumber : ${pm.pageList}"><a class="page-link"
+			th:href='${pageNumber}' th:text='${pageNumber}'></a></li>
+
+
+		<li th:if="${pm.next}" class="page-item"><a class="page-link"
+			th:href='${pm.end+1}'>Next</a></li>
+
+	</ul>
+
+
+
+
+
+</section>		
+	
 
 <aside>
 
@@ -252,6 +265,11 @@ img {
 
 <!-- Map -->
 <script>
+
+
+
+
+
 	var centerLoc = {
 		lat : 37.504520,
 		lng : 127.024236
@@ -430,13 +448,26 @@ img {
 		shopSpecifiedLocMarker.setMap(null)
 	}
 
+		
+
+
+	
 	$(document).ready(function() {
 		$('#multi-select1').multiselect();
 		$('#multi-select2').multiselect();
 		$('#multi-select3').multiselect();
 		$('#multi-select4').multiselect();
 		$('#multi-select5').multiselect();
+		
+
 	});
+	
+	
+	
+	
+	
+	
+	
 </script>
 
 </html>
