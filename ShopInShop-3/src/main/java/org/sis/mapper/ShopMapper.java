@@ -6,6 +6,7 @@ import java.util.Map;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.sis.board.model.Criteria;
+import org.sis.board.model.ListVO;
 import org.sis.board.model.ShopVO;
 import org.springframework.stereotype.Repository;
 
@@ -26,5 +27,10 @@ public interface ShopMapper {
 
 	public int selectViewcnt( Integer bno );
 	public int updateViewcnt( Integer bno );
+	
+	public List<ListVO> selectList(ListVO vo);
+	
+	public List<ListVO> selectconList(ListVO vo);
+	
 	
 }

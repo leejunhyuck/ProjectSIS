@@ -11,6 +11,7 @@ public interface MatchingService extends GenericService<MatchingVO, Integer>{
 
 	public List<MatchingAttachVO> getAttachList(Integer bno);
 	
+	public List<Integer> getPrevNext(Integer bno);
 	
 	
 }

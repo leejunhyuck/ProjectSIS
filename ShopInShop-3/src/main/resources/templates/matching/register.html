@@ -6,62 +6,72 @@
 
 <div class="container">
 
-<h1>register page</h1>
-
-<div class="panel-body">
+<div class="card shadow mb-4">
+<div class="card-body">
 
 	<form class="actionForm" th:action="@{/matching/register}" method="post">
 
 		<div class="form-group">
-			<label>Title</label> 
-			<input class="form-control" name="title"/>			
+			<label th:text="#{board.title}"></label> 
+			<input class="form-control" name="title" required="required"/>			
 		</div>
+		
+		<hr style="border: outset">
 
 		<div class="form-group">
-			<label>Content</label>
-			<textarea class="form-control" rows="3" name='content'></textarea>
+			<textarea class="form-control" rows="30" name='content'></textarea>
+			<input class="form-control" type="hidden" name="mmid" value="user123"/> 
+			<!-- get mmid by login -->
 		</div>
-
-		<div class="form-group" >
-			<label>mid</label> 
-			<input class="form-control" name="mmid"/>
-		</div>
-		<button type="submit" class="insertBtn btn-success btn-sm">Submit Button</button>
-		<button type="reset" class="btn-primary btn-sm">Reset Button</button>
-		<a th:href="@{/matching/list}" class="btn-secondary btn-sm"> Go to List </a>
+		
+		<button type="submit" class="insertBtn btn-success btn-sm" th:text="#{board.button.registerBtn}">Submit Button</button>
+		<button type="reset" class="btn-primary btn-sm" th:text="#{board.button.resetBtn}">Reset Button</button>
+		<a th:href="@{/matching/list}" class="btn-secondary btn-sm" th:text="#{board.button.listBtn}"> Go to List </a>
 	</form>
-	
+		
+		<div class="uploadBox" style="display: none"> 
+			<hr style="border: outset">
+			<div class="site-section block-3 card shadow mb-4">
+				<div class="container">
+					<div class="row justify-content-center">
+						<div class="col-md-7 site-section-heading text-center pt-4">
+							<h2 th:text="#{board.uploadFile}">Upload Image</h2>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-md-12">
+							<div class="nonloop-block-3 owl-carousel"></div>
+						</div>
+					</div>
+					<br>
+				</div>
+			</div>
+			<hr style="border: outset">
+		</div><!--  uploadBox -->
+
 	<hr>
 
-
-<div class="input-group">
-  <div class="input-group-prepend">
-    <span class="input-group-text" id="inputGroupFileAddon01">Upload</span>
-  </div>
-  <div class="custom-file">
-    <input type="file" class="custom-file-input" id="inputGroupFile01"  name="files"
-      aria-describedby="inputGroupFileAddon01" multiple="multiple">
-    <label class="custom-file-label" for="inputGroupFile01">Choose file</label>
-  </div>
-</div>
-
-	
-	
-
-
-	<div class="uploadResult">
-		<ul>
-		</ul>
-	</div>
-	
-</div>
+	<div class="input-group">
+ 	<div class="input-group-prepend">
+    	<span class="input-group-text" id="inputGroupFileAddon01" th:text="#{board.upload}">Upload</span>
+  	</div>
+  	<div class="custom-file">
+    	<input type="file" class="custom-file-input" id="inputGroupFile01"  name="files"
+      	aria-describedby="inputGroupFileAddon01" multiple="multiple">
+    	<label class="custom-file-label" for="inputGroupFile01" th:text="#{board.uploadLabel}">Choose file</label>
+  	</div> 
+	</div> <!--  input - upload -->
 
 </div>
+</div> <!-- end Card-shadow -->
+
+</div> <!-- end Container -->
+
 
 <script th:inline="javascript">
 $(document).ready(function() {
 		
-	var cloneObj = $(".uploadDiv").clone()
+	//var cloneObj = $(".custom-file").clone()
 				
 	$("input[type=file]").on("change", function(e) {
 		e.preventDefault();
@@ -69,7 +79,6 @@ $(document).ready(function() {
 		var formData = new FormData();
 		var inputFile = $("input[name='files']");
 		var files = inputFile[0].files;
-		console.log(files);
 		
 		for (var i = 0; i < files.length; i++) {
 			if (!checkExtension(files[i].name, files[i].size)) {
@@ -90,7 +99,7 @@ $(document).ready(function() {
 				console.log(result);
 			
 				showUploadFile(result);
-				$(".uploadDiv").html(cloneObj.html());
+				//$(".custom-file").html(cloneObj.html());
 				}
 		}); // End $.ajax
 	});// End Upload Event
@@ -101,9 +110,8 @@ $(document).ready(function() {
 		e.preventDefault();
 		var str ="";
 		
-		$(".uploadResult ul li").each(function(i,obj){
+		$(".uploadBox img").each(function(i,obj){
 			var jobj = $(obj);
-			console.log(jobj);
 			
 			str += "<input type='hidden' name='attachList["+i+"].fileName' value='"+jobj.data("filename")+"'>";
 			str += "<input type='hidden' name='attachList["+i+"].uuid' value='"+jobj.data("uuid")+"'>";
@@ -160,33 +168,33 @@ $(document).ready(function() {
 	} // check upload
 		
 	function showUploadFile(uploadResultArr) {
-		var str = "";
 		$(uploadResultArr).each(function(i, obj) {
+			var str = "";
 			var folderFileName = encodeURIComponent(obj.uuid+ "_" + obj.fileName);
+			if(uploadResultArr != 0){
+				$(".uploadBox").attr('style', "display:block;");
+			}
 
 			if (!obj.image) {
 				str += "<li><a href='/upload_matching/download?fileName="+
 						folderFileName+ "'>"+ obj.fileName+ "</li>";
-			}else{//var fileCallPath = encodeURIComponent(obj.uploadPath+"/s_"+obj.uuid+"_"+obj.fileName);
-				var folderFileName = "/s_"+ obj.uuid + "_"+ obj.fileName;
-				
-				var originFileName = encodeURIComponent(obj.uploadPath+ obj.uuid+ "_"+obj.fileName);
-				
+			}else{
+				var fileOriginPath = encodeURIComponent(obj.uploadPath+ obj.uuid+ "_"+obj.fileName);			
 				var fileCallPath = encodeURIComponent(obj.uploadPath+ "/s_"+ obj.uuid+ "_"+ obj.fileName);
 				
-				str +="<li data-path='"+obj.uploadPath+"' data-uuid='"+obj.uuid+"' data-filename='"+obj.fileName+"'><div>";
-				str +="<span>"+obj.fileName+"</span>";
-				str +="<button data-file="+fileCallPath+" class='btn-warning btn-circle'><i class='fa fa-times'>x</i></button><br>";
-				str +="<img src='/upload_matching/getImage?fileName="+fileCallPath+"'>"
-				str +="</div></li>";
-				
-				
+				//str +="<button data-file="+fileCallPath+" class='btn-warning btn-circle'><i class='fa fa-times'>x</i></button><br>";
+			
+				str += "<div class='item'><div class='block-4 text-center'><figure class='block-4-image'>";
+				str += "<a class='example-image-link' href='/upload_matching/getImage?fileName="+fileOriginPath+"' data-lightbox='example-set' data-title='Uploaded Image'>";
+				str += "<img  data-path='"+obj.uploadPath+"' data-uuid='"+obj.uuid+"' data-filename='"+obj.fileName+"'";
+				str += "class='example-image' src='/upload_matching/getImage?fileName="+fileCallPath+"' alt='Image Read Fail' class='img-fluid'></a>";
+				str += "</figure><div class='block-4-text p-4'><p class='text-primary font-weight-bold'>"+obj.fileName+"</p>";
+				str += "<button data-file="+fileCallPath+">X</button></div>"
+				str += "</div></div></div></div>";
+				$('.owl-carousel').owlCarousel('add', str).owlCarousel('update');
 						
-						
-						//"<span data-file=\'"+folderFileName+"\' data-tpye='image'>x</span></li>";
 			}// End else 
 		}); // End for each
-		uploadResult.append(str);
 	}// end function
 	
 					

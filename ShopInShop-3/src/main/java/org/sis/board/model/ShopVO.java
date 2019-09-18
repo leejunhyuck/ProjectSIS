@@ -31,5 +31,6 @@ public class ShopVO {
 	private String mmid; //_fk
 	private double lat;
 	private double lng;
+
 	
 }

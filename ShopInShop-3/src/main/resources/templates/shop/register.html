@@ -2,24 +2,313 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:th="http://www.thymeleaf.org"
 	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
-
+​
 <th:block th:insert="/../include/header.html"></th:block>
-
-<h1>Register</h1>
-
-
-<script>
+​
+​
+<!-- content -->
+<div class='container'>
 	
+<div class="card shadow col-md-9" style="margin: auto;">
+	<br><p th:text="#{shop.title}"> 매물등록창 </p>
+	<hr style="border: outset">
+	<div class="card-body">
+	
+	<form class="actionForm" th:action="@{/shop/register}" method="post">
+		
+		<div class="form-group row">
+			<div class="col">
+			<label th:text="#{shop.name}">가게이름</label> 
+			<input class="form-control" name="sname"/>
+			</div>
+			<div class="col">
+			<label th:text="#{shop.writer}">ID</label> 
+			<input class="form-control" name="mmid"/>
+			</div>
+		</div>			
+		
+​
+		<div class="form-group row">
+			<div class="col">
+			<label th:text="#{shop.maintype}">업종 - 대분류</label>
+			<select class="form-control" name="stype">
+  				<option value="식당">식당</option>
+  				<option value="디저트">디저트</option>
+  				<option value="카페">카페</option>
+  				<option value="생활">생활</option>
+  				<option value="오락시설">오락시설</option>
+			</select>
+			</div>
+			<div class="col">
+			<label th:text="#{shop.subtype}">소분류 </label>
+			<input class="form-control" name="stype2"/>
+			</div>
+		</div>
+		
+		<div class="form-group row">
+			<div class="col">
+			<label th:text="#{shop.wanttype}">희망 업종1</label>
+			<input class="form-control" name="typewant1"/>
+			</div>
+			<div class="col">
+			<label th:text="#{shop.wanttype}">희망 업종2</label>
+			<input class="form-control" name="typewant2"/>
+			</div>
+			<div class="col">
+			<label th:text="#{shop.wanttype}">희망 업종3</label>
+			<input class="form-control" name="typewant3"/>
+			</div>
+		</div>
+
+		
+		<div class="form-group" >
+			<label th:text="#{shop.address}">주소</label> 
+			<input id="autocomplete" class="form-control" name="location" placeholder="주소를 입력해주세요"/>
+		</div>
+		
+		
+		<div class="form-group row">
+			<div class="col">
+			<label th:text="#{shop.deposit}">전세금</label> 
+			<input class="form-control" name="deposit"/>
+			</div>
+			<div class="col">
+			<label th:text="#{shop.rent}">월세</label> 
+			<input class="form-control" name="rent"/>
+			</div>
+		</div>	
+		
+		<div class="form-group row">
+			<div class="col">
+			<label th:text="#{shop.surface}">전체면적</label> 
+			<input class="form-control" name="surface"/>
+			</div>
+			<div class="col">
+			<label th:text="#{shop.p-surface}">제공가능면적</label> 
+			<input class="form-control" name="p_surface"/>
+			</div>
+		</div>
+		
+		
+		<div class="form-group row">
+			<div class="col">
+			<label th:text="#{shop.floor}">층수</label> 
+			<input class="form-control" name="floor"/>
+			</div>
+			<div class="col">
+			<br>
+			<label th:text="#{shop.elev}">엘리베이터유무</label> 
+			<input type='checkbox' name='elev'>
+			</div>
+			<div class="col">
+			<br>
+			<label th:text="#{shop.toilet}">화장실 내부 외부 </label> 
+			<input type='checkbox' name='toilet'>
+			</div>
+			<div class="col">
+			<br>
+			<label th:text="#{shop.park}">주차장여부 </label> 
+			<input type='checkbox' name='park'>
+			</div>
+		</div>
+
+		<div class="form-group">
+  			<label th:text="#{shop.content}">소개글:</label>
+			<textarea class="form-control" rows="4" name="content"></textarea>
+		</div>
+		
+		<input type="hidden" name="lat"/>
+		<input type="hidden" name="lng"/>
+		
+		<button type="submit" class="insertBtn btn-success btn-sm" th:text="#{shop.button.registerBtn}">Submit Button</button>
+		<button type="reset" class="btn-primary btn-sm" th:text="#{shop.button.resetBtn}">Reset Button</button>
+		<a th:href="@{/shop/list}" class="btn-secondary btn-sm" th:text="#{shop.button.listBtn}"> Go to List </a>
+	​</form>
+		
+
+		<div class="uploadBox" style="display: none">
+			<hr style="border: outset">
+			<div class="site-section block-3 card shadow mb-4">
+				<div class="container">
+					<div class="row justify-content-center">
+						<div class="col-md-7 site-section-heading text-center pt-4">
+							<h2 th:text="#{shop.uploadFile}">Upload Image</h2>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-md-12">
+							<div class="nonloop-block-3 owl-carousel"></div>
+						</div>
+					</div>
+					<br>
+				</div>
+			</div>
+			<hr style="border: outset">
+		</div><!--  uploadBox -->
+	<hr>
+	
+<div class="input-group">
+  <div class="input-group-prepend">
+    <span class="input-group-text" id="inputGroupFileAddon01" th:text="#{shop.upload}">Upload</span>
+  </div>
+  <div class="custom-file">
+    <input type="file" class="custom-file-input" id="inputGroupFile01"  name="files"
+      aria-describedby="inputGroupFileAddon01" multiple="multiple">
+    <label class="custom-file-label" for="inputGroupFile01" th:text="#{shop.uploadLabel}">Choose file</label>
+  </div>
+</div> <!--  Form & Upload button -->
 
 
+	
+	
+</div> <!--  Card Body -->
+</div>
+​</div> <!-- End Container -->
+
+<script th:inline="javascript">
+
+$(document).ready(function() {
+	
+<!-- Upload Img .. -->		
+	$("input[type=file]").on("change", function(e) {
+		e.preventDefault();
+		
+		var formData = new FormData();
+		var inputFile = $("input[name='files']");
+		var files = inputFile[0].files;
+		console.log(files);
+		
+		for (var i = 0; i < files.length; i++) {
+			if (!checkExtension(files[i].name, files[i].size)) {
+				return false;
+			}
+			formData.append("uploadFile", files[i]);}
+		
+		$.ajax({
+			url : '/upload_shop/newFiles',
+			processData : false,
+			contentType : false,
+			data : formData,
+			type : 'POST',
+			dataType : 'json',
+			success : function(result) {
+				alert("Uploaded");
+				console.log(result);
+			
+				showUploadFile(result);
+				}
+		}); // End $.ajax
+	});// End Upload Event
+<!-- Upload Img Done -->
+	
+<!-- Action Form -->	
+	var form = $(".actionForm");
+	
+	$(".insertBtn").on("click",function(e){
+		e.preventDefault();
+		var str ="";
+		
+		$(".uploadBox img").each(function(i,obj){
+			var jobj = $(obj);
+			console.log(jobj);
+			
+			str += "<input type='hidden' name='attachList["+i+"].fileName' value='"+jobj.data("filename")+"'>";
+			str += "<input type='hidden' name='attachList["+i+"].uuid' value='"+jobj.data("uuid")+"'>";
+			str += "<input type='hidden' name='attachList["+i+"].uploadPath' value='"+jobj.data("path")+"'>";
+		})
+		form.append(str);
+		form.submit();
+	});// end insert btn
+<!-- End Action Form -->	
+		
+<!-- Delete Upload Img -->		
+	var uploadResult = $(".uploadResult ul");
+		
+	$(".uploadBox").on("click", "button", function(e) {
+		console.log("delete file");
+							
+		var targetFile = $(this).data("file");
+		var targetImgidx = $(this).data("idx");
+
+		console.log(targetFile);
+		$.ajax({
+			url : '/upload_shop/deleteFile',
+			data : {
+				fileName : targetFile,									
+				type : 'image' },
+			dataType : 'text',
+			type : 'POST',
+			success : function(result) {
+				alert(result);
+				$(".owl-carousel").trigger('remove.owl.carousel', [targetImgidx]).trigger('refresh.owl.carousel');}
+		});// End &.ajax
+						
+	}); // End Click Event
+<!-- Delete Upload Img Done -->	
+	
+<!-- Upload File Check.. -->	
+	var regex = new RegExp("(.*?)\.(exe|php)$");
+	var maxSize = 5242880;	
+		
+	function checkExtension(fileName, fileSize) {
+
+		if (fileSize >= maxSize) {
+			alert("over Size");
+			return false;
+		}
+		if (regex.test(fileName)) {
+			alert("Don't upload this type");
+			return false;
+		}
+		return true;
+	} // check upload
+<!-- Upload File Checked -->
+	
+<!-- Show Upload Img -->	
+	function showUploadFile(uploadResultArr) {
+		
+		if(uploadResultArr != 0){
+			$(".uploadBox").attr('style', "display:block;");
+		}
+		var index = 0;
+		$(uploadResultArr).each(function(i, obj) {
+			var str = "";
+			var fileOriginPath = encodeURIComponent(obj.uploadPath+ obj.uuid+ "_"+obj.fileName);			
+			var fileCallPath = encodeURIComponent(obj.uploadPath+ "/s_"+ obj.uuid+ "_"+ obj.fileName);
+
+			str += "<div class='item'><div class='block-4 text-center'><figure class='block-4-image'>";
+			str += "<a class='example-image-link' href='/upload_shop/getImage?fileName="+fileOriginPath+"' data-lightbox='example-set' data-title='Uploaded Image'>";
+			str += "<img  data-path='"+obj.uploadPath+"' data-uuid='"+obj.uuid+"' data-filename='"+obj.fileName+"'";
+			str += "class='example-image' src='/upload_shop/getImage?fileName="+fileCallPath+"' alt='Image Read Fail' class='img-fluid'></a>";
+			str += "</figure><div class='block-4-text p-4'><p class='text-primary font-weight-bold'>"+obj.fileName+"</p>";
+			str += "<button data-file="+fileCallPath+" data-idx="+index+">X</button></div>"
+			str += "</div></div></div></div>";
+			$('.owl-carousel').owlCarousel('add', str).owlCarousel('update');
+			index += 1;
+			 
+		}); // End for each
+	}// end function					
+}); // End Document Ready
 
 
+<!-- address convert lat,lng by autocomplete -->
+var autocomplete;
+var input = document.getElementById('autocomplete');
 
+function initAutocomplete() {
+	autocomplete = new google.maps.places.Autocomplete( input );
 
+	autocomplete.addListener('place_changed', getLatLng);
+} // initailize
+
+function getLatLng() {
+	var place = autocomplete.getPlace();
+	$("input[name=lat]").val(place.geometry.location.lat());
+	$("input[name=lng]").val(place.geometry.location.lng());
+} // callback
+<!-- address convert lat,lng by autocomplete -->
 
 </script>
 
-
-
-
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAB5HfRxfdH8r4wLf43SCtUU2oJ5aACzcQ&libraries=places&callback=initAutocomplete"></script>
 <th:block th:insert="/../include/footer.html"></th:block>

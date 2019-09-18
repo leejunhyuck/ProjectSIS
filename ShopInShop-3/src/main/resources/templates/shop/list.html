@@ -10,7 +10,8 @@
 	src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
-<link rel="stylesheet" href="/css/bootstrap-multiselect.css" type="text/css">	
+<link rel="stylesheet" href="/css/bootstrap-multiselect.css"
+	type="text/css">
 <script type="text/javascript" src="/js/bootstrap-multiselect.js"></script>
 
 
@@ -28,9 +29,6 @@ nav, section, article, aside, footer {
 	display: block;
 }
 
-header {
-	width: 96%;
-}
 
 container {
 	min-height: 100%;
@@ -57,7 +55,6 @@ aside {
 	float: right;
 	max-width: 45%;
 	height: 100%;
-	
 	border: 1px solid gray;
 	overflow: auto;
 }
@@ -82,7 +79,7 @@ aside {
 .itemFixed {
 	position: fixed;
 	top: 0px;
-	right:0;
+	right: 0;
 }
 </style>
 
@@ -91,14 +88,14 @@ aside {
 <nav>
 	<div class="search-bar row">
 		<input class="form-control col-2 " placeholder="검색하세요.">
-		<button class="btn-primary btn-sm searchBtn">Search</button>
+		<button class="btn-primary btn-sm searchBtn">지역 검색</button>
 
-		<select id="multi-select1" multiple="multiple">
-			<option value="jQuery" selected>식당</option>
-			<option value="Bootstrap">디저트</option>
-			<option value="HTML">카페</option>
-			<option value="CSS">생활</option>
-			<option value="angular">오락시설</option>
+		<select id="multi-select1" >
+			<option value="식당" selected>식당</option>
+			<option value="디저트">디저트</option>
+			<option value="카페">카페</option>
+			<option value="생활">생활</option>
+			<option value="오락시설">오락시설</option>
 		</select>
 
 		<div class="dropdown">
@@ -111,7 +108,7 @@ aside {
 						<h3 class="mb-3 h6 text-uppercase text-black d-block">Filter
 							by Price</h3>
 						<div id="slider-range" class="border-primary"></div>
-						<input type="text" name="text" id="amount"
+						<input type="text" name="deposit" id="amount"
 							class="form-control border-0 pl-0 bg-white" disabled="" />
 					</div>
 				</div>
@@ -129,7 +126,7 @@ aside {
 						<h3 class="mb-3 h6 text-uppercase text-black d-block">Filter
 							by Price</h3>
 						<div id="slider-range2" class="border-primary"></div>
-						<input type="text" name="text" id="amount2"
+						<input type="text" name="rent" id="amount2"
 							class="form-control border-0 pl-0 bg-white" disabled="" />
 					</div>
 				</div>
@@ -147,7 +144,7 @@ aside {
 						<h3 class="mb-3 h6 text-uppercase text-black d-block">Filter
 							by Price</h3>
 						<div id="slider-range3" class="border-primary"></div>
-						<input type="text" name="text" id="amount3"
+						<input type="text" name="surface" id="amount3"
 							class="form-control border-0 pl-0 bg-white" disabled="" />
 					</div>
 				</div>
@@ -156,70 +153,78 @@ aside {
 		</div>
 
 		<select id="multi-select2">
-			<option value="jQuery" selected>주차장 존재</option>
-			<option value="Bootstrap">주차장 없음</option>
+			<option value="true" selected>주차장 존재</option>
+			<option value="false">주차장 없음</option>
 
 
 		</select> <select id="multi-select3">
-			<option value="jQuery" selected>엘리베이터 존재</option>
-			<option value="Bootstrap">엘리베이터 없음</option>
+			<option value="true" selected>엘리베이터 존재</option>
+			<option value="false">엘리베이터 없음</option>
 
 
 		</select> <select id="multi-select4">
-			<option value="jQuery" selected>화장실 존재</option>
-			<option value="Bootstrap">화장실 없음</option>
+			<option value="true" selected>화장실 존재</option>
+			<option value="false">화장실 없음</option>
 
 		</select> <select id="multi-select5">
-			<option value="Bootstrap">지하</option>
-			<option value="jQuery"selected>1층</option>
-			<option value="Bootp">2층</option>
-			<option value="HTML">3층</option>
-			<option value="CSS">4층</option>
-			<option value="angular">5층</option>
-			<option value="angular">6층</option>
-			<option value="angular">7층</option>
-			<option value="angular">그 이상 층</option>
+			<option value="지하">지하</option>
+			<option value="1층" selected>1층</option>
+			<option value="2층">2층</option>
+			<option value="3층">3층</option>
+			<option value="4층">4층</option>
+			<option value="5층">5층</option>
+			<option value="6층">6층</option>
+			<option value="7층">7층</option>
+			<option value="8층">그 이상 층</option>
 		</select>
+	
+	
+	<button id="condition" class="btn-primary btn-sm searchBtn">조건 검색</button>
 	</div>
-
-</nav>
 
 	
 
+
+
+</nav>
+
+
+
 <section>
-		<div class="row">
-			<div class="col-md-1"></div>
-			<div class="col-md-5">
-				<div class="site-section-heading pt-3 mb-4">
-					<h5>조건에 맞는 매물 : N개</h5>
+	<div class="row">
+		<div class="col-md-1"></div>
+		<div class="col-md-5">
+			<div class="site-section-heading pt-3 mb-4">
+				<h5>조건에 맞는 매물 : N개</h5>
+			</div>
+		</div>
+	</div>
+	<!-- list Header -->
+
+
+	<div class="row justify-content-center" id="storeList">
+
+		<div class="col-sm-5 mb-4" th:each="vo : ${list}">
+			<div class="block-4">
+				<img src="/images/shop.jpg" alt="Image placeholder"
+					th:attr="onmouseover=|imgHover(${vo.lat},${vo.lng})|"
+					onmouseleave="imgLeave()" class="img-fluid">
+				<div class="block-4-text p-1" >
+					<p class="mb-0">업종: [[${vo.stype}]]</p>
+					<p style="text-align: right;" class="mb-0">원하는 업종</p>
+					<p class="text-primary font-weight-bold mb-0">전세금:
+						[[${vo.deposit}]]만원 / 월세: [[${vo.rent}]] 만원</p>
+					<p class="mb-0">제공가능면적: [[${vo.p_surface}]] 평</p>
 				</div>
 			</div>
 		</div>
-		<!-- list Header -->
+	</div>
+	<!-- DIV Container -->
 
-
-		<div class="row justify-content-center">
-		
-			<div class="col-sm-5 mb-4" 
-				th:each="vo : ${list}">
-				<div class="block-4">
-					<img src="/images/shop.jpg" alt="Image placeholder" th:attr="onmouseover=|imgHover(${vo.lat},${vo.lng})|" 
-					 onmouseleave="imgLeave()"
-						class="img-fluid">
-					<div class="block-4-text p-1">
-						<p class="mb-0">업종: [[${vo.stype}]]</p>
-						<p style="text-align: right;" class="mb-0">원하는 업종</p>
-						<p class="text-primary font-weight-bold mb-0">전세금:
-							[[${vo.deposit}]]만원 / 월세: [[${vo.rent}]] 만원</p>
-						<p class="mb-0">제공가능면적: [[${vo.p_surface}]] 평</p>
-					</div>
-				</div>
-			</div>
-		</div>
-		<!-- DIV Container -->
-
+	<div id="storePage">
 	<ul class="pagination justify-content-center">
-
+		
+		
 		<li th:if="${pm.prev}" class="page-item"><a class="page-link"
 			th:href='${pm.start-1}'>Previous</a></li>
 		<li
@@ -230,19 +235,22 @@ aside {
 
 		<li th:if="${pm.next}" class="page-item"><a class="page-link"
 			th:href='${pm.end+1}'>Next</a></li>
+			
+		
 
 	</ul>
+	</div>
 
 
 
 
 
-</section>		
-	
+</section>
+
 
 <aside>
 
-	<div id="map-canvas"></div>
+	 <div id="map-canvas"></div>
 </aside>
 </container>
 
@@ -259,21 +267,21 @@ aside {
 <script th:src="@{/js/main.js}"></script>
 
 <script th:src="@{/js/loginModal.js}"></script>
-
+ <script src="https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/markerclusterer.js"></script>
 <script
 	src="//maps.googleapis.com/maps/api/js?key=AIzaSyCyfhfvTsgc8w7P_BrNXZbsLW0LaChuChI&language=ko"></script>
 
 <!-- Map -->
 <script>
 
-
-
-
-
+var locations = [ ]
+var marker= []
+	var markerCluster
 	var centerLoc = {
 		lat : 37.504520,
 		lng : 127.024236
 	}
+
 
 	function setCenterLoc(latVal, lngVal) {
 		centerLoc = {
@@ -290,10 +298,74 @@ aside {
 
 	var map = new google.maps.Map(mapContainer, mapOption);
 
+	
+	
 	// Event ,, Change Center
-	map.addListener("center_changed", function(argument) {
-		console.log(JSON.stringify(argument));
-		console.log(argument);
+	google.maps.event.addListener(map,"dragend", function(argument) {
+		//console.log(JSON.stringify(argument));
+		//console.log(argument);
+		
+		var bounds = map.getBounds()
+		var NE = bounds.getNorthEast()
+		var SW = bounds.getSouthWest()
+		
+		console.log("NE : "+NE.lat()+","+NE.lng())
+		console.log("SW : "+SW.lat()+","+SW.lng())
+		
+	
+		storedataMap(NE.lat(),NE.lng(),SW.lat(),SW.lng(),function(msg){
+			
+			
+			
+			$("#storeList").html('')
+			$("#storePage").html('')
+			
+			
+			if(marker.length > 0){
+				markerCluster.clearMarkers()
+				
+				marker = []
+				
+			}
+			for(i=0;i<msg.length;i++){
+			var strHTML =
+				"<div class='col-sm-5 mb-4'>"+
+				"<div class='block-4'>"+
+				"<img src='/images/shop.jpg' alt='Image placeholder'"+
+				"attr='onmouseover=|imgHover("+msg[i].lat+","+msg[i].lng+")|'"+
+				"onmouseleave='imgLeave()' class='img-fluid'>"+
+				"<div class='block-4-text p-1' >"+
+				"<p class='mb-0'>업종: "+msg[i].stype+"</p>"+
+				"<p style='text-align: right;' class='mb-0'>원하는 업종</p>"+
+				"<p class='text-primary font-weight-bold mb-0'>전세금:"+
+				msg[i].deposit+"만원 / 월세: "+msg[i].rent+" 만원</p>"+
+				"<p class='mb-0'>제공가능면적: "+msg[i].p_surface+" 평</p>"
+				"</div>"+"</div>"+"</div>"
+				
+				$("#storeList").append(strHTML)
+				
+				
+				locations.push({lat:msg[i].lat,lng:msg[i].lng})
+				
+				
+				
+				
+			
+			
+			
+			
+			}
+			
+			
+			initMap()
+			
+			
+			locations=[]
+
+	
+			
+		})
+		
 	});
 
 	var centerMarker; // 검색한 지역 ( 지도의 중심 )
@@ -448,9 +520,85 @@ aside {
 		shopSpecifiedLocMarker.setMap(null)
 	}
 
+	
+	$("#condition").on("click",function(e){
+	
 		
+		
+		
+		
+		storedata()
+	
+})
+		
+		function storedata(callback) {
+		
+		var arr = { stype: $("#multi-select1 option:selected").val(), deposit: $("input[name='deposit']").val(),
+				rent:$("input[name='rent']").val(), surface:$("input[name='surface']").val(), park:$("#multi-select2 option:selected").val(),
+				elev:$("#multi-select3 option:selected").val(),toilet:$("#multi-select4 option:selected").val(),floor:$("#multi-select5 option:selected").val()
+				};
+			console.log(arr)
+			
+			
+			$.ajax({
+				type : "post",
+				url : "/shop/list",
+				data : JSON.stringify(arr),
+				contentType : "application/json;charset=UTF-8",
+				success : function(msg) {
+					console.log(msg)
+					
+					
+						callback()
+					
+				}
+			})
+		
+		}
+		
+		
+		
+		function storedataMap(NeLat,NeLng,SwLat,SwLng, callback) {
+		
+			
+			var deposit = $("input[name='deposit']").val().split("-")
+			var rent = $("input[name='rent']").val().split("-")
+			var surface = $("input[name='surface']").val().split("-")
+			
+			var arr = { stype: $("#multi-select1 option:selected").val(), depositmin: deposit[0].trim(),
+					depositmax:deposit[1].trim() ,rentmin:rent[0].trim(),rentmax:rent[1].trim(), surfacemin:surface[0].trim(),surfacemax:surface[1].trim(), park:$("#multi-select2 option:selected").val(),
+					elev:$("#multi-select3 option:selected").val(),toilet:$("#multi-select4 option:selected").val(),floor:$("#multi-select5 option:selected").val().substring(0,1)
+					,nelat:NeLat,nelng:NeLng,swlat:SwLat,swlng:SwLng};
+			
+			
+		
+			
+			console.log(arr)
+			
+			
+			$.ajax({
+				type : "post",
+				url : "/shop/list",
+				data : JSON.stringify(arr),
+				contentType : "application/json;charset=UTF-8",
+				success : function(msg) {
+					console.log(msg)
+					
+					
+						callback(msg)
+					
+				}
+			})
+		
+		}
+		
+		
+		
+			
 
-
+	
+	
+	
 	
 	$(document).ready(function() {
 		$('#multi-select1').multiselect();
@@ -462,11 +610,41 @@ aside {
 
 	});
 	
+	 
 	
+	 function initMap() {
+
+		
+			
+	        // Create an array of alphabetical characters used to label the markers.
+	        var labels = '1';
+
+	        // Add some markers to the map.
+	        // Note: The code uses the JavaScript Array.prototype.map() method to
+	        // create an array of markers based on a given "locations" array.
+	        // The map() method here has nothing to do with the Google Maps API.
+	        var markers= locations.map(function(location, i) {
+	          return new google.maps.Marker({
+	            position: location,
+	            label: labels[i % labels.length]
+	         
+	          });
+	          
+	        });
+	        marker.push(markers)
+	        
+
+	        // Add a marker clusterer to manage the markers.
+	         markerCluster = new MarkerClusterer(map, markers,
+	            {imagePath: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m'});
+	      
+	        
+	      
+	        
+	 }
 	
-	
-	
-	
+	 
+
 	
 </script>
 

@@ -12,6 +12,7 @@ public class ComReplyVO {
 	private String content;
 	private String mmid;
 	private Date replyDate;
+	private Integer originRno,ord,deep;
 	
 	
 	

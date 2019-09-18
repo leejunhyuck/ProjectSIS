@@ -30,7 +30,7 @@ public interface ComReplyMapper {
 	@Delete("delete from tbl_reply_com where bno=#{bno}")
 	public int deleteAll(@Param("bno") Integer bno);
 	
-	@Update("update tbl_reply_com set reply = #{reply} where rno = #{rno}")
+	@Update("update tbl_reply_com set content = #{content} where rno = #{rno}")
 	public int update(ComReplyVO vo);
 	
 	@Select("select count(*) from tbl_reply_com where bno =#{bno}")

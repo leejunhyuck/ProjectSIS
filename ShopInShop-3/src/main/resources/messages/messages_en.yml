@@ -1,0 +1,11 @@
+board:
+  title: "TITLE"
+  writer: "WRITER"
+  regdate: "REGDATE"
+  viewcnt: "VIEW"
+  button:
+    registerBtn: "Register"
+    searchBtn: "Search"
+    resetBtn: "리셋"
+    listBtn: "목록으로"
+    uploadBtn: "찾아보기"

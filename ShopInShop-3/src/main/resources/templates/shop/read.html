@@ -5,7 +5,193 @@
 
 <th:block th:insert="/../include/header.html"></th:block>
 
-<h1>Read</h1>
-<!-- content -->
+<style>
+	html, body {
+		margin: 0;
+		padding: 0;
+		height: 100%;
+		width: 100%;
+		/* overflow: hidden; */
+		overflow: auto;
+		/*background-color: blue;*/
+	} 
+	header {
+		width: 100%;
+	}
+	container {
+    	height: 100%;
+		width: 100%;
+		
+	}
+	section {
+		float: left;
+		width: 65%;
+		height: 100%;
+		display: inline-block;
+    	vertical-align: middle;
+		background-color: pink;
+		overflow: auto;
+	}
+	aside {
+		float: right;
+		width: 35%;
+		height: 100%;
+		background-color: purple;
+	}
+	.sample-box {
+		text-align: center;
+		height: 700px;
+		width: 100%;
+	}
+	.sample-left {
+		float: left;
+		width: 65%;
+		height: 100%;
+		display: inline-block;
+		overflow: auto;
+	}
+	.sample-right {
+		float: right;
+		width: 35%;
+		height: 100%;
+		display: inline-block;
+		
+	}
+	
+	.frame {
+	    height: 100px;      /* equals max image height */
+	    width: 160px;
+	    border: 1px solid red;
+	    white-space: nowrap;
+	    text-align: center;
+	    margin: 1em 0;
+	}
+	.helper {
+	    display: inline-block;
+	    height: 100%;
+	    vertical-align: middle;
+	}
+	
+	#map-canvas {
+        width: 30vw;
+        height: 40vh;
+        overflow: auto;
+        margin-left:8%;
+    }
+</style>
+
+
+
+
+<container>
+	
+	<div class="sample-box">
+		<span class="sample-left">
+		
+		<br>
+		<div class="d-flex">
+		<span class="mr-auto align-self-center font-weight-bold">가게이름: [[${vo.sname}]] </span>
+		<div class="ml-auto">
+			<a class="align-self-center btn-sm btn-warning prevBtn" href="#" >찜하기</a>
+			<a class="align-self-center btn-sm btn-primary listBtn" href="#" >수정 및 삭제</a>
+			<a class="align-self-center btn-sm btn-info nextBtn" href="#" >목록으로</a>
+		</div>
+		</div>
+		
+		<br>
+			
+			<img style="width: 65%;" src="/images/shop.jpg" alt="Image Box">
+			
+			<div>
+			<label>소개글</label>
+			<textarea class="form-control bg-light" rows="10"
+			th:text="${vo.content}" readonly="readonly"></textarea>
+			</div>
+			
+			
+		</span>
+		
+		
+		<span class="sample-right">
+			<div class="card shadow mb-4">
+			<br>
+			<ul class="list-inline">
+				<li class="list-inline-item">
+					<blockquote class="blockquote blockquote-reverse">
+					<p>월세</p>
+					<h5> [[${vo.rent}]] / [[${vo.deposit}]] 만원 </h5> 
+					</blockquote>
+				</li>
+				
+				<li class="list-inline-item">
+					<blockquote class="blockquote blockquote-reverse">
+					<p> 제공면적 / 전체면적 </p>
+					<h5> [[${vo.p_surface}]] / [[${vo.surface}]] ㎡</h5>
+					</blockquote> 
+				</li>
+				
+				<li class="list-inline-item">
+					<blockquote class="blockquote blockquote-reverse">
+					<p>업종</p>
+					<h5> [[${vo.stype}]]</h5> 
+					</blockquote>
+				</li>
+			</ul>
+			
+			<div id="map-canvas"></div>
+			<br>
+			
+			<div class="shopinfo">
+				<div>
+				<p align="left" style="margin-left:8%;"> 주소: [[${vo.location}]] </p>
+				</div>
+				
+				<div>
+				<p align="left" style="margin-left:8%;"> 층수: [[${vo.floor}]] </p>
+				</div>
+				
+				<div>
+				<p align="left" style="margin-left:8%;"> 엘리베이터 유무
+				<input type="checkbox" th:attr="checked=${vo.elev}"> </p>
+				</div>
+				
+				<div>
+				<p align="left" style="margin-left:8%;">화장실 실내 여부
+				<input type="checkbox" th:attr="checked=${vo.toilet}"></p>
+				</div>
+				
+				<div>
+				<p align="left" style="margin-left:8%;">주차장여부
+				<input type="checkbox" th:attr="checked=${vo.park}"></p>
+				</div>
+			
+			</div>
+			</div>
+			
+		</span>
+	</div>
+	
+
+</container>
+
+<script src="//maps.googleapis.com/maps/api/js?key=AIzaSyCyfhfvTsgc8w7P_BrNXZbsLW0LaChuChI&language=ko"></script>
+
+<script>
+<!-- Map -->
+var mapDiv = document.getElementById( "map-canvas" ) ;
+var map = new google.maps.Map( mapDiv, {
+    center: new google.maps.LatLng( "[[${vo.lat}]]", "[[${vo.lng}]]" ) ,
+    zoom: 16 ,
+    disableDefaultUI: true
+} ) ;
+
+<!--Marker-->
+var marker = new google.maps.Marker( {
+    map: map ,
+    position: new google.maps.LatLng( "[[${vo.lat}]]", "[[${vo.lng}]]" ) ,
+} ) ;
+
+
+</script>
 
 <th:block th:insert="/../include/footer.html"></th:block>

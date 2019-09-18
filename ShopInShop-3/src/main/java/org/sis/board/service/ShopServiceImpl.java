@@ -5,6 +5,7 @@ import java.util.Map;
 
 import org.sis.mapper.ShopMapper;
 import org.sis.board.model.Criteria;
+import org.sis.board.model.ListVO;
 import org.sis.board.model.ShopVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -82,6 +83,14 @@ public class ShopServiceImpl implements ShopService {
 	public int selectPageCount(Criteria cri) {
 		// TODO Auto-generated method stub
 		return 0;
+	}
+
+	@Override
+	public List<ListVO> getConList(ListVO vo) {
+		
+		
+		
+		return mapper.selectconList(vo);
 	}
 
 }

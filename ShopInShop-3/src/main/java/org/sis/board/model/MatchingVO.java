@@ -19,6 +19,7 @@ public class MatchingVO {
 	private Timestamp regdate;
 	private String stype;
 	private String mmid; //_fk ( tbl_member( mmid ) )
+	private Integer viewcnt;
 
 	
 	

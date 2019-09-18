@@ -36,6 +36,7 @@
 	<h1>받은 쪽지함</h1>
 	
 	<button class="btn-dark btn-sm regBtn" >register</button>
+	<button class="btn-sm btn-outline-secondary">list</button>
 	<a th:href="@{/msg/sendlist}" class="btn-dark btn-sm deleteBtn">send</a> 
 	
 	
@@ -58,21 +59,17 @@ padding:15px 0 0 0;
 <div>
 	<table class="table-msg table table-hover">
 		<tr class="table-primary">
-			<td>MSGNUM</td>
-			<td>제목</td>
+			<td class="table-title">제목</td>
 			<td>보낸사람</td>
 			<td>REGDATE</td>
-			<td>read</td>
+		
 		</tr>
-		<tr th:each="vo : ${list}">
-			<td th:text="${vo.msgnum}"></td>
+		<tr th:each="vo : ${list}"  th:class="${vo.readed} ? 'font-weight-light' : 'font-weight-bold'"  >
 			<td><a class="view" th:href="${vo.msgnum}" th:text="${vo.title}"></a></td>
 			<td th:text="${vo.mmid}"></td>
 			<td th:if="${vo.regdate.before(#dates.createToday())}">[[${#dates.format(vo.regdate, 'yyyy-MM-dd')}]]</td>
             <td th:if="${vo.regdate.after(#dates.createToday())}">[[${#dates.format(vo.regdate, 'H:mm a')}]]</td>
-            <td th:if="${vo.readed}==false">안읽음</td>
-            <td th:if="${vo.readed}==true">읽음</td>
-            
+        
 		</tr>
 	</table>
 <div>	

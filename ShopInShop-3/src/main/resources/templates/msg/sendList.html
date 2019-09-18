@@ -38,20 +38,19 @@
 	<button class="btn-dark btn-sm regBtn" >register</button>
 	
 	<a th:href="@{/msg/list}" class="btn-dark btn-sm deleteBtn">list</a>
-	<h2></h2>
+	<button class="btn-outline-secondary btn-sm">send</button>
 	
+		<hr style="border: outset">
 	
 <div>
 	<table class="table-msg table table-hover">
 		<tr class="table-primary">
-			<td>MSGNUM</td>
 			<td>제목</td>
 			<td>받은사람</td>
 			<td>REGDATE</td>
 			<td>read</td>
 		</tr>
 		<tr th:each="vo : ${list}">
-			<td th:text="${vo.msgnum}"></td>
 			<td><a class="view" th:href="${vo.msgnum}" th:text="${vo.title}"></a></td>
 			<td th:text="${vo.whom}"></td>
 			<td th:if="${vo.regdate.before(#dates.createToday())}">[[${#dates.format(vo.regdate, 'yyyy-MM-dd')}]]</td>

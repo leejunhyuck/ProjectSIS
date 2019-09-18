@@ -41,6 +41,7 @@ public class MatchingServiceImpl implements MatchingService{
 	
 	@Override
 	public MatchingVO select(Integer Key) {
+		mapper.updateViewCnt(Key);
 		return mapper.select(Key);
 	}
 	
@@ -87,5 +88,12 @@ public class MatchingServiceImpl implements MatchingService{
 		// TODO Auto-generated method stub
 		return 0;
 	}
+	
+	@Override
+	public List<Integer> getPrevNext(Integer bno) {
+		
+		return mapper.NextPrevBno(bno);
+	}
+
 
 }

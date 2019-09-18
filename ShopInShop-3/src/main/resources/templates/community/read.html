@@ -2,17 +2,13 @@
 
 <th:block th:insert="/../include/header.html"></th:block>
 
-
-
 <style>
 .modal-footer .hide {
 	display: none
 }
 
 
-
 .modal {
-  
    top: 10px;
    right: 100px;
    bottom: 0;
@@ -29,12 +25,10 @@
 
 <div class="container">
 
-
-
 <div class="card shadow mb-4">
 <div class="card-body">
 	<div class="d-flex">
-		<span class="mr-auto align-self-center">[[${vo.title}]] ( [[${vo.replycnt}]] )  </span>
+		<span class="mr-auto align-self-center font-weight-bold">[[${vo.title}]] ( [[${vo.replycnt}]]  )  </span>
 		<div class="ml-auto">
 			<a class="align-self-center btn-sm btn-info prevBtn" href="#">이전글</a>
 			<a class="align-self-center btn-sm btn-primary listBtn" href="#">목록으로</a>
@@ -73,8 +67,8 @@
 </div> <!--  image box -->
 	
 	<div class="form-group">
-		<textarea class="form-control" rows="30" name='content'
-			th:text="${vo.content}" readonly="readonly"></textarea>
+		<textarea class="form-control bg-light" rows="30" name='content'
+			th:text="${vo.content}" readonly="readonly" style="overflow:hidden"></textarea>
 	</div>
 
 	<div class="d-flex">
@@ -93,26 +87,14 @@
 </div>
 	
 
-
-
-
-
-
-
-
-<hr>
-<div class='uploadResult'>
-	<ul></ul>
-</div>
-
-
-
-<div class="replyBox"  th:if="${vo.replycnt} != 0">
+<div class="replyBox" style="display: none;">
 <div class="card shadow mb-4">
-	<div class="card-body">
-		<ul class="replyList list-group">
-		</ul>
-		<hr>
+	<div class="card-body replyList list-group">
+	
+
+<!-- 		<ul class="replyList list-group">
+		</ul> -->
+		
 		<div class="pageReply">
 		</div>
 	</div>
@@ -142,16 +124,15 @@
 				</button>
 			</div>
 			<div class="modal-body">
-				<input type="text" class="form-control mid" name="bno"
-					th:value="${cri.bno}" readonly="readonly"> <input type="text"
+				<input type="hidden" class="form-control mid" name="bno"
+					th:value="${cri.bno}" readonly="readonly"> <input type="hidden"
 					class="form-control mrno" name="rno" value="" readonly="readonly">
 				<input type="text" class="form-control" name="reply" value="샘플댓글">
-				<input type="text" class="form-control" name="replyer" value="도라에몽">
+				<input type="text" class="form-control" name="replyer" value="user123">
 			</div>
 			<div class="modal-footer">
 				<button class="btn-secondary btn-sm" type="button" data-dismiss="modal">Cancel</button>
 				<button class="btn-primary btn-sm replyBtn">ADD REPLY</button>
-				<button class="btn-primary btn-sm rereBtn hide">ADD REREPLY</button>
 				<button class="btn-info btn-sm modifyBtn hide">Modify Reply</button>
 				<button class="btn-danger btn-sm deleteBtn hide">Delete Reply</button>
 			</div>
@@ -164,8 +145,7 @@
 <script th:src="@{/js/Comreply.js}"></script>
 <script>
 
-<!-- using actionForm -->
-
+<!-- Button - using actionForm -->
 var actionForm = $("#actionForm");
 
 $(".modBtn").on("click", function(e) {
@@ -182,7 +162,6 @@ $(".regBtn").on("click", function(e) {
 })
 
 var prevnext = [[${bnoPrevNext}]];
-
 $(".prevBtn").on("click", function(e){
 	e.preventDefault();
 	if(prevnext.length == 1 && prevnext > bno){
@@ -191,7 +170,6 @@ $(".prevBtn").on("click", function(e){
 		$("input[name='bno']").val(prevnext[0])
 		actionForm.attr("action","/community/read").submit();
 	}
-	
 })
 $(".nextBtn").on("click", function(e){
 	e.preventDefault();
@@ -210,7 +188,6 @@ $(".nextBtn").on("click", function(e){
 
 
 <!-- like Btn -->
-
 $(".likeBtn").on("click",function(e){
 	e.preventDefault();
 	let obj = {
@@ -222,9 +199,8 @@ $(".likeBtn").on("click",function(e){
 		function(){
 			alert("좋아요 중복!!")
 		});
-
-	
 });
+
 function comLikeBtn(obj, callback,callback2) {
 	$.ajax({
 		type : "post",
@@ -245,15 +221,12 @@ function comLikeBtn(obj, callback,callback2) {
 
 
 <!-- reply js -->
-
 var bno = [[${vo.bno}]];
 var replyCnt = [[${vo.replycnt}]];
 var page = 1;
 var replyList = $(".replyList");
+
 showPage(page)
-
-console.log(replyCnt);
-
 
 	<!-- add reply -->
 $(".addReplyBtn").on("click", function() {
@@ -261,7 +234,6 @@ $(".addReplyBtn").on("click", function() {
 	$(".modifyBtn").addClass("hide");
 	$(".replyBtn").removeClass("hide");
 	$(".deleteBtn").addClass("hide");
-	$(".rereBtn").addClass("hide");
 });
 $(".replyBtn").on("click", function(e) {
 
@@ -270,7 +242,6 @@ $(".replyBtn").on("click", function(e) {
 		content : $("input[name='reply']").val(),
 		mmid : $("input[name='replyer']").val(),
 	};
-	console.log(obj);
 	replyService.addReply(obj, function() {
 		alert("댓글 등록 성공");
 		$("#ComReplyModal").modal("hide");
@@ -280,12 +251,10 @@ $(".replyBtn").on("click", function(e) {
 	
 });
 	<!-- end add reply -->
-
-	
 	
 	<!-- reply Modify & Delete Reply  -->
-	
-replyList.on("click","li",function(e){
+replyList.on("click","a",function(e){
+	e.preventDefault();
 	 var rno =$(this).attr("data-rno");
 	 
 	 replyService.getReply(rno,function(reply){
@@ -295,16 +264,14 @@ replyList.on("click","li",function(e){
 		$("input[name='replyer']").val(reply.mmid);
 		$("#ComReplyModal").modal("show");
 		
-		$(".modifyBtn").removeClass("hide");
 		$(".replyBtn").addClass("hide");
+		$(".modifyBtn").removeClass("hide");
 		$(".deleteBtn").removeClass("hide");
-		$(".rereBtn").addClass("hide");
 	});
 });
 
-
 $(".modifyBtn").on("click",function(e){
-	 console.log("댓글 수정버든")
+	
 	 let obj = {
 				rno : $("input[name='rno']").val(),
 				content : $("input[name='reply']").val(),
@@ -329,61 +296,44 @@ $(".deleteBtn").on("click",function(){
 	replyCnt -=1 ;
 });
 	<!-- End Modify&Delete Reply -->
-	
-	
-	
-	<!-- function -- ShowPage  -->
-/* function showPage(){
 
-	replyList.html("");
-    replyService.getList(bno,function (arr) {
-
-     // 구조 분해 할당 문법
-     // 탬플릿 문법 [ 백픽`` ]
-     var str = '';
-     var x = 0;
-	 for(var i=0;i<arr.length;i++){
-	 	var {rno,bno,reply,replyer,replyDate} = arr[i];
-		str += "<div><li class='list-group-item' data-rno="+rno+">"+ 
-               "<div class='rno'>"+rno+"</div>"+
-               "<div class='reply'>"+reply+"</div>"+
-               "<div class='replyer'>"+replyer+"</div>"+
-               "</li></div>";
-		}
-        replyList.append(str);
-     });
-} */
-
+	
+	<!-- function -- ShowPage about reply  -->
 function showPage(page){
-	
-	console.log("show page: "+page);
-	
+		
 	replyList.html("");
     replyService.getListPage({bno:bno,page: page||1},function (arr) {
     	
-    if(page == -1){
+	if(page == -1){
     	pageNum = Math.ceil(replyCnt/10.0);
     	showPage(pageNum);
     	return;
-    }
-
-     // 구조 분해 할당 문법
-     // 탬플릿 문법 [ 백픽`` ]
+    } // add reply -> last page  
+	
+    if(arr.length > 0){
+    	$(".replyBox").attr('style', "display:block;");
+    } // if don't have reply -> replyBox display none
+    
      var str = '';
      var x = 0;
 	 for(var i=0;i<arr.length;i++){
 	 	var {rno,bno,content,mmid,replyDate} = arr[i];
-		str += "<div><li class='list-group-item' data-rno="+rno+">"+ 
-               "<div class='rno'>"+rno+"</div>"+
-               "<div class='reply'>"+content+"</div>"+
-               "<div class='replyer'>"+mmid+"</div>"+
-               "</li></div>";
+	 	var idCheck = "[[${vo.mmid}]]" == mmid ? "<a href='#' class='btn-sm btn-warning modReplyModal' data-rno="+rno+">수정 및 삭제</a>" : "";
+		str += "<div class='card w-80'><div class='card-body'>" +
+			   "<h5 class='card-title'>"+mmid+"</h5>"+
+			   "<p class='card-text'>- "+content+"</p>"+
+			   idCheck +
+			   "<a href='#' class='btn-sm btn-primary'>댓글달기</a>"+
+			   "</div></div>";
+			   
+			
 		}
         replyList.append(str);
         showReplyPage(replyCnt);
      });
 }
 
+	<!-- reply pagination -->
 var pageNum = 1;
 var pageReply = $(".pageReply");
 function showReplyPage(replyCnt){
@@ -399,29 +349,22 @@ function showReplyPage(replyCnt){
 	if(endNum * 10 >= replyCnt){
 		endNum = Math.ceil(replyCnt/10.0);
 	}
-	
 	if(endNum *10 < replyCnt){
 		next = true;
 	}
-			
 	var str = "<ul class='pagination pull-right'>";
-	
 	if(prev){
 		str += "<li class='page-item'><a class='page-link' href='"+(startNum-1)+"'>Previous</a></li>";
 	}
-	
 	for(var i = startNum ; i<= endNum; i++){
 		var active = pageNum == i? "active":"";
 		
-		str += "<li class='page-item' "+active+"><a class='page-link' href='"+i+"'>"+i+"</a></li>";
+		str += "<li class='page-item "+active+"'><a class='page-link' href='"+i+"'>"+i+"</a></li>";
 	}
 	if(next){
 		str += "<li class='page-item'><a class='page-link' href='"+(endNum+1)+"'>Next</a></li>";
 	}
-	
 	str += "</ul>";
-	
-	
 	pageReply.append(str);	
 }
 
@@ -434,12 +377,12 @@ pageReply.on("click","li a",function(e){
 	page = targetPageNum;
 	showPage(page);
 });
-
+<!-- End reply js -->
 </script>
 
 
 <script>
-
+<!-- Attach Community -->
 $(document).ready(function(){
 	
 	console.log(".... 레디 ")
@@ -450,8 +393,6 @@ $(document).ready(function(){
 			if(arr.length != 0){
 				$(".uploadBox").attr('style', "display:block;");
 			}
-			
-			
 			
 			$(arr).each(function(i,attach){
 				var fileCallPath = encodeURIComponent( attach.uploadPath+"/s_"+attach.uuid+"_"+attach.fileName);
@@ -466,46 +407,20 @@ $(document).ready(function(){
 				//str += "<a href='#' onclick='$(this).galleryShow(); return false;'>";
 				str += "<a class='example-image-link' href='/upload_com/getImage?fileName="+fileOriginPath+"' data-lightbox='example-set' data-title='Uploaded Image'>";
 				str += "<img class='example-image' src='/upload_com/getImage?fileName="+fileCallPath+"' alt='Image Read Fail' class='img-fluid'></a>";
-				str += "</figure><div class='block-4-text p-4'><p class='text-primary font-weight-bold'>"+attach.fileName+"</p>";
+				str += "</figure><div class='block-4-text'><p class='text-primary font-weight-bold'>"+attach.fileName+"</p>";
 				str += "</div></div></div></div>";
 				$('.owl-carousel').owlCarousel('add', str).owlCarousel('update');
 			});  
-			//$(".owl-stage").append(str); // ul 추가
-			
-			
-			
-			
-		}); // end json < getImage to read page
+		}); // end json <- getImage to read page
 		
-	
-		
-		
-	
-		
-		
-		
-		
-		
-		$(".uploadResult ul").on("click","li",function(e){
-			console.log("view origin Image")
-			var liObj = $(this);
-			console.log(liObj.data);
-			var path = encodeURIComponent(liObj.data("path")+"/"+liObj.data("uuid")+"_"+liObj.data("filename"));
-			showImage(path.replace(new RegExp(/\\/g),"/"));
-			});
+
 }); 
-
-</script>
-
-
-<script>
 
 $(function () {
 	$("#mdb-lightbox-ui").load("mdb-addons/mdb-lightbox-ui.html");
 	console.log("active light box");
-	});
+});
 	
-
 </script>
 
 <th:block th:insert="/../include/footer.html"></th:block>

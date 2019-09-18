@@ -6,48 +6,39 @@
 
 <div class="container">
 
-
-<div class="panel-heading">View Page</div>
+<div class="card shadow mb-4">
+<div class="card-body">
 <form id="actionForm" action="/matching/modify" method="post">
-<div class="panel-body">
-
-	<div class="form-group">
-		<label>bno</label> <input class="form-control" name="bno"
-			th:value="${vo.bno}" readonly="readonly" />
+	<div class="d-flex">
+		<div class="mr-auto align-self-center font-weight-bold">
+		<input type="text" th:value="${vo.title}" name="title">
+		</div>
+		<div class="ml-auto">
+			<a class="align-self-center btn-sm btn-primary listBtn" href="#" th:text="#{board.button.listBtn}">목록으로</a>
+		</div>
 	</div>
-
-	<div class="form-group">
-		<label>Title</label> <input class="form-control" name="title"
-			th:value="${vo.title}" />
-		<p class="help-block">Title text here.</p>
+	
+	<div class="d-flex">
+		<span class="mr-auto align-self-center">[[#{board.writer}]]: [[${vo.mmid}]]</span>
+		<div class="ml-auto align-self-end">
+			<span>[[#{board.regdate}]]: [[ ${#dates.format(vo.regdate,'yyyy.MM.dd ( H:mm:ss )')} ]]</span>
+		</div>
 	</div>
-
+	
+	<hr style="border: outset">
+	
 	<div class="form-group">
-		<label>Content</label>
-		<textarea class="form-control" rows="3" name='content'
+		<textarea class="form-control bg-light" rows="30" name='content'
 			th:text="${vo.content}"></textarea>
 	</div>
 
-	<div class="form-group">
-		<label>mid</label> <input class="form-control" name="mmid"
-			th:value="${vo.mmid}" readonly="readonly" />
+	<div class="d-flex">
+		<div class="ml-auto">
+			<button class="btn-primary btn-sm modBtn" th:text="#{board.button.modBtn}">수정하기</button>
+			<button class="btn-warning btn-sm delBtn" th:text="#{board.button.delBtn}">삭제하기</button> 
+			<button class="btn-primary btn-sm listBtn" th:text="#{board.button.listBtn}">목록으로</button>
+		</div>
 	</div>
-
-	<div class="form-group">
-		<label>RegDate</label> <input class="form-control" name="regDate"
-			th:value="${#dates.format(vo.regdate,'yyyy-MM-dd')}"
-			readonly="readonly" />
-	</div>
-
-
-	<div class="pull-right" >
-	<button class="btn-primary btn-sm modBtn">Modify</button> 
-	<button class="btn-primary btn-sm delBtn">Delete</button> 
-	<button class="btn-primary btn-sm listBtn">Go List</button>
-	</div>
-
-
-</div>
 
 
 	<input type="hidden" name="bno" th:value="${cri.bno}"> 
@@ -56,29 +47,47 @@
 	<input type="hidden" name="type" th:value="${cri.type}">
 	<input type="hidden" name="keyword" th:value="${cri.keyword}">
 </form>
-
-
-<div class="card">
-	<div class="card-body">
-		<form class="form-horizontal form-material" action="/upload/home"
-			method="post">
-			<div class="uploadDiv">
-				<input type="file" name="uploadFile" multiple="multiple">
-			</div>
-		</form>
-	</div>
-</div>
 <hr>
-<div class='uploadResult'>
-	<ul></ul>
-</div>
 
+<div class="uploadBox" style="display:none">
+	<div class="site-section block-3 card shadow mb-4">
+      <div class="container">
+        <div class="row justify-content-center">
+          <div class="col-md-7 site-section-heading text-center pt-4">
+            <h2 th:text="#{board.uploadFile}">Upload Image</h2>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12">
+            <div class="nonloop-block-3 owl-carousel">
+            </div>
+          </div>
+        </div>
+        <br>
+      </div>
+  	</div>
+  	<hr style="border: outset">
+</div> <!--  image box -->
+
+<div class="input-group">
+	<div class="input-group-prepend">
+   		<span class="input-group-text" id="inputGroupFileAddon01" th:text="#{board.upload}">Upload</span>
+	</div>
+<div class="custom-file">
+	<input type="file" class="custom-file-input" id="inputGroupFile01"  name="files"
+    	aria-describedby="inputGroupFileAddon01" multiple="multiple">
+   	<label class="custom-file-label" for="inputGroupFile01" th:text="#{board.uploadLabel}">Choose file</label>
+</div> 
+</div> <!--  input - upload -->
 
 </div>
+</div> <!-- end Card-Shadow -->
+
+</div> <!--  end Container -->
 
 
 <script>
-<!-- using actionForm -->
+<!-- Button - using actionForm -->
 	var actionForm = $("#actionForm");
 
 	$(".modBtn").on("click", function(e) {
@@ -107,33 +116,41 @@
 			"click",
 			function(e) {
 				actionForm.find("input[name='bno']").remove();
+				actionForm.find("textarea[name='content']").remove();
 				actionForm.attr("action", "/matching/list").attr("method", "get")
 						.submit();
-			})<!-- actionForm End .. -->
+			})
+<!-- Button - actionForm End .. -->
 </script>
 
 <script>
-
+<!-- Attach  -->
 $(document).ready(function(){
 	//(function(){
 		var bno = [[${vo.bno}]];
 		$.getJSON("/matching/getAttachList",{bno: bno}, function(arr){
-			console.log(arr);
-			var str="";
+			if(arr != 0){
+				$(".uploadBox").attr('style', "display:block;");
+			}
 			
-			$(arr).each(function(i,attach){
-				var fileCallPath = encodeURIComponent( attach.uploadPath+"/s_"+attach.uuid+"_"+attach.fileName);
-				str += "<li data-path='"+attach.uploadPath+"' data-uuid='"+attach.uuid+"' data-filename='"+attach.fileName+"'>";
-				str += "<div><span>" + attach.fileName + "</span>";
-				str += "<button type='button' data-file=\'"+fileCallPath+"\' class='btn-circle'><i class='fa fa-times'>x</i></button><br>";
-				str += "<img src='/upload_matching/getImage?fileName="+fileCallPath+"'>";
-				str += "</div></li>";
+			$(arr).each(function(i,obj){
+				var str = "";
+			    var fileOriginPath = encodeURIComponent(obj.uploadPath+ obj.uuid+ "_"+obj.fileName);			
+				var fileCallPath = encodeURIComponent(obj.uploadPath+ "/s_"+ obj.uuid+ "_"+ obj.fileName);
+			
+				str += "<div class='item'><div class='block-4 text-center'><figure class='block-4-image'>";
+				str += "<a class='example-image-link' href='/upload_matching/getImage?fileName="+fileOriginPath+"' data-lightbox='example-set' data-title='Uploaded Image'>";
+				str += "<img  data-path='"+obj.uploadPath+"' data-uuid='"+obj.uuid+"' data-filename='"+obj.fileName+"'";
+				str += "class='example-image' src='/upload_matching/getImage?fileName="+fileCallPath+"' alt='Image Read Fail' class='img-fluid'></a>";
+				str += "</figure><div class='block-4-text p-4'><p class='text-primary font-weight-bold'>"+obj.fileName+"</p>";
+				str += "<button class='btn-warning' data-file="+fileCallPath+">X</button></div>"
+				str += "</div></div></div></div>";
+				$('.owl-carousel').owlCarousel('add', str).owlCarousel('update');
 			});
-			$(".uploadResult ul").append(str);
 		}); // end json < getImage to read page
 		
 		
-		$(".uploadResult").on("click", "button", function(e){
+		$(".uploadBox").on("click", "button", function(e){
 			console.log("delete file");
 			
 			if(confirm("Remove this file?")){
@@ -144,13 +161,12 @@ $(document).ready(function(){
 				
 		
 		$("input[type=file]").on("change", function(e) {
-
 			e.preventDefault();
 
 			console.log("submit check!!");
 
 			var formData = new FormData();
-			var inputFile = $("input[name='uploadFile']");
+			var inputFile = $("input[name='files']");
 			var files = inputFile[0].files;
 
 			for (var i = 0; i < files.length; i++) {
@@ -184,7 +200,6 @@ $(document).ready(function(){
 				alert("over Size");
 				return false;
 			}
-
 			if (regex.test(fileName)) {
 				alert("Don't upload this type");
 				return false;
@@ -195,33 +210,31 @@ $(document).ready(function(){
 		var uploadResult = $(".uploadResult ul");
 		  
 		  function showUploadFile(uploadResultArr){
-			  var str = "";
-			  
 			  $(uploadResultArr).each(function(i,obj){
-				  
+				  var str = "";
 				  var folderFileName = encodeURIComponent(obj.uuid+"_"+obj.fileName);
+				  if(uploadResultArr != 0){
+						$(".uploadBox").attr('style', "display:block;");
+					}
 				  
 				  if(!obj.image){
 					  str += "<li><a href='/upload_matching/download?fileName="+folderFileName+"'>"+obj.fileName +"</li>";
 				  }else{
-					  //var fileCallPath = encodeURIComponent(obj.uploadPath+"/s_"+obj.uuid+"_"+obj.fileName);
-					  
-					  var fileCallPath = encodeURIComponent(obj.uploadPath+"/s_"+obj.uuid+"_"+obj.fileName);
-					  
-					 str +="<li data-path='"+obj.uploadPath+"' data-uuid='"+obj.uuid+"' data-filename='"+obj.fileName+"'><div>";
-					 str +="<span>"+obj.fileName+"</span>";
-					 str +="<button data-file="+fileCallPath+" class='btn-warning btn-circle'><i class='fa fa-times'>x</i></button><br>";
-					 str +="<img src='/upload_matching/getImage?fileName="+fileCallPath+"'>"
-					 str +="</div></li>";
-					 
-					  
-					  var folderFileName = "/s_"+obj.uuid+"_"+obj.fileName;
-					  var originFileName= obj.uuid+"_"+obj.fileName;
-					  //str += "<li><a href=\"javascript:showImage(\'"+originFileName+"')\"><img src='/upload/getImage?fileName="+folderFileName+"'></a>"+
-							 // "<span data-file=\'"+folderFileName+"\' data-tpye='image'>x</span></li>";
+					    var fileOriginPath = encodeURIComponent(obj.uploadPath+ obj.uuid+ "_"+obj.fileName);			
+						var fileCallPath = encodeURIComponent(obj.uploadPath+ "/s_"+ obj.uuid+ "_"+ obj.fileName);
+						
+						//str +="<button data-file="+fileCallPath+" class='btn-warning btn-circle'><i class='fa fa-times'>x</i></button><br>";
+					
+						str += "<div class='item'><div class='block-4 text-center'><figure class='block-4-image'>";
+						str += "<a class='example-image-link' href='/upload_matching/getImage?fileName="+fileOriginPath+"' data-lightbox='example-set' data-title='Uploaded Image'>";
+						str += "<img  data-path='"+obj.uploadPath+"' data-uuid='"+obj.uuid+"' data-filename='"+obj.fileName+"'";
+						str += "class='example-image' src='/upload_matching/getImage?fileName="+fileCallPath+"' alt='Image Read Fail' class='img-fluid'></a>";
+						str += "</figure><div class='block-4-text p-4'><p class='text-primary font-weight-bold'>"+obj.fileName+"</p>";
+						str += "<button data-file="+fileCallPath+">X</button></div>"
+						str += "</div></div></div></div>";
+						$('.owl-carousel').owlCarousel('add', str).owlCarousel('update');
 				  }
 			  });
-			 uploadResult.append(str);	  
 		  }// end function 
 }); 
 

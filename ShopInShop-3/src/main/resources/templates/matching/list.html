@@ -6,41 +6,52 @@
 <br>
 
 <div class="container">
-	
+
+
 <style>
 	.tableHeader {background-color:#d9d7f9}
 </style>
 
-
-	<h5>
-		<a th:href="@{/matching/register}">Register</a>
-	</h5>
-
+	<div class="d-flex">
+		<p class="mr-auto align-self-center">Matching List Page</p>
+		<div class="ml-auto">
+		<select class="amount-opt" >
+			<option value="10" th:attr="selected=${cri.amount == 10? 'true' : 'false'}">10개씩</option>
+			<option value="20" th:attr="selected=${cri.amount == 20? 'true' : 'false'}">20개씩</option>
+			<option value="50" th:attr="selected=${cri.amount == 50? 'true' : 'false'}">50개씩</option>
+			<option value="100" th:attr="selected=${cri.amount == 100? 'true' : 'false'}">100개씩</option>
+		</select>
+		<a class="align-self-center btn-sm btn-primary" th:href="@{/matching/register}" th:text="#{board.button.registerBtn}">Register</a>
+		</div>
+	</div>
 	
 
 	<table class="table table-hover">
 		<thead class="tableHeader">
 			<tr>
 		    <th class="text-center"  scope="col">No.</th>
-			<th class="text-center"  scope="col">제목</th>
-			<th class="text-center"  scope="col">작성자</th>
-			<th class="text-center"  scope="col">등록일</th>
-			<th class="text-center"  scope="col">조회</th>
+			<th class="text-center"  scope="col" th:text="#{board.title}">제목</th>
+			<th class="text-center"  scope="col" th:text="#{board.writer}">작성자</th>
+			<th class="text-center"  scope="col" th:text="#{board.regdate}">등록일</th>
+			<th class="text-center"  scope="col" th:text="#{board.viewcnt}">조회</th>
 			</tr>
         </thead>
+        <tbody>
 		<tr th:each="vo : ${list}">
-			<td th:text="${vo.bno}"></td>
+			<th scope="row" class="text-center" th:text="${vo.bno}"></td>
 			<td><a class="view" th:href="${vo.bno}" th:text="${vo.title}"></a><span> ([[${vo.replycnt}]])</span></td>
-			<td th:text="${vo.mmid}"></td>
+			<td class="text-center" th:text="${vo.mmid}"></td>
 			<td class="text-center"  th:if="${vo.regdate.before(#dates.createToday())}">[[${#dates.format(vo.regdate, 'yyyy-MM-dd')}]]</td>
 			<td class="text-center"  th:if="${vo.regdate.after(#dates.createToday())}">[[${#dates.format(vo.regdate, 'H:mm a')}]]</td>
-			
+			<td class="text-center" th:text="${vo.viewcnt}"></td>
 		</tr>
+		<tbody>
 	</table>
 
-	
-	<div>	
-		<select name="typeView">
+
+	<div class="d-flex justify-content-end" name="searchDIV">
+		
+		<select class="form-control" name="typeView" style="width:auto; height:50px;">
 			<option value="">--</option>
 			<option value="T" th:attr="selected=${cri.type == 'T'? 'true' : 'false'}">제목</option>
 			<option value="C" th:attr="selected=${cri.type == 'C'? 'true' : 'false'}">내용</option>
@@ -50,56 +61,43 @@
 			<option value="CW" th:attr="selected=${cri.type == 'CW'? 'true' : 'false'}">내용 + 작성자</option>
 			<option value="TCW" th:attr="selected=${cri.type == 'TCW'? 'true' : 'false'}">제목 + 내용+ 작성자</option>
 		</select>
-		
-		<input  type="text" name="keywordView" th:value="${cri.keyword}">
-		<button class="btn-primary btn-sm searchBtn">Search</button>
-	
-		<select class="amount-opt">
-			<option value="10" th:attr="selected=${cri.amount == 10? 'true' : 'false'}">10</option>
-			<option value="20" th:attr="selected=${cri.amount == 20? 'true' : 'false'}">20</option>
-			<option value="50" th:attr="selected=${cri.amount == 50? 'true' : 'false'}">50</option>
-			<option value="100" th:attr="selected=${cri.amount == 100? 'true' : 'false'}">100</option>
-		</select>
-		
-	</div>
+			
+		<div class="block-7">           
+         	<div class="form-group">
+                  <input type="text" class="form-control py-4" placeholder="search" name="keywordView" th:value="${cri.keyword}">
+                  <button class="btn btn-primary btn-sm searchBtn" th:text="#{board.button.searchBtn}"> 검색 </button>
+            </div>              
+       	</div> <!--  search input -->
+	</div> <!--  d-flex -->
 	
 	
-	
-		
 
+	
 	
 	
 
 
-<h4> pagination not complete ... </h4>
-	<ul class="pagination" th:with="page=${page}">
+
+	<ul class="pagination">
 		
 		<li th:if="${pm.prev}" class="page-item"><a class="page-link"
 			th:href='${pm.start-1}'>Previous</a></li>
 			
 			
-		<c:forEach begin="${pm.start}" end="${pm.end}" var="idx">
-			<li class="page-item ${pm.current == idx ? "active":"" } ">
-			<a class="page-link" href='${idx}'>${idx}</a></li>
-		</c:forEach>
 		
-
-	
-		<li th:each="pageNumber : ${page}">
-			<a class="page-link" th:text=${pageNumber}></a>
+		<li  th:class="${pageNumber == pm.current} ? 'page-item active' : 'page-item'" th:each="pageNumber : ${pm.pageList}">
+			<a class="page-link" th:href='${pageNumber}' th:text='${pageNumber}'></a>
 		</li>
 		
 		
-		
-		
 
-			<li th:if="${pm.next}" class="page-item"><a class="page-link" 
+		<li th:if="${pm.next}" class="page-item"><a class="page-link" 
 			th:href='${pm.end+1}'>Next</a></li>
 	</ul>
 	
 
 
-
+<div class="testDiv"></div>
 
 	
 </div>
@@ -130,6 +128,7 @@ var actionForm = $("#actionForm");
 
 $(".view").on("click",function(e){
 	e.preventDefault();
+	
 	var targetbno = $(this).attr("href");
 	
 	actionForm.attr("action","/matching/read");
@@ -174,19 +173,6 @@ $(".amount-opt").on("change",function(e){
 	actionForm.submit();
 });
 <!-- actionForm End .. -->
-
-<!-- make pagenation -->
-
-var page = [] 
-
-for(var i = [[${pm.start}]] ; i <= [[${pm.end}]] ; i++ ){
-	page.push(i);
-}
-console.log(page);
-
-console.log([1 , 2]);
-	
-	
 
 </script>
 

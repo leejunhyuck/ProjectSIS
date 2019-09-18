@@ -1,5 +1,8 @@
 package org.sis.mapper;
 
+import java.util.List;
+
+import org.sis.board.model.ShopVO;
 import org.sis.user.model.MemberVO;
 
 public interface UserMapper {
@@ -12,6 +15,7 @@ public interface UserMapper {
 	public MemberVO mypage(String mmid);
 	
 	public int infoUpdate(MemberVO member);
+	
 	
 	
 }

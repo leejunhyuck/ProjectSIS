@@ -1,77 +1,104 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
- <mapper namespace="org.sis.mapper.ShopMapper">
- 	
- 	<!-- location / mmid -->
- 	<sql id="searchCri">
+<mapper namespace="org.sis.mapper.ShopMapper">
+
+	<!-- location / mmid -->
+	<sql id="searchCri">
 		<if test="map != null">
-			 <where>
-		 		<foreach index="key" item="val" collection="map" >
-		 			<trim prefix="or">
-			 			<if test="key == 'T'.toString()">
-			 				title	like concat('%', #{val}, '%')
-			 			</if>
-			 			<if test="key == 'C'.toString()">
-			 				content like concat('%', #{val}, '%')
-			 			</if>
-			 			<if test="key == 'W'.toString()">
-			 				mmid = #{val}
-			 			</if>
-			 		</trim>
-		 		</foreach>
-	 		</where>
+			<where>
+				<foreach index="key" item="val" collection="map">
+					<trim prefix="or">
+						<if test="key == 'T'.toString()">
+							title like concat('%', #{val}, '%')
+						</if>
+						<if test="key == 'C'.toString()">
+							content like concat('%', #{val}, '%')
+						</if>
+						<if test="key == 'W'.toString()">
+							mmid = #{val}
+						</if>
+					</trim>
+				</foreach>
+			</where>
 		</if>
 	</sql>
- 	
-	<insert id="insert">
-		insert into tbl_shop ( sname, content, stype, deposit, rent, floor, surface, p_surface, park, elev, location, toilet, mmid, lat , lng )
-		values ( #{sname},#{content}, #{stype}, #{deposit}, #{rent}, #{floor}, #{surface}, #{p_surface}, #{park}, #{elev}, #{location}, #{toilet}, #{mmid}, #{lat} , #{lng} )
- 	</insert>
-  
- 	<select id="select" resultType="org.sis.board.model.ShopVO">
- 		select * from tbl_shop where bno = #{bno}
- 	</select>
- 	
-  	<update id="update">
- 		update tbl_shop 
- 		set updatedate=now(), sname=#{sname}, content=#{content}, stype=#{stype}, deposit=#{deposit}, rent=#{rent}, floor=#{floor}, surface=#{surface}, p_surface=#{p_surface}, park=#{park}, elev=#{elev}, location=#{location}, toilet=#{toilet} 
- 		where bno=#{bno}
- 	</update>
- 	
- 	<delete id="delete">
- 		delete from tbl_shop where bno=#{bno}
- 	</delete> 
- 	
- 	<select id="selectAll" resultType="org.sis.board.model.ShopVO">
- 		select * from tbl_shop where bno > 0 order by bno asc
- 	</select>
- 	
- 	<select id="selectMyAll" resultType="org.sis.board.model.ShopVO">
- 		select * from tbl_shop where mmid=#{mmid} and bno > 0
- 	</select>
- 	
- 	<select id="selectPage" resultType="org.sis.board.model.ShopVO">
- 	 	select * from tbl_shop
-	 	<include refid="searchCri"></include>
- 		order by bno desc limit #{skip}, #{amount}
- 	</select>
- 	
- 	<select id="selectPageCount" resultType="int">
- 		select count(bno) from tbl_shop where bno > 0
- 	</select>
-	
-	<select id="selectViewcnt" resultType="int">
-		select viewcnt from tbl_shop where bno=#{bno}
-	</select>
-	
-	<update id="updateViewcnt">
-		update tbl_shop set viewcnt = viewcnt + 1 where bno=#{bno}
-	</update>
-	
-	<select id="search" resultType="org.sis.board.model.ShopVO">
- 		select * from tbl_shop
- 		<include refid="searchCri"></include>
- 		order by bno desc limit 0, 20
- 	</select>
 
- </mapper>
+	<insert id="insert">
+		insert into tbl_shop ( sname, content, stype,
+		deposit, rent, floor, surface, p_surface, park, elev, location,
+		toilet, mmid, lat , lng )
+		values ( #{sname},#{content}, #{stype},
+		#{deposit}, #{rent}, #{floor}, #{surface}, #{p_surface}, #{park},
+		#{elev}, #{location}, #{toilet}, #{mmid}, #{lat} , #{lng} )
+	</insert>
+
+	<select id="select" resultType="org.sis.board.model.ShopVO">
+		select * from tbl_shop where bno = #{bno}
+	</select>
+
+	<update id="update">
+		update tbl_shop
+		set updatedate=now(), sname=#{sname}, content=#{content}, stype=#{stype},
+		deposit=#{deposit}, rent=#{rent}, floor=#{floor}, surface=#{surface},
+		p_surface=#{p_surface}, park=#{park}, elev=#{elev},
+		location=#{location}, toilet=#{toilet}
+		where bno=#{bno}
+	</update>
+
+	<delete id="delete">
+		delete from tbl_shop where bno=#{bno}
+	</delete>
+
+	<select id="selectAll" resultType="org.sis.board.model.ShopVO">
+		select * from tbl_shop where bno > 0 order by bno asc
+	</select>
+
+	<select id="selectMyAll" resultType="org.sis.board.model.ShopVO">
+		select * from tbl_shop where mmid=#{mmid} and bno > 0
+	</select>
+
+	<select id="selectPage" resultType="org.sis.board.model.ShopVO">
+		select * from tbl_shop
+		<include refid="searchCri"></include>
+		order by bno desc limit #{skip}, #{amount}
+	</select>
+
+	<select id="selectPageCount" resultType="int">
+		select count(bno) from tbl_shop where bno > 0
+	</select>
+
+	<select id="selectViewcnt" resultType="int">
+		select viewcnt from
+		tbl_shop where bno=#{bno}
+	</select>
+
+	<update id="updateViewcnt">
+		update tbl_shop set viewcnt = viewcnt + 1 where
+		bno=#{bno}
+	</update>
+
+	<select id="search" resultType="org.sis.board.model.ShopVO">
+		select * from tbl_shop
+		<include refid="searchCri"></include>
+		order by bno desc limit 0, 20
+	</select>
+
+	<select id="selectconList"
+		resultType="org.sis.board.model.ShopVO">
+		select * from (select * from tbl_shop where lat between #{swlat} and
+		#{nelat} OR lng between #{swlng} and #{nelng}) c
+		where stype = '의류점'
+		and deposit between #{depositmin} and #{depositmax}
+		and rent between #{rentmin} and #{rentmax}
+		and p_surface between #{surfacemin} and #{surfacemax}
+		and floor = #{floor}
+		and park =#{park}
+		and elev =#{elev}
+		and toilet = #{toilet}
+	</select>
+
+	<select id="selectList" resultType="org.sis.board.model.ShopVO">
+		select * from tbl_shop
+	</select>
+
+</mapper>

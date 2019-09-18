@@ -5,7 +5,10 @@
 
 <br>
 
+   
+
 <div class="container">
+
 
 <style>
 	.tableHeader {background-color:#d9d7f9}
@@ -20,7 +23,7 @@
 			<option value="50" th:attr="selected=${cri.amount == 50? 'true' : 'false'}">50개씩</option>
 			<option value="100" th:attr="selected=${cri.amount == 100? 'true' : 'false'}">100개씩</option>
 		</select>
-		<a class="align-self-center btn-sm btn-primary" th:href="@{/community/register}">Register</a>
+		<a class="align-self-center btn-sm btn-primary" th:href="@{/community/register}" th:text="#{board.list.register}">Register</a>
 		</div>
 	</div>
 	
@@ -29,10 +32,10 @@
 		<thead class="tableHeader">
 			<tr>
 		    <th class="text-center"  scope="col">No.</th>
-			<th class="text-center"  scope="col">제목</th>
-			<th class="text-center"  scope="col">작성자</th>
-			<th class="text-center"  scope="col">등록일</th>
-			<th class="text-center"  scope="col">조회</th>
+			<th class="text-center"  scope="col" th:text="#{board.list.title}">제목</th>
+			<th class="text-center"  scope="col" th:text="#{board.list.writer}">작성자</th>
+			<th class="text-center"  scope="col" th:text="#{board.list.regdate}">등록일</th>
+			<th class="text-center"  scope="col" th:text="#{board.list.viewcnt}">조회</th>
 			</tr>
         </thead>
         <tbody>
@@ -64,7 +67,7 @@
 		<div class="block-7">           
          	<div class="form-group">
                   <input type="text" class="form-control py-4" placeholder="search" name="keywordView" th:value="${cri.keyword}">
-                  <button class="btn btn-primary btn-sm searchBtn"> 검색 </button>
+                  <button class="btn btn-primary btn-sm searchBtn" th:text="#{board.list.search}"> 검색 </button>
             </div>              
        	</div> <!--  search input -->
 	</div> <!--  d-flex -->

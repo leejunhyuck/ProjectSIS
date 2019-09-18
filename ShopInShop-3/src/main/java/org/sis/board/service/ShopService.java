@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.sis.board.model.Criteria;
+import org.sis.board.model.ListVO;
 import org.sis.board.model.ShopVO;
 
 public interface ShopService extends GenericService<ShopVO, Integer>{
@@ -14,4 +15,5 @@ public interface ShopService extends GenericService<ShopVO, Integer>{
 	
 	public int modifyViewcnt( Integer bno ); // R - updateViewcnt
 	
+	public List<ListVO> getConList(ListVO vo);
 }

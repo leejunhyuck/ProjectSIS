@@ -19,6 +19,7 @@ public interface MatchingMapper {
 	public int delete(Integer bno);
 	public int update(MatchingVO vo);
 
+	public List<Integer> NextPrevBno(Integer bno); 
 
 	public int selectPageCount(Criteria cri);	
 	public List<MatchingVO> selectPage(Criteria cri);
@@ -31,5 +32,8 @@ public interface MatchingMapper {
 	
 	@Select("select * from tbl_board_join_file where bno = #{bno}")
 	public List<MatchingAttachVO> findbyBno(int bno);
+	
+	@Update("update tbl_board_join set viewcnt=viewcnt+1 where bno =#{bno}")
+	public int updateViewCnt(@Param("bno") Integer bno);
 	
 }

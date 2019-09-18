@@ -62,9 +62,9 @@ public class MatchingController {
 	@GetMapping({"/read","/modify"})
 	public void read(@ModelAttribute("cri") Criteria cri, Model model) {
 		log.info("bno: "+cri.getBno());
-		log.info(""+service.select(cri.getBno()));
 		
 		model.addAttribute("vo", service.select(cri.getBno()));
+		model.addAttribute("bnoPrevNext",service.getPrevNext(cri.getBno()));
 	}
 	
 	@PostMapping("/modify")

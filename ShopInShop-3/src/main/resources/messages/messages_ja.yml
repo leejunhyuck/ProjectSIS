@@ -1,0 +1,13 @@
+board:
+  title: "タイトル"
+  writer: "作成者"
+  regdate: "更新日付"
+  viewcnt: "アクセス数"
+  button:
+    registerBtn: "書く"
+    searchBtn: "検索"
+    resetBtn: "리셋"
+    listBtn: "목록으로"
+    uploadBtn: "찾아보기"
+    
+    
