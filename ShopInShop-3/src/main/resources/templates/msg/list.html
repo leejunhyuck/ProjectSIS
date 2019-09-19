@@ -35,9 +35,9 @@
 	
 	<h1>받은 쪽지함</h1>
 	
-	<button class="btn-dark btn-sm regBtn" >register</button>
-	<button class="btn-sm btn-outline-secondary">list</button>
-	<a th:href="@{/msg/sendlist}" class="btn-dark btn-sm deleteBtn">send</a> 
+	<button class="btn-dark btn-sm regBtn" >메세지 쓰기</button>
+	<button class="btn-sm btn-outline-secondary RlistBtn">받은 쪽지함</button>
+	<a th:href="@{/msg/sendlist}" class="btn-dark btn-sm SlistBtn">보낸 쪽지함</a> 
 	
 	
 	<span style="
@@ -49,8 +49,11 @@ font-family: arial;
 float:right;
 padding:15px 0 0 0;
 ">
-읽지 않은 메세지 /받은 메세지 :[[${recnt}]] / [[${cnt}]]
+
+
+읽지 않은 메세지 /받은 메세지 : [[${recnt}]] / [[${cnt}]]
 </span>
+<hr>	
 	
 	
 	<hr style="border: outset">
@@ -61,7 +64,7 @@ padding:15px 0 0 0;
 		<tr class="table-primary">
 			<td class="table-title">제목</td>
 			<td>보낸사람</td>
-			<td>REGDATE</td>
+			<td>등록날짜</td>
 		
 		</tr>
 		<tr th:each="vo : ${list}"  th:class="${vo.readed} ? 'font-weight-light' : 'font-weight-bold'"  >
@@ -85,7 +88,7 @@ padding:15px 0 0 0;
 		</select>
 		
 		<input  type="text" name="keywordView" th:value="${cri.keyword}">
-		<button class="btn-primary btn-sm searchBtn">Search</button>
+		<button class="btn-primary btn-sm searchBtn">검색</button>
 	
 		<select class="amount-opt">
 			<option value="10" th:attr="selected=${cri.amount == 10? 'true' : 'false'}">10</option>

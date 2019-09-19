@@ -35,10 +35,10 @@
 	
 	<h1>보낸 쪽지함</h1>
 	
-	<button class="btn-dark btn-sm regBtn" >register</button>
+	<button class="btn-dark btn-sm regBtn" >메세지 쓰기</button>
 	
-	<a th:href="@{/msg/list}" class="btn-dark btn-sm deleteBtn">list</a>
-	<button class="btn-outline-secondary btn-sm">send</button>
+	<a th:href="@{/msg/list}" class="btn-dark btn-sm RlistBtn">받은 쪽지함</a>
+	<button class="btn-outline-secondary btn-sm SlistBtn">보낸 쪽지함</button>
 	
 		<hr style="border: outset">
 	
@@ -47,8 +47,8 @@
 		<tr class="table-primary">
 			<td>제목</td>
 			<td>받은사람</td>
-			<td>REGDATE</td>
-			<td>read</td>
+			<td>등록날짜</td>
+			<td>읽음여부</td>
 		</tr>
 		<tr th:each="vo : ${list}">
 			<td><a class="view" th:href="${vo.msgnum}" th:text="${vo.title}"></a></td>
@@ -73,7 +73,7 @@
 		</select>
 		
 		<input  type="text" name="keywordView" th:value="${cri.keyword}">
-		<button class="btn-primary btn-sm searchBtn">Search</button>
+		<button class="btn-primary btn-sm searchBtn">검색</button>
 	
 		<select class="amount-opt">
 			<option value="10" th:attr="selected=${cri.amount == 10? 'true' : 'false'}">10</option>

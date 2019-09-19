@@ -42,7 +42,7 @@
 	
 
 	<div>
-		<label>Title : </label> <span class=" r-auto align-self-center"
+		<label>제목 : </label> <span class=" r-auto align-self-center"
 			 >[[${vo.title}]]</span>
 	</div>
 	</div>
@@ -52,14 +52,14 @@
 		<label>작성자 : </label> <span class=" r-auto align-self-center"
 			 >[[${vo.whom}]]</span>
 	
-		<div class="ml-auto align-self-end"><span >RegDate : [[${#dates.format(vo.regdate,'yyyy.MM.dd ( H:mm:ss )')}]]</span></div>
+		<div class="ml-auto align-self-end"><span >등록날짜 : [[${#dates.format(vo.regdate,'yyyy.MM.dd ( H:mm:ss )')}]]</span></div>
 	</div>
 	</div>
 	
 	<hr style="border: outset">
 
 	<div class="form-group">
-		<label>Content</label>
+		<label>내용</label>
 		<textarea class="form-control" rows="3" name='content'
 			th:text="${vo.content}" readonly="readonly"></textarea>
 	</div>
@@ -68,10 +68,10 @@
 
 
 	<div class="pull-right" >
-		<a th:href="@{/msg/remove?msgnum={id}(id=${vo.msgnum})}" class="btn-dark btn-sm deleteBtn">Delete</a> 
+		<a th:href="@{/msg/remove?msgnum={id}(id=${vo.msgnum})}" class="btn-dark btn-sm delBtn">삭제하기</a> 
 		
-		<button class="btn-dark btn-sm regBtn" >register</button>
-		<button class="btn-dark btn-sm listBtn" >Go List</button>
+		<button class="btn-dark btn-sm SubBtn" >메세지 보내기</button>
+		<button class="btn-dark btn-sm listBtn" >목록으로</button>
 		
 	</div>
 	</div>
@@ -108,7 +108,7 @@ $(".listBtn").on("click", function(e) {
 })
 
 
-$(".regBtn").on("click", function(e) {
+$(".SubBtn").on("click", function(e) {
 	console.log("list~~~~~~~~~`")
 	
  	registerForm.attr("action", "/msg/register").submit();
