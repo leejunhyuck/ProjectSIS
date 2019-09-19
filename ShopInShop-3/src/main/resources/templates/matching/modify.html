@@ -34,8 +34,8 @@
 
 	<div class="d-flex">
 		<div class="ml-auto">
-			<button class="btn-primary btn-sm modBtn" th:text="#{board.button.modBtn}">수정하기</button>
-			<button class="btn-warning btn-sm delBtn" th:text="#{board.button.delBtn}">삭제하기</button> 
+			<button class="btn-primary btn-sm modBtn" th:text="#{board.list.button.modBtn}">수정하기</button>
+			<button class="btn-warning btn-sm delBtn" th:text="#{board.list.button.delBtn}">삭제하기</button> 
 			<button class="btn-primary btn-sm listBtn" th:text="#{board.button.listBtn}">목록으로</button>
 		</div>
 	</div>
@@ -71,12 +71,12 @@
 
 <div class="input-group">
 	<div class="input-group-prepend">
-   		<span class="input-group-text" id="inputGroupFileAddon01" th:text="#{board.upload}">Upload</span>
+   		<span class="input-group-text" id="inputGroupFileAddon01" th:text="#{board.list.upload}">Upload</span>
 	</div>
 <div class="custom-file">
 	<input type="file" class="custom-file-input" id="inputGroupFile01"  name="files"
     	aria-describedby="inputGroupFileAddon01" multiple="multiple">
-   	<label class="custom-file-label" for="inputGroupFile01" th:text="#{board.uploadLabel}">Choose file</label>
+   	<label class="custom-file-label" for="inputGroupFile01" th:text="#{board.list.uploadLabel}">Choose file</label>
 </div> 
 </div> <!--  input - upload -->
 

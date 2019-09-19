@@ -12,7 +12,7 @@
 	<form class="actionForm" th:action="@{/matching/register}" method="post">
 
 		<div class="form-group">
-			<label th:text="#{board.title}"></label> 
+			<label th:text="#{board.list.title}"></label> 
 			<input class="form-control" name="title" required="required"/>			
 		</div>
 		
@@ -25,8 +25,8 @@
 		</div>
 		
 		<button type="submit" class="insertBtn btn-success btn-sm" th:text="#{board.button.registerBtn}">Submit Button</button>
-		<button type="reset" class="btn-primary btn-sm" th:text="#{board.button.resetBtn}">Reset Button</button>
-		<a th:href="@{/matching/list}" class="btn-secondary btn-sm" th:text="#{board.button.listBtn}"> Go to List </a>
+		<button type="reset" class="btn-primary btn-sm" th:text="#{board.list.button.resetBtn}">Reset Button</button>
+		<a th:href="@{/matching/list}" class="btn-secondary btn-sm" th:text="#{board.list.button.listBtn}"> Go to List </a>
 	</form>
 		
 		<div class="uploadBox" style="display: none"> 
@@ -53,12 +53,12 @@
 
 	<div class="input-group">
  	<div class="input-group-prepend">
-    	<span class="input-group-text" id="inputGroupFileAddon01" th:text="#{board.upload}">Upload</span>
+    	<span class="input-group-text" id="inputGroupFileAddon01" th:text="#{board.list.upload}">Upload</span>
   	</div>
   	<div class="custom-file">
     	<input type="file" class="custom-file-input" id="inputGroupFile01"  name="files"
       	aria-describedby="inputGroupFileAddon01" multiple="multiple">
-    	<label class="custom-file-label" for="inputGroupFile01" th:text="#{board.uploadLabel}">Choose file</label>
+    	<label class="custom-file-label" for="inputGroupFile01" th:text="#{board.list.uploadLabel}">Choose file</label>
   	</div> 
 	</div> <!--  input - upload -->
 

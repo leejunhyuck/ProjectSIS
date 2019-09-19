@@ -1,32 +1,42 @@
 board:
-  title: "제목"
   writer: "작성자"
   regdate: "등록날짜"
-  viewcnt: "조회수"
-  upload: "첨부파일"
-  uploadLabel: "파일을 선택해주세요"
-  uploadFile: "업로드된 파일"
-  
+  list: 
+    title: "제목"
+    writer: "작성자"
+    regdate: "등록날짜"
+    viewcnt: "조회수"
+    upload: "첨부파일"
+    uploadLabel: "파일을 선택해주세요"
+    uploadFile: "업로드된 파일"
+    register: "글쓰기"
+    search: "검색"
+    
+    button: 
+      registerBtn: "글쓰기"
+      listBtn: "목록으로"
+      modBtn: "수정하기"
+      delBtn: "삭제하기"
+      modAndDelBtn: "수정 및 삭제"
+      resetBtn: "리셋"
+      search: "검색"
+      uploadBtn: "찾아보기"
+      nextBtn: "다음글"
+      prevBtn: "이전글"
+      replyBtn: "댓글달기"
+      replyAddBtn: "댓글쓰기"
+      replycancelBtn: "취소"
+      replyModBtn: "댓글수정"
+      replyDelBtn: "댓글삭제"
+      likeBtn: "좋아요"
+      msgBtn: "쪽지보내기"
+      
   button:
     registerBtn: "글쓰기"
-    listBtn: "목록으로"
-    modBtn: "수정하기"
-    delBtn: "삭제하기"
-    modAndDelBtn: "수정 및 삭제"
-    resetBtn: "리셋"
     searchBtn: "검색"
-    uploadBtn: "찾아보기"
     nextBtn: "다음글"
     prevBtn: "이전글"
-    replyBtn: "댓글달기"
-    replyAddBtn: "댓글쓰기"
-    replycancelBtn: "취소"
-    replyModBtn: "댓글수정"
-    replyDelBtn: "댓글삭제"
-    likeBtn: "좋아요"
-    msgBtn: "쪽지보내기"
- 
-   
+    listBtn: "목록으로"
 shop:
   title: "매물등록창"
   name: "가게이름"
@@ -70,15 +80,20 @@ msg:
   writer: "작성자"
   whom: "받는사람"
   gubun: "구분"
-  
+  reade: "읽음여부"
+  sendmail: "보낸 쪽지함"
+  receivemail: "받은 쪽지함"
   
   button:
     submitBtn: "보내기"
     listBtn: "목록으로"
     delBtn: "삭제하기"
     searchBtn: "검색"
-  
-  
+    regBtn: "메세지 쓰기"
+    RlistBtn: "받은 쪽지함"
+    SlistBtn: "보낸 쪽지함"
+    SubBtn: "메세지 보내기"
+    
 user:
   dropbox:
     info: "정보수정"
@@ -101,8 +116,22 @@ user:
     female: "여성"
     message: "자기소개"
     sign-Up: "회원가입"
-    
-    
+  recent: 
+    interestslist: "관심목록"
+    recentlist: "최근 본 매물"
+    likedlist: "찜한 매물"
+    recomendlist: "추천 매물"
+  mypage:
+    title: "나의 정보"
+    id: "아이디"
+    pw: "비밀번호"
+    pwCheck: "비밀번호 확인"
+    name: "이름"
+    phone: "연락처"
+    address: "주소"
+    message: "자기소개"
+    button: 
+      modifybutton: "수정하기"
 
   
   

@@ -1,0 +1,144 @@
+board:
+ writer: "写手"
+ regdate: "登记日期"
+ list: 
+    title: "题目"
+    writer: "写手"
+    regdate: "登记日期"
+    viewcnt: "查询数"
+    upload: "附件"
+    uploadLabel: "请选择文件"
+    uploadFile: "上传的文件"
+    register: "写作"
+    search: "搜索"
+  
+    button: 
+      registerBtn: "写作"
+      listBtn: "用目录"
+      modBtn: "修改"
+      delBtn: "删除"
+      modAndDelBtn: "修改与删除"
+      resetBtn: "重置"
+      searchBtn: "搜索"
+      uploadBtn: "寻找"
+      nextBtn: "下文"
+      prevBtn: "前文"
+      replyBtn: "留言"
+      replyAddBtn: "留言"
+      replycancelBtn: "取消"
+      replyModBtn: "留言修正"
+      replyDelBtn: "删帖"
+      likeBtn: "好。"
+      msgBtn: "纸条寄语"
+   
+ button: 
+    registerBtn: "写作"
+    searchBtn: "搜索"
+    nextBtn: "下文"
+    prevBtn: "前文"
+    listBtn: "目录"
+shop:
+  title: "待售登记窗口"
+  name: "店名"
+  writer: "写手"
+  maintype: "行业-大分类"
+  subtype: "行业-小分类"
+  wanttype: "希望行业"
+  address: "住址"
+  deposit: "租金"
+  rent: "月租"
+  surface: "总面积"
+  p-surface: "可提供面积"
+  floor: "层数"
+  elev: "电梯与否"
+  toilet: "卫生间内部有事"
+  park: "停车场与否"
+  content: "介绍文章"
+  upload: "附件"
+  uploadLabel: "请选择文件"
+  uploadFile: "上传的文件"
+  
+  button:
+    registerBtn: "写作"
+    listBtn: "用目录"
+    modBtn: "修改"
+    delBtn: "删除"
+    modAndDelBtn: "修改与删除"
+    resetBtn: "重置"
+    searchBtn: "搜索"
+    uploadBtn: "寻找"
+
+
+msg:
+  sendTitle: "发过来的纸条"
+  receiveTitle: "收条箱"
+  unreadMsg: "不读的短信"
+  totalMsg: "收到的信息"
+  regdate: "登记日期"
+  title: "题目"
+  content: "内容"
+  writer: "写手"
+  whom: "收件人"
+  gubun: "区分"
+  reade: "读音与否"
+  sendmail: "寄来的纸条盒"
+  receivemail: "受纸条盒"
+  
+  button:
+    submitBtn: "寄语"
+    listBtn: "用目录"
+    delBtn: "删除"
+    searchBtn: "搜索"
+    regBtn: "发信息"
+    RlistBtn: "受纸条盒"
+    SlistBtn: "寄来的纸条盒"
+    SubBtn: "发信息"
+  
+user:
+  dropbox:
+    info: "信息修正"
+    trade: "进行交易"
+    msg: "纸条盒"
+    logout: "注销"
+  join:
+    title: "会员注册页面"
+    id: "用户名"
+    overlap: "重复确认"
+    overlapCheck: "双重格子"
+    pw: "密码"
+    pwCheck: "密码确认"
+    name: "名"
+    phone: "联络处"
+    country: "出身国"
+    address: "住址"
+    sex: "性别"
+    male: "男性"
+    female: "女性"
+    message: "自我介绍"
+    sign-Up: "注册会员"
+  recent:
+    interestslist: "关注目录"
+    recentlist: "近期看房"
+    likedlist: "好待售"
+    recomendlist: "推荐出售"
+  mypage:
+    title: "我的信息"
+    id: "用户名"
+    pw: "비밀번호"
+    pwCheck: "密码确认"
+    name: "名"
+    phone: "联络处"
+    address: "住址"
+    message: "自我介绍"
+    button: 
+      modifybutton: "修改"
+  
+  
+        
+    
+
+  
+  
+  
+  
+  
