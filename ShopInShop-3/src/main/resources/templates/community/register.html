@@ -24,9 +24,9 @@
 			<!-- get mmid by login -->
 		</div>
 		
-		<button type="submit" class="insertBtn btn-success btn-sm">Submit Button</button>
-		<button type="reset" class="btn-primary btn-sm">Reset Button</button>
-		<a th:href="@{/community/list}" class="btn-secondary btn-sm"> Go to List </a>
+		<button type="submit" class="insertBtn btn-success btn-sm" th:text="#{board.button.registerBtn}">Submit Button</button>
+		<button type="reset" class="btn-primary btn-sm" th:text="#{board.list.button.resetBtn}">Reset Button</button>
+		<a th:href="@{/community/list}" class="btn-secondary btn-sm" th:text="#{board.list.button.listBtn}"> Go to List </a>
 	</form>
 		
 		<div class="uploadBox" style="display: none"> 
