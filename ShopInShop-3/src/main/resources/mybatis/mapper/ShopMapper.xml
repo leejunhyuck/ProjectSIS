@@ -85,8 +85,8 @@
 
 	<select id="selectconList"
 		resultType="org.sis.board.model.ShopVO">
-		select * from (select * from tbl_shop where lat between #{swlat} and
-		#{nelat} OR lng between #{swlng} and #{nelng}) c
+		select * from (select * from tbl_shop where (lat between #{swlat} and
+		#{nelat} )OR (lng between #{swlng} and #{nelng})) c
 		where stype = '의류점'
 		and deposit between #{depositmin} and #{depositmax}
 		and rent between #{rentmin} and #{rentmax}

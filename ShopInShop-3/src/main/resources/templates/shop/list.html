@@ -40,14 +40,13 @@ nav {
 	width: 100%;
 	height: 70px;
 	padding: 15px;
-	background-color: yellow;
+	
 }
 
 section {
 	float: left;
 	width: 55%;
 	height: 100%;
-	background-color: pink;
 	overflow: auto;
 }
 
@@ -85,7 +84,7 @@ aside {
 
 <container>
 
-<nav>
+<nav class="card shadow mb-4" >
 	<div class="search-bar row">
 		<input class="form-control col-2 " placeholder="검색하세요.">
 		<button class="btn-primary btn-sm searchBtn">지역 검색</button>
@@ -190,7 +189,7 @@ aside {
 
 
 
-<section>
+<section >
 	<div class="row">
 		<div class="col-md-1"></div>
 		<div class="col-md-5">
@@ -206,15 +205,17 @@ aside {
 
 		<div class="col-sm-5 mb-4" th:each="vo : ${list}">
 			<div class="block-4">
-				<img src="/images/shop.jpg" alt="Image placeholder"
+				<a href="" class="link" th:value=${vo.bno}>
+					<img src="/images/shop.jpg" alt="Image placeholder"
 					th:attr="onmouseover=|imgHover(${vo.lat},${vo.lng})|"
-					onmouseleave="imgLeave()" class="img-fluid">
+					onmouseleave="imgLeave()" class="img-fluid"></a>
 				<div class="block-4-text p-1" >
 					<p class="mb-0">업종: [[${vo.stype}]]</p>
 					<p style="text-align: right;" class="mb-0">원하는 업종</p>
 					<p class="text-primary font-weight-bold mb-0">전세금:
 						[[${vo.deposit}]]만원 / 월세: [[${vo.rent}]] 만원</p>
-					<p class="mb-0">제공가능면적: [[${vo.p_surface}]] 평</p>
+					<p class="mb-0">제공가능면적: [[${vo.p_surface}]] 평</p>\
+					
 				</div>
 			</div>
 		</div>
@@ -610,7 +611,24 @@ var marker= []
 
 	});
 	
-	 
+	
+	$(".link").on("click",function(){
+
+		var furuitSrc= $(this).attr('value');
+		
+		var url ="/shop/read/?bno="+furuitSrc
+		
+		$(".link").attr("href", url)	
+	 });
+
+
+	
+	
+	
+
+	
+
+
 	
 	 function initMap() {
 

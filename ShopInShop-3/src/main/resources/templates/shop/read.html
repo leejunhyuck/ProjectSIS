@@ -4,6 +4,7 @@
 	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 
 <th:block th:insert="/../include/header.html"></th:block>
+<link rel="stylesheet" href="/css/billboard.css">
 
 <style>
 	html, body {
@@ -108,7 +109,7 @@
 			th:text="${vo.content}" readonly="readonly"></textarea>
 			</div>
 			
-			
+			<div id="radarChart"></div>
 		</span>
 		
 		
@@ -168,6 +169,11 @@
 			</div>
 			</div>
 			
+			
+			
+			
+			
+			
 		</span>
 	</div>
 	
@@ -175,9 +181,37 @@
 </container>
 
 <script src="//maps.googleapis.com/maps/api/js?key=AIzaSyCyfhfvTsgc8w7P_BrNXZbsLW0LaChuChI&language=ko"></script>
-
+<script src="https://d3js.org/d3.v5.min.js"></script>
+<script src="/js/billboard.js"></script>
 <script>
 <!-- Map -->
+var c =2
+var chart = bb.generate({
+	  data: {
+	    x: "x",
+	    columns: [
+		["x", "상권변화", "유동인구(남)", "유동인구(여)", "인구밀도", "역세권지수","폐업신고율"],
+		["상권분석지수", c, c, c, c, 2,c]
+		
+		],
+	    type: "radar",
+	    labels: true
+	  },
+	  radar: {
+	    axis: {
+	      max: 5
+	    },
+	    level: {
+	      depth: 5
+	    },
+	    direction: {
+	      clockwise: true
+	    }
+	  },
+	  bindto: "#radarChart"
+	});
+
+
 var mapDiv = document.getElementById( "map-canvas" ) ;
 var map = new google.maps.Map( mapDiv, {
     center: new google.maps.LatLng( "[[${vo.lat}]]", "[[${vo.lng}]]" ) ,

@@ -1,5 +1,8 @@
 package org.sis.board.controller;
 
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.net.Socket;
 import java.util.List;
 
 import org.sis.board.model.Criteria;
@@ -97,14 +100,7 @@ public class ShopController {
 	@GetMapping("/list_test")
 	public void list_test() {
 	}
-	
-	@GetMapping("/read")
-	public void read() {
-		
-		
-		
-		
-	}
+
 	
 	@GetMapping("/analysis")
 	public void analysis() {
@@ -128,8 +124,61 @@ public class ShopController {
 		service.register(vo);
 	}
 	
-	@PutMapping("/modify")
-	public void modify() {
+	@GetMapping({"/modify","/read"})
+	public void modify(Integer bno, Model model) {
+		log.info("bno: " + bno);
+		ShopVO shop = service.select(bno);
+				
+		log.info("socket");
+		
+		 try{
+
+
+            // 1. 서버의 IP와 서버의 동작 포트 값(10001)을 인자로 넣어 socket 생성
+
+            Socket sock = new Socket("192.168.41.64", 9000);
+
+            String msg = Double.toString(shop.getLat())+","+Double.toString(shop.getLng());
+           
+           
+
+            // 2. 생성된 Socket으로부터 InputStream과 OutputStream을 구함
+
+            OutputStream out = sock.getOutputStream();
+            
+            out.write(msg.getBytes());
+            
+            out.flush();
+            
+            
+            
+            InputStream in = sock.getInputStream();
+            
+            byte[] arr = new byte[1024];
+
+            int count = in.read(arr);
+            
+            System.out.println(new String(arr));
+            
+            System.out.println(count);
+                         
+            in.close();
+
+            out.close();
+            
+            sock.close();
+
+     }catch(Exception e){
+
+            System.out.println(e);
+            e.printStackTrace();
+
+     }
+		
+		
+		
+		model.addAttribute("vo", service.select(bno));
+		
 	}
 	
 	@DeleteMapping("remove")
