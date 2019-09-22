@@ -3,10 +3,33 @@
 
 <th:block th:insert="/../include/header.html"></th:block>
     <!-- Header End -->
+    
+<style>
+.modal-footer .hide{
+	display:none;
+}
+#main {
+   position: relative;
+}
+#main:after {
+   content : "";
+   display: block;
+   position: absolute;
+   top: 0;
+   left: 0;
+  background-image: url('http://www.routemap.co.kr/images/portfolio/rt0_thum.jpg');
+   width: 100%;
+   height: 100%;
+   opacity : 0.3;
+   z-index: -1;
+   background-size:cover;
+}
+
+</style>
 
 
 <!--        <div class="row align-items-start align-items-md-center justify-content-end">-->
-     <div class="container">
+     <div class="container" id="main">
           <div class="d-flex align-content-center justify-content-center flex-wrap bd-highlight mb-3" style="height:80vh">
             <div class="d-flex justify-content-center bd-highlight mb-3">
               <div class="d-flex justify-content-center my-search-box marginn-right-2">
@@ -32,125 +55,170 @@
         <div class="row">
           <div class="col-md-12">
             <div class="nonloop-block-3 owl-carousel">
-              
-              <div class="item">
-                <div class="block-4">
-                  <img src="images/cloth_1.jpg" alt="Image placeholder" class="img-fluid">
-                  <div class="block-4-text p-1">
-                    <p class="mb-0">나의업종</p>
-                    <p style="text-align:right;" class="mb-0">원하는 업종</p>
-                    <p class="text-primary font-weight-bold mb-0">전세금/월세</p>
-                    <p class="mb-0">전체면적/제공면적/기타등등</p>
-                  </div>
-                </div>
-              </div>
-              
-              <div class="item">
-                <div class="block-4">
-                  <img src="images/cloth_2.jpg" alt="Image placeholder" class="img-fluid">
-                  <div class="block-4-text p-1">
-                    <p class="mb-0">나의업종</p>
-                    <p style="text-align:right;" class="mb-0">원하는 업종</p>
-                    <p class="text-primary font-weight-bold mb-0">전세금/월세</p>
-                    <p class="mb-0">전체면적/제공면적/기타등등</p>
-                  </div>
-                </div>
-              </div>
-              
-              <div class="item">
-                <div class="block-4">
-                  <img src="images/cloth_1.jpg" alt="Image placeholder" class="img-fluid">
-                  <div class="block-4-text p-1">
-                    <p class="mb-0">나의업종</p>
-                    <p style="text-align:right;" class="mb-0">원하는 업종</p>
-                    <p class="text-primary font-weight-bold mb-0">전세금/월세</p>
-                    <p class="mb-0">전체면적/제공면적/기타등등</p>
-                  </div>
-                </div>
-              </div>
-              
-              <div class="item">
-                <div class="block-4">
-                  <img src="images/cloth_2.jpg" alt="Image placeholder" class="img-fluid">
-                  <div class="block-4-text p-1">
-                    <p class="mb-0">나의업종</p>
-                    <p style="text-align:right;" class="mb-0">원하는 업종</p>
-                    <p class="text-primary font-weight-bold mb-0">전세금/월세</p>
-                    <p class="mb-0">전체면적/제공면적/기타등등</p>
-                  </div>
-                </div>
-              </div>
-              
-              <div class="item">
-                <div class="block-4">
-                  <img src="images/cloth_1.jpg" alt="Image placeholder" class="img-fluid">
-                  <div class="block-4-text p-1">
-                    <p class="mb-0">나의업종</p>
-                    <p style="text-align:right;" class="mb-0">원하는 업종</p>
-                    <p class="text-primary font-weight-bold mb-0">전세금/월세</p>
-                    <p class="mb-0">전체면적/제공면적/기타등등</p>
-                  </div>
-                </div>
-              </div>
-              
-              <div class="item">
-                <div class="block-4">
-                  <img src="images/cloth_2.jpg" alt="Image placeholder" class="img-fluid">
-                  <div class="block-4-text p-1">
-                    <p class="mb-0">나의업종</p>
-                    <p style="text-align:right;" class="mb-0">원하는 업종</p>
-                    <p class="text-primary font-weight-bold mb-0">전세금/월세</p>
-                    <p class="mb-0">전체면적/제공면적/기타등등</p>
-                  </div>
-                </div>
-              </div>
-              
-              <div class="item">
-                <div class="block-4">
-                  <img src="images/cloth_1.jpg" alt="Image placeholder" class="img-fluid">
-                  <div class="block-4-text p-1">
-                    <p class="mb-0">나의업종</p>
-                    <p style="text-align:right;" class="mb-0">원하는 업종</p>
-                    <p class="text-primary font-weight-bold mb-0">전세금/월세</p>
-                    <p class="mb-0">전체면적/제공면적/기타등등</p>
-                  </div>
-                </div>
-              </div>
-              
-              
-              
-              
-
             </div> <!-- owl-carousel -->
+            <br><br>
           </div> <!-- col 12 -->
         </div> <!-- row -->
       </div> <!--  container -->
     </div> <!-- site-section -->
 
 
+<hr>
+<div class="container">
+<div class="d-flex hotList">
+	<div class="card shadow mr-auto col-md-5" >
+		<div class="site-section-heading pt-3 mb-4">
+			<h5 class="text-black">인기글 - 매칭</h5>
+		</div>
+		
+		<div class="matchingList">
+		</div>
+
+	</div>
+	<div class="col-md-1"></div>
+
+	<div class="card shadow ml-auto col-md-5">
+		<div class="site-section-heading pt-3 mb-4">
+			<h5 class="text-black">인기글 - 커뮤</h5>
+		</div>
+		
+		<div class="communityList">
+		</div>
+
+	</div>
+	<div class=" ml-auto col-md-1"></div>
+</div>
+</div>
+
+<form class="actionForm">
+</form>
 
 
- 
-  <style>
-.modal-footer .hide{
-	display:none;
-	
-}
-</style>
+
 <script>
-
-	
 	var actionForm = $("#serachForm")
 
 	$("#serch").on("click", function(e) {
 		e.preventDefault();
 
-		//alert($("#keyword").val())
-		
 		$("input[name='keyword']").val($("#keyword").val())
 		actionForm.submit();
 
 	})
+</script>
+
+<script>
+var Form = $(".actionForm");
+var ShopList 
+var communityList = $(".communityList");
+var matchingList = $(".matchingList");
+
+$(document).ready(function(){
+	
+ 	<!-- Shop List -->
+	function getRecentShop(callback) {
+		$.getJSON("/shop/recent_shop", null, function(arr) {
+			if (callback) {
+				callback(arr);}
+		})
+	} // end function 
+	
+	
+	
+	getRecentShop(function(arr){
+		console.log(arr)
+		for(var i=0;i<arr.length;i++){
+			var {bno,stype,deposit,rent,surface,p_surface} = arr[i]
+			var str = "";
+			str += "<div class='item'><div class='block-4'>";
+			str += "<img src='images/shop.jpg' data-bno='"+bno+"' data-path='/shop/read' class='img-fluid'/>";
+			str += "<div class='block-4-text p-1'><p class='mb-0'>"+stype+"</p>";
+			str += "<p style='text-align:right;' class='mb-0'>원하는 업종</p>";
+			str += "<p class='text-primary font-weight-bold mb-0'>월세: "+rent+"만 / 전세금: "+deposit+"만 </p>";
+			str += "<p class='mb-0 surface'>제공면적: "+p_surface+"㎡ / 전체면적: "+surface+"㎡  <button class='btn-primary rounded-circle changeSurface' data-state='meter'>전환</button></p>";
+			str += "</div></div></div>";
+			$('.owl-carousel').owlCarousel('add', str).owlCarousel('update');
+		} //end for
+	}) // end get hot com List */
+	
+	
+	
+	
+	
+	
+	
+	<!-- Hot List - Community -->
+	function getComList(callback) {
+		$.getJSON("/community/hotlist_com", null, function(arr) {
+			if (callback) {
+				callback(arr);}
+		})
+	} // end function 
+	
+	getComList(function(arr){
+		var str = ""
+		for(var i=0;i<arr.length;i++){
+			var {bno,title,replycnt} = arr[i]
+			str += "<p data-bno='"+bno+"' data-path='/community/read'>"+title+" ["+replycnt+"]"+"</p>";
+		} //end for
+		communityList.append(str);
+	}) // end get hot com List
+	
+	<!-- Hot List - Matching -->
+	function getMatchingList(callback) {
+		$.getJSON("/matching/hotlist_matching", null, function(arr) {
+			if (callback) {
+				callback(arr);}
+		})
+	} // end function 
+	
+	getMatchingList(function(arr){
+		var str = ""
+		for(var i=0;i<arr.length;i++){
+			var {bno,title} = arr[i];
+			str += "<p data-bno='"+bno+"' data-path='/matching/read'>"+title+"</p>";
+		} //end for
+		matchingList.append(str);
+	}) // end get hot matching List
+	
+})// end document ready
+
+
+
+<!-- actionForm  -->
+$(".hotList").on("click","p",function(){
+	var path = $(this).attr("data-path");
+	var bno = $(this).attr("data-bno");
+	
+	Form.append("<input type='hidden' name='bno' value="+bno+">");
+	Form.attr("action",path).submit();
+});
+
+$(".owl-carousel").on("click","img",function(){
+	var path = $(this).attr("data-path");
+	var bno = $(this).attr("data-bno"); 
+
+Form.append("<input type='hidden' name='bno' value="+bno+">");
+Form.attr("action",path).submit();
+});
+<!-- End ActionForm -->
+
+
+<!-- Change --> 
+$(".owl-carousel").on("click","button",function(e){
+	e.preventDefault();
+	//this.parentElement.remove();
+	var state = $(this).attr("data-state");
+	if(state == "meter"){
+	var str = "" 
+	//str += "<p class='mb-0 surface'>제공면적: 평 / 전체면적: 평  <button class='btn-primary rounded-circle changeSurface' data-state='pyung'>전환</button></p>";
+	str += '<button>'+"sdfsdf"+'</button>'
+	this.parentElement.parentElement.append(str);
+	alert("안됨 시발")
+	//$('.owl-carousel').owlCarousel('update');
+	
+	}
+});
 </script>
 
  

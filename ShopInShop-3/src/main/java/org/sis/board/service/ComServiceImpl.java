@@ -101,4 +101,10 @@ public class ComServiceImpl implements ComService{
 	}
 
 
+	@Override
+	public List<ComVO> hotList() {
+		return mapper.hotList();
+	}
+
+
 }

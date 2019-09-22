@@ -12,7 +12,7 @@
 	<form class="actionForm" th:action="@{/community/register}" method="post">
 
 		<div class="form-group">
-			<label>Title</label> 
+			<label th:text="#{board.list.title}">Title</label> 
 			<input class="form-control" name="title" required="required"/>			
 		</div>
 		
@@ -35,7 +35,7 @@
 				<div class="container">
 					<div class="row justify-content-center">
 						<div class="col-md-7 site-section-heading text-center pt-4">
-							<h2>Upload Image</h2>
+							<h2 th:text="#{board.list.uploadFile}">Upload Image</h2>
 						</div>
 					</div>
 					<div class="row">
@@ -53,12 +53,12 @@
 
 	<div class="input-group">
  	<div class="input-group-prepend">
-    	<span class="input-group-text" id="inputGroupFileAddon01">Upload</span>
+    	<span class="input-group-text" id="inputGroupFileAddon01" th:text="#{board.list.upload}">Upload</span>
   	</div>
   	<div class="custom-file">
     	<input type="file" class="custom-file-input" id="inputGroupFile01"  name="files"
       	aria-describedby="inputGroupFileAddon01" multiple="multiple">
-    	<label class="custom-file-label" for="inputGroupFile01">Choose file</label>
+    	<label class="custom-file-label" for="inputGroupFile01" th:text="#{board.list.uploadLabel}">Choose file</label>
   	</div> 
 	</div> <!--  input - upload -->
 
@@ -130,7 +130,6 @@ $(document).ready(function() {
 							
 		var targetFile = $(this).data("file");
 		var targetLi = $(this).closest("li");
-
 		console.log(targetFile);
 							
 		$.ajax({
@@ -154,12 +153,10 @@ $(document).ready(function() {
 	var maxSize = 5242880;	
 		
 	function checkExtension(fileName, fileSize) {
-
 		if (fileSize >= maxSize) {
 			alert("over Size");
 			return false;
 		}
-
 		if (regex.test(fileName)) {
 			alert("Don't upload this type");
 			return false;
@@ -174,7 +171,6 @@ $(document).ready(function() {
 			if(uploadResultArr != 0){
 				$(".uploadBox").attr('style', "display:block;");
 			}
-
 			if (!obj.image) {
 				str += "<li><a href='/upload_com/download?fileName="+
 						folderFileName+ "'>"+ obj.fileName+ "</li>";
@@ -199,9 +195,7 @@ $(document).ready(function() {
 	
 					
 }); // End Document Ready
-
 </script>
 
 
 <th:block th:insert="/../include/footer.html"></th:block>
-

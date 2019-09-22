@@ -1,13 +1,14 @@
 package org.sis.board.model;
 
 import java.sql.Timestamp;
+import java.util.List;
+
 //import javax.persistence.Entity;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import lombok.Data;
 
 @Data
-//@Entity
 public class ShopVO {
 
 	private Integer bno; //_pk
@@ -16,7 +17,7 @@ public class ShopVO {
 	private Timestamp regdate;
 	@DateTimeFormat( pattern = "yyyy/MM/dd HH:mm:ss" )
 	private Timestamp updatedate;
-	private String stype;
+	private String stype,mtype;
 	private String sname;
 	private Integer deposit;
 	private Integer rent;
@@ -31,6 +32,10 @@ public class ShopVO {
 	private String mmid; //_fk
 	private double lat;
 	private double lng;
+	
+	private List<ShopImgVO> attachList;
+	
+	private int schange,male,female,density,station,closeshop;
 
 	
 }

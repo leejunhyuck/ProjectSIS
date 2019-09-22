@@ -12,6 +12,8 @@ public interface ComService extends GenericService<ComVO, Integer>{
 	
 	public List<Integer> getPrevNext(Integer bno);
 	
+	public List<ComVO> hotList();
+	
 	
 	
 }

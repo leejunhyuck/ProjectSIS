@@ -5,6 +5,7 @@ import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.Select;
 import org.sis.board.model.Criteria;
 import org.sis.board.model.ListVO;
 import org.sis.board.model.ShopVO;
@@ -31,6 +32,9 @@ public interface ShopMapper {
 	public List<ListVO> selectList(ListVO vo);
 	
 	public List<ListVO> selectconList(ListVO vo);
+	
+	@Select("select * from tbl_shop order by bno desc limit 0,5")
+	public List<ShopVO> recentList();
 	
 	
 }

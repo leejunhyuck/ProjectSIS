@@ -7,6 +7,7 @@ import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 import org.sis.board.model.MatchingAttachVO;
+import org.sis.board.model.ComVO;
 import org.sis.board.model.Criteria;
 import org.sis.board.model.MatchingVO;
 
@@ -35,5 +36,8 @@ public interface MatchingMapper {
 	
 	@Update("update tbl_board_join set viewcnt=viewcnt+1 where bno =#{bno}")
 	public int updateViewCnt(@Param("bno") Integer bno);
+	
+	@Select("select * from tbl_board_join order by viewcnt desc limit 0,5")
+	public List<MatchingVO> hotList();
 	
 }

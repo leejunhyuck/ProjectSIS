@@ -16,17 +16,32 @@
 			<input class="form-control" name="title" required="required"/>			
 		</div>
 		
+		<div class="row">
+		<div class="form-group col-6">
+			<label th:text="#{shop.address}"></label> 
+			<input class="form-control" name="location" required="required"/>			
+		</div>
+		
+		<div class="form-group col-6">
+			<label th:text="#{board.budget}"></label> 
+			<input class="form-control" name="budget" required="required"/>			
+		</div>
+		</div>
+		
+		
+		
 		<hr style="border: outset">
 
 		<div class="form-group">
 			<textarea class="form-control" rows="30" name='content'></textarea>
-			<input class="form-control" type="hidden" name="mmid" value="user123"/> 
+			<input class="form-control" type="hidden" name="mmid" th:value="${userID}"/> 
 			<!-- get mmid by login -->
 		</div>
 		
+		
 		<button type="submit" class="insertBtn btn-success btn-sm" th:text="#{board.button.registerBtn}">Submit Button</button>
 		<button type="reset" class="btn-primary btn-sm" th:text="#{board.list.button.resetBtn}">Reset Button</button>
-		<a th:href="@{/matching/list}" class="btn-secondary btn-sm" th:text="#{board.list.button.listBtn}"> Go to List </a>
+		<a th:href="@{/matching/list}" class="btn-secondary btn-sm" th:text="#{board.button.listBtn}"> Go to List </a>
 	</form>
 		
 		<div class="uploadBox" style="display: none"> 
@@ -35,7 +50,7 @@
 				<div class="container">
 					<div class="row justify-content-center">
 						<div class="col-md-7 site-section-heading text-center pt-4">
-							<h2 th:text="#{board.uploadFile}">Upload Image</h2>
+							<h2 th:text="#{board.list.uploadFile}">Upload Image</h2>
 						</div>
 					</div>
 					<div class="row">

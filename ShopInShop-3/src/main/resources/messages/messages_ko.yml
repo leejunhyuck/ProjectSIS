@@ -1,6 +1,7 @@
 board:
   writer: "작성자"
   regdate: "등록날짜"
+  budget: "예산(만원)"
   list: 
     title: "제목"
     writer: "작성자"
@@ -44,7 +45,7 @@ shop:
   maintype: "업종-대분류"
   subtype: "업종-소분류"
   wanttype: "희망 업종"
-  address: "주소"
+  address: "가까운역"
   deposit: "전세금"
   rent: "월세"
   surface: "전체면적"
@@ -132,9 +133,3 @@ user:
     message: "자기소개"
     button: 
       modifybutton: "수정하기"
-
-  
-  
-  
-  
-  

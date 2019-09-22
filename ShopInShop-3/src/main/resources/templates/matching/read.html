@@ -46,13 +46,25 @@
 	
 	
 	<hr style="border: outset">
+	
+		<div class="row">
+		<div class="form-group col-6">
+			<label th:text="#{shop.address}"></label> 
+			<input class="form-control" name="location" th:value="${vo.location}" readonly="readonly"/>			
+		</div>
+		
+		<div class="form-group col-6">
+			<label th:text="#{board.budget}"></label> 
+			<input class="form-control" name="budget" th:value="${vo.budget}" readonly="readonly"/>			
+		</div>
+		</div>
 
 <div class="uploadBox" style="display:none">
 	<div class="site-section block-3 card shadow mb-4">
       <div class="container">
         <div class="row justify-content-center">
           <div class="col-md-7 site-section-heading text-center pt-4">
-            <h2 th:text="#{board.uploadFile}">Upload Image</h2>
+            <h2 th:text="#{board.list.uploadFile}">Upload Image</h2>
           </div>
         </div>
         <div class="row">
@@ -145,7 +157,15 @@ $(".nextBtn").on("click", function(e){
 <!-- button - Message -->
 $(".msgBtn").on("click", function(e) {
 	e.preventDefault();
-	window.open('/msg/list', '쪽지함','width=550, height=700');
+	var whom = "[[${vo.mmid}]]";
+	var mmid = "[[${userID}]]";
+	
+	if(whom==mmid){
+		alert("자신에게 쪽지를 보낼수 없습니다.");
+		return;
+	}
+	
+	window.open('/msg/register?whom='+whom+'&mmid='+mmid+'', '쪽지함','width=550, height=700');
 })
 
 

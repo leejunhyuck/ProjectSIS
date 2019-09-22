@@ -122,6 +122,13 @@ public class ComController {
 		}); // end for each
 	}
 	
+	@GetMapping(value="/hotlist_com", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+	@ResponseBody
+	public ResponseEntity<List<ComVO>> gethotList(){
+		
+		return new ResponseEntity<>(service.hotList(),HttpStatus.OK);
+	}
+	
 	
 	
 

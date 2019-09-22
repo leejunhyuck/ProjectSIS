@@ -30,16 +30,16 @@
 	<div class="d-flex">
 		<span class="mr-auto align-self-center font-weight-bold">[[${vo.title}]] ( [[${vo.replycnt}]]  )  </span>
 		<div class="ml-auto">
-			<a class="align-self-center btn-sm btn-info prevBtn" href="#">이전글</a>
-			<a class="align-self-center btn-sm btn-primary listBtn" href="#">목록으로</a>
-			<a class="align-self-center btn-sm btn-info nextBtn" href="#">다음글</a>
+			<a class="align-self-center btn-sm btn-info prevBtn" href="#" th:text="#{board.button.prevBtn}">이전글</a>
+			<a class="align-self-center btn-sm btn-primary listBtn" href="#" th:text="#{board.button.listBtn}">목록으로</a>
+			<a class="align-self-center btn-sm btn-info nextBtn" href="#" th:text="#{board.button.nextBtn}">다음글</a>
 		</div>
 	</div>
 	
 	<div class="d-flex">
-		<span class="mr-auto align-self-center">작성자: [[${vo.mmid}]]</span>
+		<span class="mr-auto align-self-center">[[#{board.writer}]]: [[${vo.mmid}]]</span>
 		<div class="ml-auto align-self-end">
-			<span>등록날짜: [[ ${#dates.format(vo.regdate,'yyyy.MM.dd ( H:mm:ss )')} ]]</span>
+			<span>[[#{board.regdate}]]: [[ ${#dates.format(vo.regdate,'yyyy.MM.dd ( H:mm:ss )')} ]]</span>
 		</div>
 	</div>
 	
@@ -51,7 +51,7 @@
       <div class="container">
         <div class="row justify-content-center">
           <div class="col-md-7 site-section-heading text-center pt-4">
-            <h2>Upload Image</h2>
+            <h2 th:text="#{board.list.uploadFile}" >Upload Image</h2>
           </div>
         </div>
         <div class="row">
@@ -73,14 +73,14 @@
 
 	<div class="d-flex">
 		<div class="mr-auto">
-			<button class="btn-outline-success btn-sm addReplyBtn">댓글 달기</button>
-			<button class="btn-outline-primary btn-sm likeBtn">좋아요 ([[${vo.comlike}]])</button>
+			<button class="btn-outline-success btn-sm addReplyBtn" th:text="#{board.list.button.replyBtn}">댓글 달기</button>
+			<button class="btn-outline-primary btn-sm likeBtn">[[#{board.list.button.likeBtn}]]</button>
 		</div>
 		
 		<div class="ml-auto">
-			<button class="btn-primary btn-sm regBtn">글쓰기</button>
-			<button class="btn-warning btn-sm modBtn">수정 및 삭제</button> 
-			<button class="btn-primary btn-sm listBtn">목록으로</button>
+			<button class="btn-primary btn-sm regBtn" th:text="#{board.button.registerBtn}">글쓰기</button>
+			<button class="btn-warning btn-sm modBtn" th:text="#{board.list.button.modAndDelBtn}">수정 및 삭제</button> 
+			<button class="btn-primary btn-sm listBtn" th:text="#{board.button.listBtn}">목록으로</button>
 		</div>
 	</div>
 </div>
@@ -131,10 +131,10 @@
 				<input type="text" class="form-control" name="replyer" value="user123">
 			</div>
 			<div class="modal-footer">
-				<button class="btn-secondary btn-sm" type="button" data-dismiss="modal">Cancel</button>
-				<button class="btn-primary btn-sm replyBtn">ADD REPLY</button>
-				<button class="btn-info btn-sm modifyBtn hide">Modify Reply</button>
-				<button class="btn-danger btn-sm deleteBtn hide">Delete Reply</button>
+				<button class="btn-secondary btn-sm" type="button" data-dismiss="modal" th:text="#{board.list.button.replycancelBtn}">Cancel</button>
+				<button class="btn-primary btn-sm replyBtn" th:text="#{board.list.button.replyAddBtn}">ADD REPLY</button>
+				<button class="btn-info btn-sm modifyBtn hide" th:text="#{board.list.button.replyModBtn}">Modify Reply</button>
+				<button class="btn-danger btn-sm deleteBtn hide" th:text="#{board.list.button.replyDelBtn}">Delete Reply</button>
 			</div>
 		</div>
 	</div>

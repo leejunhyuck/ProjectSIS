@@ -7,225 +7,377 @@
 <link rel="stylesheet" href="/css/billboard.css">
 
 <style>
-	html, body {
-		margin: 0;
-		padding: 0;
-		height: 100%;
-		width: 100%;
-		/* overflow: hidden; */
-		overflow: auto;
-		/*background-color: blue;*/
-	} 
-	header {
-		width: 100%;
-	}
-	container {
-    	height: 100%;
-		width: 100%;
-		
-	}
-	section {
-		float: left;
-		width: 65%;
-		height: 100%;
-		display: inline-block;
-    	vertical-align: middle;
-		background-color: pink;
-		overflow: auto;
-	}
-	aside {
-		float: right;
-		width: 35%;
-		height: 100%;
-		background-color: purple;
-	}
-	.sample-box {
-		text-align: center;
-		height: 700px;
-		width: 100%;
-	}
-	.sample-left {
-		float: left;
-		width: 65%;
-		height: 100%;
-		display: inline-block;
-		overflow: auto;
-	}
-	.sample-right {
-		float: right;
-		width: 35%;
-		height: 100%;
-		display: inline-block;
-		
-	}
-	
-	.frame {
-	    height: 100px;      /* equals max image height */
-	    width: 160px;
-	    border: 1px solid red;
-	    white-space: nowrap;
-	    text-align: center;
-	    margin: 1em 0;
-	}
-	.helper {
-	    display: inline-block;
-	    height: 100%;
-	    vertical-align: middle;
-	}
-	
-	#map-canvas {
-        width: 30vw;
-        height: 40vh;
-        overflow: auto;
-        margin-left:8%;
-    }
+
+
+
+
+html, body {
+	margin: 0;
+	padding: 0;
+	height: 100%;
+	width: 100%;
+	/* overflow: hidden; */
+	overflow: auto;
+	/*background-color: blue;*/
+}
+
+header {
+	width: 100%;
+}
+
+
+section {
+	float: left;
+	width: 65%;
+	height: 100%;
+	display: inline-block;
+	vertical-align: middle;
+	background-color: pink;
+	overflow: auto;
+}
+
+aside {
+	float: right;
+	width: 35%;
+	height: 100%;
+	background-color: purple;
+}
+
+.sample-box {
+	text-align: center;
+	height: 700px;
+	width: 100%;
+}
+
+.sample-left {
+	float: left;
+	width: 65%;
+	height: 100%;
+	display: inline-block;
+	overflow: auto;
+}
+
+.sample-right {
+	float: right;
+	width: 35%;
+	height: 100%;
+	display: inline-block;
+}
+
+.frame {
+	height: 100px; /* equals max image height */
+	width: 160px;
+	border: 1px solid red;
+	white-space: nowrap;
+	text-align: center;
+	margin: 1em 0;
+}
+
+.helper {
+	display: inline-block;
+	height: 100%;
+	vertical-align: middle;
+}
+
+#map-canvas {
+	width: 30vw;
+	height: 40vh;
+	overflow: auto;
+	margin-left: 8%;
+}
 </style>
 
 
+<div class="modal fade bd-example-modal-lg" id="analysisModal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+
+      <div class="modal-header">
+        <h4 class="modal-title" id="myModalLabel">머신러닝 결과</h4>
+      </div>
+
+      <div class="modal-body" style="text-align: center;">
+      	<div id="result"></div>
+       	 <img style="width:70%" src="/images/analysis.png" />
+       	 <img src="/images/correlation.png"/>
+      </div>
+
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
+      </div>
+
+    </div>
+  </div>
+</div>
 
 
-<container>
-	
-	<div class="sample-box">
-		<span class="sample-left">
-		
-		<br>
+
+
+
+
+
+
+
+<div class="sample-box">
+	<span class="sample-left">
+		<hr style="border: outset">
 		<div class="d-flex">
-		<span class="mr-auto align-self-center font-weight-bold">가게이름: [[${vo.sname}]] </span>
-		<div class="ml-auto">
-			<a class="align-self-center btn-sm btn-warning prevBtn" href="#" >찜하기</a>
-			<a class="align-self-center btn-sm btn-primary listBtn" href="#" >수정 및 삭제</a>
-			<a class="align-self-center btn-sm btn-info nextBtn" href="#" >목록으로</a>
+			<span class="mr-auto align-self-center font-weight-bold">가게이름:
+				[[${vo.sname}]] </span>
+			<div class="ml-auto">
+				<a class="align-self-center btn-sm btn-dark prevBtn" href="#">찜하기</a>
+				<a class="align-self-center btn-sm btn-secondary listBtn" href="#">수정
+					및 삭제</a> <a class="align-self-center btn-sm btn-dark nextBtn"
+					href="/shop/list">목록으로</a>
+			</div>
 		</div>
-		</div>
-		
-		<br>
-			
-			<img style="width: 65%;" src="/images/shop.jpg" alt="Image Box">
-			
-			<div>
+		<hr style="border: outset"> <br> <img style="width: 65%;" src="/images/shop.jpg"
+		alt="Image Box">
+
+		<div>
 			<label>소개글</label>
 			<textarea class="form-control bg-light" rows="10"
-			th:text="${vo.content}" readonly="readonly"></textarea>
-			</div>
-			
-			<div id="radarChart"></div>
-		</span>
+				th:text="${vo.content}" readonly="readonly"></textarea>
+		</div>
 		
-		
-		<span class="sample-right">
-			<div class="card shadow mb-4">
+		</br>
+		주변 상권 분석 지수
+		<div id="radarChart"></div>
+
+
+		</br>
+		<div> 상권분석하기
+			<form name="form">
+				<select name="test" onchange="changes(document.form.test.value)">
+					<option value="">대분류</option>
+					<option value="1">편의시설</option>
+					<option value="2">생활</option>
+					<option value="3">관리</option>
+					<option value="4">서비스</option>
+					<option value="5">음식점</option>
+					<option value="6">기타잡화</option>
+					<option value="7">학원</option>
+					<option value="8">오락,운동</option>
+				</select> <select name="test2" id="selectBox">
+					<option>소분류</option>
+				</select>
+			</form>
+			<button id="analysis">제출</button>
+		</div>
+
+				
+
+
+
+
+
+
+	</span> <span class="sample-right">
+		<div class="card shadow mb-4">
 			<br>
 			<ul class="list-inline">
 				<li class="list-inline-item">
 					<blockquote class="blockquote blockquote-reverse">
-					<p>월세</p>
-					<h5> [[${vo.rent}]] / [[${vo.deposit}]] 만원 </h5> 
+						<p>월세</p>
+						<h5>[[${vo.rent}]] / [[${vo.deposit}]] 만원</h5>
 					</blockquote>
 				</li>
-				
+
 				<li class="list-inline-item">
 					<blockquote class="blockquote blockquote-reverse">
-					<p> 제공면적 / 전체면적 </p>
-					<h5> [[${vo.p_surface}]] / [[${vo.surface}]] ㎡</h5>
-					</blockquote> 
+						<p>제공면적 / 전체면적</p>
+						<h5>[[${vo.p_surface}]] / [[${vo.surface}]] ㎡</h5>
+					</blockquote>
 				</li>
-				
+
 				<li class="list-inline-item">
 					<blockquote class="blockquote blockquote-reverse">
-					<p>업종</p>
-					<h5> [[${vo.stype}]]</h5> 
+						<p>업종</p>
+						<h5>[[${vo.stype}]]</h5>
 					</blockquote>
 				</li>
 			</ul>
-			
+
 			<div id="map-canvas"></div>
 			<br>
-			
+
 			<div class="shopinfo">
 				<div>
-				<p align="left" style="margin-left:8%;"> 주소: [[${vo.location}]] </p>
+					<p align="left" style="margin-left: 8%;">주소: [[${vo.location}]]
+					</p>
 				</div>
-				
-				<div>
-				<p align="left" style="margin-left:8%;"> 층수: [[${vo.floor}]] </p>
-				</div>
-				
-				<div>
-				<p align="left" style="margin-left:8%;"> 엘리베이터 유무
-				<input type="checkbox" th:attr="checked=${vo.elev}"> </p>
-				</div>
-				
-				<div>
-				<p align="left" style="margin-left:8%;">화장실 실내 여부
-				<input type="checkbox" th:attr="checked=${vo.toilet}"></p>
-				</div>
-				
-				<div>
-				<p align="left" style="margin-left:8%;">주차장여부
-				<input type="checkbox" th:attr="checked=${vo.park}"></p>
-				</div>
-			
-			</div>
-			</div>
-			
-			
-			
-			
-			
-			
-		</span>
-	</div>
-	
 
-</container>
+				<div>
+					<p align="left" style="margin-left: 8%;">층수: [[${vo.floor}]]</p>
+				</div>
 
-<script src="//maps.googleapis.com/maps/api/js?key=AIzaSyCyfhfvTsgc8w7P_BrNXZbsLW0LaChuChI&language=ko"></script>
+				<div>
+					<p align="left" style="margin-left: 8%;">
+						엘리베이터 유무 <input type="checkbox" th:attr="checked=${vo.elev}">
+					</p>
+				</div>
+
+				<div>
+					<p align="left" style="margin-left: 8%;">
+						화장실 실내 여부 <input type="checkbox" th:attr="checked=${vo.toilet}">
+					</p>
+				</div>
+
+				<div>
+					<p align="left" style="margin-left: 8%;">
+						주차장여부 <input type="checkbox" th:attr="checked=${vo.park}">
+					</p>
+				</div>
+
+			</div>
+		</div>
+
+
+
+
+
+
+	</span>
+</div>
+
+
+
+<script
+	src="//maps.googleapis.com/maps/api/js?key=AIzaSyCyfhfvTsgc8w7P_BrNXZbsLW0LaChuChI&language=ko"></script>
 <script src="https://d3js.org/d3.v5.min.js"></script>
 <script src="/js/billboard.js"></script>
 <script>
-<!-- Map -->
-var c =2
-var chart = bb.generate({
-	  data: {
-	    x: "x",
-	    columns: [
-		["x", "상권변화", "유동인구(남)", "유동인구(여)", "인구밀도", "역세권지수","폐업신고율"],
-		["상권분석지수", c, c, c, c, 2,c]
+
+function changes(fr) {
+    if(fr==1) {
+    //뿌려줄값을 배열로정렬
+    num = new Array("건강보조식품","식료품","슈퍼마켓","주방·가정용품","편의점");
+    vnum = new Array("건강보조식품","식료품","슈퍼마켓","주방·가정용품","편의점");
+    } else if(fr==2) {
+      num = new Array('가구·가전', '의류점',  '의약·의료용품',  '통신판매업', '패션용품', '핸드폰','컴퓨터·주변기기', '화장품');
+    vnum = new Array('가구·가전', '의류점',  '의약·의료용품',  '통신판매업', '패션용품', '핸드폰','컴퓨터·주변기기', '화장품');
+    }
+    else if(fr==3) {
+        num = new Array('네일숍','두발미용업', '일반의원', '스포츠클럽', '치과의원','피부관리실','한의원');
+      vnum = new Array('네일숍','두발미용업', '일반의원', '스포츠클럽', '치과의원','피부관리실','한의원');
+      }
+    else if(fr==4) {
+        num = new Array('가전제품수리', '부동산중개업','세탁소(가정)',  '자동차수리·세차');
+      vnum = new Array('가전제품수리', '부동산중개업','세탁소(가정)',  '자동차수리·세차');
+      }
+    else if(fr==5) {
+        num = new Array('분식전문점',  '양식음식점', '일식음식점','중식음식점', '제과점', '커피·음료', '패스트푸드점', '치킨전문점', '한식음식점','호프·간이주점');
+      vnum = new Array('분식전문점',  '양식음식점', '일식음식점','중식음식점', '제과점', '커피·음료', '패스트푸드점', '치킨전문점', '한식음식점','호프·간이주점');
+      }
+    else if(fr==7) {
+        num = new Array('일반교습학원', '예체능학원', '외국어학원');
+      vnum = new Array('일반교습학원', '예체능학원', '외국어학원');
+      }
+    else if(fr==6) {
+        num = new Array('서적·문구', '섬유제품', '화초·애완');
+      vnum = new Array('서적·문구', '섬유제품', '화초·애완');
+      }
+    else if(fr==8) {
+        num = new Array('PC방',  '노래방', '당구장', '숙박업', '오락·운동');
+      vnum = new Array('PC방',  '노래방', '당구장', '숙박업', '오락·운동');
+      }
+    
+    // 셀렉트안의 리스트를 기본값으로 한다..
+  for(i=0; i<form.test2.length; i++) {
+    form.test2.options[0] = null;
+  }
+    //포문을 이용하여 두번째(test2)셀렉트 박스에 값을 뿌려줍니당)
+  for(i=0;i < num.length;i++) {
+    document.form.test2.options[i] = new Option(num[i],vnum[i]);
+  }
+}
+
+
+
+$("#analysis").on("click", function(e) {
+	
+	
+
+	var arr ={lat:'[[${vo.lat}]]',lng:'[[${vo.lng}]]',stype:document.form.test2.value,address:'[[${vo.location}]]'}
+	
+	console.log(arr)
+	
+	$.ajax({
+		type : "post",
+		url : "/shop/analysis",
+		data : JSON.stringify(arr),
+		contentType : "application/json;charset=UTF-8",
+		success : function(msg) {
+			console.log(msg)
+			
+			$("#analysisModal").modal('show')
+			
+			var result = msg.split(",")
+			
+			
+			var strHTML = 
+			"예상 매출은 평균 매출 건수와 근처 아파트 평균 시세를 기준으로 형성되며 지역 "
+			+result[1]+"와 업종 "+arr.stype+"에  따라서 예상 월 매출 "+result[0]+"천원 예상됩니다. 이 예상치는 소득신고를 기준으로 합니다."
+		     
+
 		
-		],
-	    type: "radar",
-	    labels: true
-	  },
-	  radar: {
-	    axis: {
-	      max: 5
-	    },
-	    level: {
-	      depth: 5
-	    },
-	    direction: {
-	      clockwise: true
-	    }
-	  },
-	  bindto: "#radarChart"
+		       	
+		    $('#result').append(strHTML)
+				
+			strHTML= null
+		
+		}
+	})
+	
+	
+	strHTML= null
+})
+
+
+var schange = [[${vo.schange}]];
+	var male = [[${vo.male}]];
+	var female =  [[${vo.female}]];
+	var density = [[${vo.density}]];
+	var station = [[${vo.station}]];
+	var closeshop = [[${vo.closeshop}]];
+	var chart = bb.generate({
+		  data: {
+		    x: "x",
+		    columns: [
+			["x", "상권변화", "유동인구(남)", "유동인구(여)", "인구밀도", "역세권지수","폐업신고율"],
+			["상권분석지수", schange, male, female, density, station,closeshop]
+			
+			],
+		    type: "radar",
+		    labels: true
+		  },
+		  radar: {
+		    axis: {
+		      max: 5
+		    },
+		    level: {
+		      depth: 5
+		    },
+		    direction: {
+		      clockwise: true
+		    }
+		  },
+		  bindto: "#radarChart"
+		});
+
+
+	var mapDiv = document.getElementById("map-canvas");
+	var map = new google.maps.Map(mapDiv, {
+		center : new google.maps.LatLng("[[${vo.lat}]]", "[[${vo.lng}]]"),
+		zoom : 16,
+		disableDefaultUI : true
 	});
 
-
-var mapDiv = document.getElementById( "map-canvas" ) ;
-var map = new google.maps.Map( mapDiv, {
-    center: new google.maps.LatLng( "[[${vo.lat}]]", "[[${vo.lng}]]" ) ,
-    zoom: 16 ,
-    disableDefaultUI: true
-} ) ;
-
-<!--Marker-->
-var marker = new google.maps.Marker( {
-    map: map ,
-    position: new google.maps.LatLng( "[[${vo.lat}]]", "[[${vo.lng}]]" ) ,
-} ) ;
-
-
+	<!--Marker-->
+	var marker = new google.maps.Marker({
+		map : map,
+		position : new google.maps.LatLng("[[${vo.lat}]]", "[[${vo.lng}]]"),
+	});
 </script>
 
 <th:block th:insert="/../include/footer.html"></th:block>

@@ -14,14 +14,14 @@
 		<input type="text" th:value="${vo.title}" name="title">
 		</div>
 		<div class="ml-auto">
-			<a class="align-self-center btn-sm btn-primary listBtn" href="#">목록으로</a>
+			<a class="align-self-center btn-sm btn-primary listBtn" href="#" th:text="#{board.button.listBtn}">목록으로</a>
 		</div>
 	</div>
 	
 	<div class="d-flex">
-		<span class="mr-auto align-self-center">작성자: [[${vo.mmid}]]</span>
+		<span class="mr-auto align-self-center">[[#{board.writer}]]: [[${vo.mmid}]]</span>
 		<div class="ml-auto align-self-end">
-			<span>등록날짜: [[ ${#dates.format(vo.regdate,'yyyy.MM.dd ( H:mm:ss )')} ]]</span>
+			<span>[[#{board.regdate}]]: [[ ${#dates.format(vo.regdate,'yyyy.MM.dd ( H:mm:ss )')} ]]</span>
 		</div>
 	</div>
 	
@@ -34,9 +34,9 @@
 
 	<div class="d-flex">
 		<div class="ml-auto">
-			<button class="btn-primary btn-sm modBtn">수정하기</button>
-			<button class="btn-warning btn-sm delBtn">삭제하기</button> 
-			<button class="btn-primary btn-sm listBtn">목록으로</button>
+			<button class="btn-primary btn-sm modBtn" th:text="#{board.list.button.modBtn}">수정하기</button>
+			<button class="btn-warning btn-sm delBtn" th:text="#{board.list.button.delBtn}">삭제하기</button> 
+			<button class="btn-primary btn-sm listBtn" th:text="#{board.button.listBtn}">목록으로</button>
 		</div>
 	</div>
 
@@ -54,7 +54,7 @@
       <div class="container">
         <div class="row justify-content-center">
           <div class="col-md-7 site-section-heading text-center pt-4">
-            <h2>Upload Image</h2>
+            <h2 th:text="#{board.list.uploadFile}">Upload Image</h2>
           </div>
         </div>
         <div class="row">

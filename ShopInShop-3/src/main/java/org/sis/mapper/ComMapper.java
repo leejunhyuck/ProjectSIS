@@ -40,6 +40,9 @@ public interface ComMapper {
 	@Select("select * from tbl_board_com_file where bno = #{bno}")
 	public List<ComAttachVO> findbyBno(int bno);
 	
+	@Select("select * from tbl_board_com order by viewcnt desc limit 0,5")
+	public List<ComVO> hotList();
+	
 	
 	
 }

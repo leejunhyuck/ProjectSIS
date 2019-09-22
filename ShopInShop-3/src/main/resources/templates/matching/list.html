@@ -16,10 +16,10 @@
 		<p class="mr-auto align-self-center">Matching List Page</p>
 		<div class="ml-auto">
 		<select class="amount-opt" >
-			<option value="10" th:attr="selected=${cri.amount == 10? 'true' : 'false'}">10개씩</option>
-			<option value="20" th:attr="selected=${cri.amount == 20? 'true' : 'false'}">20개씩</option>
-			<option value="50" th:attr="selected=${cri.amount == 50? 'true' : 'false'}">50개씩</option>
-			<option value="100" th:attr="selected=${cri.amount == 100? 'true' : 'false'}">100개씩</option>
+			<option value="10" th:attr="selected=${cri.amount == 10? 'true' : 'false'}">10</option>
+			<option value="20" th:attr="selected=${cri.amount == 20? 'true' : 'false'}">20</option>
+			<option value="50" th:attr="selected=${cri.amount == 50? 'true' : 'false'}">50</option>
+			<option value="100" th:attr="selected=${cri.amount == 100? 'true' : 'false'}">100</option>
 		</select>
 		<a class="align-self-center btn-sm btn-primary" th:href="@{/matching/register}" th:text="#{board.button.registerBtn}">Register</a>
 		</div>
@@ -38,8 +38,8 @@
         </thead>
         <tbody>
 		<tr th:each="vo : ${list}">
-			<th scope="row" class="text-center" th:text="${vo.bno}"></td>
-			<td><a class="view" th:href="${vo.bno}" th:text="${vo.title}"></a><span> ([[${vo.replycnt}]])</span></td>
+			<td scope="row" class="text-center" th:text="${vo.bno}"></td>
+			<td><a class="view" th:href="${vo.bno}">([[${vo.location}]]) [[${vo.title}]]</a><span></span></td>
 			<td class="text-center" th:text="${vo.mmid}"></td>
 			<td class="text-center"  th:if="${vo.regdate.before(#dates.createToday())}">[[${#dates.format(vo.regdate, 'yyyy-MM-dd')}]]</td>
 			<td class="text-center"  th:if="${vo.regdate.after(#dates.createToday())}">[[${#dates.format(vo.regdate, 'H:mm a')}]]</td>

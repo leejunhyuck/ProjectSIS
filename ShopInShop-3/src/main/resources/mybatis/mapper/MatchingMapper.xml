@@ -33,8 +33,8 @@
  
  
     <insert id = "insert">
-    insert into tbl_board_join (title, content, mmid)
-		values (#{title},#{content}, #{mmid})
+    insert into tbl_board_join (title, content, mmid, budget, location)
+		values (#{title},#{content}, #{mmid}, #{budget}, #{location})
 
 		<selectKey resultType="int" keyProperty="bno" order="AFTER">
 			SELECT LAST_INSERT_ID()

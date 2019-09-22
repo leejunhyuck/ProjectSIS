@@ -6,7 +6,6 @@ import java.util.List;
 import org.sis.board.model.Criteria;
 import org.sis.board.model.MatchingAttachVO;
 import org.sis.board.model.MatchingVO;
-import org.sis.mapper.AttachMapper;
 import org.sis.mapper.MatchingAttachMapper;
 import org.sis.mapper.MatchingMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -93,6 +92,12 @@ public class MatchingServiceImpl implements MatchingService{
 	public List<Integer> getPrevNext(Integer bno) {
 		
 		return mapper.NextPrevBno(bno);
+	}
+
+
+	@Override
+	public List<MatchingVO> hotList() {
+		return mapper.hotList();
 	}
 
 

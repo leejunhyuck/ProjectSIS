@@ -5,6 +5,8 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.sis.board.model.MatchingAttachVO;
 import org.sis.board.model.Criteria;
 import org.sis.board.model.MatchingVO;
@@ -45,8 +47,9 @@ public class MatchingController {
 	}
 	
 	@GetMapping("/register")
-	public void registerPage() {
+	public void registerPage(Model model, HttpSession session) {
 		log.info("Get Resiger Page................");
+		model.addAttribute("userID", (String)session.getAttribute("mmid"));
 	}
 	
 	@PostMapping("/register")
@@ -60,8 +63,10 @@ public class MatchingController {
 	}
 	
 	@GetMapping({"/read","/modify"})
-	public void read(@ModelAttribute("cri") Criteria cri, Model model) {
+	public void read(@ModelAttribute("cri") Criteria cri, Model model,HttpSession session) {
 		log.info("bno: "+cri.getBno());
+		
+		model.addAttribute("userID", (String)session.getAttribute("mmid"));
 		
 		model.addAttribute("vo", service.select(cri.getBno()));
 		model.addAttribute("bnoPrevNext",service.getPrevNext(cri.getBno()));
@@ -120,6 +125,13 @@ public class MatchingController {
 				log.info("delete file error"+ e.getMessage());
 			}// end catch .. 
 		}); // end for each
+	}
+	
+	@GetMapping(value="/hotlist_matching", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+	@ResponseBody
+	public ResponseEntity<List<MatchingVO>> gethotList(){
+		
+		return new ResponseEntity<>(service.hotList(),HttpStatus.OK);
 	}
 	
 	
