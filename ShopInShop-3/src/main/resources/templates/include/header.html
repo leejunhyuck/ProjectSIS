@@ -64,13 +64,13 @@
 							<div class="site-navigation" role="navigation">
 								<!--  text-right text-md-center"  -->
 								<ul class="site-menu js-clone-nav d-noned-md-block">
-									<li><a href="../user/recent">관심목록</a></li>
+									<li><a href="../user/recent" th:text="#{header.like}">관심목록</a></li>
 									<!--                  	<li><a href="../join.html">회원가입</a></li> -->
 									<!--                  	<li><a href="../mypage.html">마이페이지</a></li>-->
 ​
 									<span th:if="${session.mname}">
 ​
-										<li class="has-children"><a href="#"><span>[[${session.mname}]]님</span></a>
+										<li class="has-children"><a href="#"><span>[[${session.mname}]]</span></a>
 											<ul class="dropdown">
 												<li><a href="/user/mypage">정보 수정</a></li>
 												<li><a href="#">거래 진행</a></li>
@@ -87,12 +87,12 @@
 									</li>
 									</span>
 
-									<li class="has-children"><a href="#"><span>다국어</span></a>
+									<li class="has-children"><a href="#"><span th:text="#{header.lan}">다국어</span></a>
 										<ul class="dropdown">
-											<li><a href="?lang=ko">한국어</a></li>
-											<li><a href="?lang=en">English</a></li>
-											<li><a href="?lang=ja">日本語</a></li>
-											<li><a href="?lang=ch">中國語</a></li>
+											<li><a href="?lang=ko"> <img src='/images/koIcon.png' style="width:40px;">한국어</a></li>
+											<li><a href="?lang=en"> <img src='/images/enIcon.png' style="width:40px;">English</a></li>
+											<li><a href="?lang=ja"> <img src='/images/jaIcon.png' style="width:40px;">日本語</a></li>
+											<li><a href="?lang=ch"> <img src='/images/chIcon.png' style="width:40px;">中國語</a></li>
 										</ul></li>
 								</ul>
 							</div>
@@ -121,7 +121,7 @@
 										<input type="text" class="form-control mbno" placeholder="아이디"
 											id="mmid" name="mmid" required="required" style="margin-bottom:15px;"> 
 										<input
-											type="password" class="form-control mrno" id="mpw" name="mpw"
+											type="text" class="form-control mrno" id="mpw" name="mpw"
 											placeholder="비밀번호" required="required" style="margin-bottom:30px;">
 										<div style="text-align: center;"> <!--  class="col-lg-5"  -->
 											<input type="submit" class="btn btn-primary btn-lg btn-block"

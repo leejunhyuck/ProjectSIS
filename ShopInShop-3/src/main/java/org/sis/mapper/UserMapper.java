@@ -16,6 +16,8 @@ public interface UserMapper {
 	
 	public int infoUpdate(MemberVO member);
 	
+	public int getDupCheckCnt(String userid);
+	
 	
 	
 }

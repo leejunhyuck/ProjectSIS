@@ -32,4 +32,15 @@
     
     </update>
     
+    <select id = "getDupCheckCnt" resultType="int">
+    select 
+		  sum(
+		   	(select count(*) from tbl_member where mmid = #{userid})
+		   
+		  )
+		from
+			dual
+	</select>
+    
+    
  </mapper>

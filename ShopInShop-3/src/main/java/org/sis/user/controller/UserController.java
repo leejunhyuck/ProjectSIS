@@ -26,6 +26,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.fasterxml.jackson.databind.JsonNode;
@@ -112,6 +113,26 @@ public class UserController {
 		session.setAttribute("sessionId", nickname); // 세션 생성
 		model.addAttribute("result", apiResult);
 		
+	}
+	
+	@PostMapping(value="/duplicateCheck",produces="application/json; charset=UTF-8")
+	@ResponseBody
+	public int duplicateCheck(@RequestParam("userid") String userid) {
+		
+		log.info("check..");
+		
+		int dupCnt = 0;
+		
+		try {
+			dupCnt = service.getDupCheckCnt(userid);
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+		return dupCnt;
+		
+		
+		
+
 	}
 	
 	

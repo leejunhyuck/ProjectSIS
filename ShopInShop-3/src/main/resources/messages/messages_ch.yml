@@ -1,3 +1,7 @@
+header: 
+  like: "兴趣"
+  lan: "翻译"
+  
 board:
  writer: "写手"
  regdate: "登记日期"

@@ -1,3 +1,7 @@
+header: 
+  like: "Interests"
+  lan: "Translate"
+  
 board:
   writer: "Writer"
   regdate: "Registration Dates"

@@ -62,7 +62,6 @@ public class ShopServiceImpl implements ShopService {
 		return modifyResult ? 1:0;
 	}
 
-
 	@Override
 	@Transactional
 	public int remove( Integer key ) {
@@ -123,6 +122,11 @@ public class ShopServiceImpl implements ShopService {
 	@Override
 	public List<ShopImgVO> getAttachList(Integer bno) {
 		return imgMapper.findbybno(bno);
+	}
+
+	@Override
+	public List<ShopImgVO> recentListImg() {
+		return mapper.recentListImg();
 	}
 
 }

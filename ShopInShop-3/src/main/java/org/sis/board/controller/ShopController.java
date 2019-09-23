@@ -8,7 +8,6 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
 
-import org.sis.board.model.AnalysisVO;
 import org.sis.board.model.Criteria;
 import org.sis.board.model.ListVO;
 import org.sis.board.model.PageMaker;
@@ -16,11 +15,11 @@ import org.sis.board.model.ShopImgVO;
 import org.sis.board.model.ShopVO;
 import org.sis.board.service.ShopService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -43,20 +42,6 @@ public class ShopController {
 	
 	@GetMapping("/google")
 	public void google() {
-	}
-	
-	
-	@PostMapping(value="/google",consumes = "application/json")
-	@ResponseBody
-	public ListVO google2(@RequestBody ListVO vo) {
-		
-		
-		log.info(""+vo);
-		
-		
-		return vo;
-		
-		
 	}
 	
 
@@ -104,71 +89,15 @@ public class ShopController {
 		model.addAttribute("pm", new PageMaker(cri, totalCount));
 		model.addAttribute("list", service.getList(cri));
 	}
-		
 	
-	@PostMapping(value="/analysis",consumes = "application/json")
-	@ResponseBody
-	public String analysis(@RequestBody AnalysisVO vo) {
-		
-		
-		log.info(""+vo);
-		
-		 String result=null;
-		
-		 try{
-
-
-           // 1. 서버의 IP와 서버의 동작 포트 값(10001)을 인자로 넣어 socket 생성
-
-           Socket sock = new Socket("192.168.41.64", 9000);
-
-           String msg = "a,"+vo.getLat()+","+vo.getLng()+","+vo.getAddress()+","+vo.getStype();
-        
-          
-          
-
-           // 2. 생성된 Socket으로부터 InputStream과 OutputStream을 구함
-
-           OutputStream out = sock.getOutputStream();
-           
-           out.write(msg.getBytes());
-           
-           out.flush();
-           
-           
-           
-           InputStream in = sock.getInputStream();
-           
-           byte[] arr = new byte[1024];
-
-           int count = in.read(arr);
-           
-           result=new String(arr);
-           System.out.println(result);
-           
-           System.out.println(count);
-                        
-           in.close();
-
-           out.close();
-           
-           sock.close();
-
-    }catch(Exception e){
-
-           System.out.println(e);
-           e.printStackTrace();
-
-    }
-		
-		
-		
-		
-		
-		return result;
+	@GetMapping("/list_test")
+	public void list_test() {
 	}
+
 	
-	
+	@GetMapping("/analysis")
+	public void analysis() {
+	}
 	
 	@GetMapping("/recent")
 	public void recent() {
@@ -180,14 +109,8 @@ public class ShopController {
 	
 	@GetMapping("/register")
 	public void registerGet() {
-		
-		
-		
-		
-		
 	}
 	
-
 	@PostMapping("/register")
 	public String registerPost(@ModelAttribute ShopVO vo) {
 		log.info("register...");
@@ -316,6 +239,14 @@ public class ShopController {
 		
 		return new ResponseEntity<>(service.recentList(),HttpStatus.OK);
 	}
+	
+	@GetMapping(value="/recent_shopimg", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+	@ResponseBody
+	public ResponseEntity<List<ShopImgVO>> recentListImg(){
+		
+		return new ResponseEntity<>(service.recentListImg(),HttpStatus.OK);
+	}
+	
 	
 	
 }

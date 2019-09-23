@@ -40,6 +40,12 @@ public class UserService {
 		
 	}
 	
+	public int getDupCheckCnt(String userid) {
+		
+		
+		return mapper.getDupCheckCnt(userid);
+	}
+	
 	
 
 }

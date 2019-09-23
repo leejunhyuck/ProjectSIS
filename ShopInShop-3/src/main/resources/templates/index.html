@@ -8,24 +8,27 @@
 .modal-footer .hide{
 	display:none;
 }
+
 #main {
-   position: relative;
+    position: relative;
 }
 #main:after {
-   content : "";
-   display: block;
-   position: absolute;
-   top: 0;
-   left: 0;
-  background-image: url('http://www.routemap.co.kr/images/portfolio/rt0_thum.jpg');
-   width: 100%;
-   height: 100%;
-   opacity : 0.3;
-   z-index: -1;
-   background-size:cover;
+    content : "";
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-image: url('/images/background.gif'); 
+    width: 100%;
+    height: 100%;
+    opacity : 0.4;
+    z-index: -1;
+    background-size:cover;
+    
 }
-
 </style>
+
+
 
 
 <!--        <div class="row align-items-start align-items-md-center justify-content-end">-->
@@ -44,8 +47,11 @@
             </div>
          </div>
 
-<div class="site-section block-3 site-blocks-2 bg-light">
+
+<div class="site-section block-3 site-blocks-2">
       <div class="container">
+      <div class="card shadow">
+      <div class="card-body">
         <div class="row justify-content-center">
           <div class="col-md-7 site-section-heading text-center pt-1">
             <h3>최근 올라온 매물</h3>
@@ -61,12 +67,14 @@
         </div> <!-- row -->
       </div> <!--  container -->
     </div> <!-- site-section -->
+   </div>
+ </div>
 
 
 <hr>
 <div class="container">
 <div class="d-flex hotList">
-	<div class="card shadow mr-auto col-md-5" >
+	<div class="card shadow card-body mr-auto col-md-5">
 		<div class="site-section-heading pt-3 mb-4">
 			<h5 class="text-black">인기글 - 매칭</h5>
 		</div>
@@ -77,9 +85,9 @@
 	</div>
 	<div class="col-md-1"></div>
 
-	<div class="card shadow ml-auto col-md-5">
+	<div class="card shadow card-body ml-auto col-md-5">
 		<div class="site-section-heading pt-3 mb-4">
-			<h5 class="text-black">인기글 - 커뮤</h5>
+			<h5 class="text-black">인기글 - 커뮤니티</h5>
 		</div>
 		
 		<div class="communityList">
@@ -121,21 +129,39 @@ $(document).ready(function(){
 			if (callback) {
 				callback(arr);}
 		})
-	} // end function 
+	} // end list function
+		
+	function getRecentShopImg(callback) {
+		$.getJSON("/shop/recent_shopimg", null, function(arr2) {
+			if (callback) {
+				callback(arr2);}
+		})
+	} // end img function
 	
+	var strImg = new Array();
 	
+	getRecentShopImg(function(arr2){
+		for(var i=0;i<arr2.length;i++){
+		var {bno,uuid,fileName,uploadPath} = arr2[i]
+		var fileCallPath = encodeURIComponent( uploadPath+"/s_"+uuid+"_"+fileName);
+		strImg[i] =  "<img src='/upload_shop/getImage?fileName="+fileCallPath+"'  data-bno='"+bno+"' data-path='/shop/read' class='img-fluid'>";
+		}
+	});
 	
 	getRecentShop(function(arr){
 		console.log(arr)
 		for(var i=0;i<arr.length;i++){
-			var {bno,stype,deposit,rent,surface,p_surface} = arr[i]
+			var {bno,stype,deposit,rent,surface,p_surface,location} = arr[i]
+			
 			var str = "";
 			str += "<div class='item'><div class='block-4'>";
-			str += "<img src='images/shop.jpg' data-bno='"+bno+"' data-path='/shop/read' class='img-fluid'/>";
+			str += strImg[i];
 			str += "<div class='block-4-text p-1'><p class='mb-0'>"+stype+"</p>";
 			str += "<p style='text-align:right;' class='mb-0'>원하는 업종</p>";
 			str += "<p class='text-primary font-weight-bold mb-0'>월세: "+rent+"만 / 전세금: "+deposit+"만 </p>";
-			str += "<p class='mb-0 surface'>제공면적: "+p_surface+"㎡ / 전체면적: "+surface+"㎡  <button class='btn-primary rounded-circle changeSurface' data-state='meter'>전환</button></p>";
+			str += "<p class='mb-0 surface'>제공면적: "+p_surface+"㎡ / 전체면적: "+surface+"㎡ ";
+			str += "<button class='btn-primary rounded-circle' data-state='meter' data-idx='"+i+"'>전환</button></p>";
+			str += "<p class='mb-0'>"+location.substring(5,location.lenght)+"</p>"
 			str += "</div></div></div>";
 			$('.owl-carousel').owlCarousel('add', str).owlCarousel('update');
 		} //end for
@@ -159,7 +185,8 @@ $(document).ready(function(){
 		var str = ""
 		for(var i=0;i<arr.length;i++){
 			var {bno,title,replycnt} = arr[i]
-			str += "<p data-bno='"+bno+"' data-path='/community/read'>"+title+" ["+replycnt+"]"+"</p>";
+			str += "<table class='table table-hover'>";
+			str += "<td class='text-info bg-light' data-bno='"+bno+"' data-path='/community/read'><strong>"+title+" ["+replycnt+"]"+"</strong></td>"
 		} //end for
 		communityList.append(str);
 	}) // end get hot com List
@@ -176,7 +203,8 @@ $(document).ready(function(){
 		var str = ""
 		for(var i=0;i<arr.length;i++){
 			var {bno,title} = arr[i];
-			str += "<p data-bno='"+bno+"' data-path='/matching/read'>"+title+"</p>";
+			str += "<table class='table table-hover'>";
+			str += "<td class='text-info bg-light' data-bno='"+bno+"' data-path='/matching/read'><strong>"+title+"</strong></td>"
 		} //end for
 		matchingList.append(str);
 	}) // end get hot matching List
@@ -186,7 +214,7 @@ $(document).ready(function(){
 
 
 <!-- actionForm  -->
-$(".hotList").on("click","p",function(){
+$(".hotList").on("click","table td",function(){
 	var path = $(this).attr("data-path");
 	var bno = $(this).attr("data-bno");
 	
@@ -207,15 +235,24 @@ Form.attr("action",path).submit();
 <!-- Change --> 
 $(".owl-carousel").on("click","button",function(e){
 	e.preventDefault();
-	//this.parentElement.remove();
+	
 	var state = $(this).attr("data-state");
+	var idx = $(this).attr("data-idx");
+	
+	var str = "";
 	if(state == "meter"){
-	var str = "" 
+		
 	//str += "<p class='mb-0 surface'>제공면적: 평 / 전체면적: 평  <button class='btn-primary rounded-circle changeSurface' data-state='pyung'>전환</button></p>";
 	str += '<button>'+"sdfsdf"+'</button>'
-	this.parentElement.parentElement.append(str);
-	alert("안됨 시발")
-	//$('.owl-carousel').owlCarousel('update');
+	//this.parentElement.parentElement.append(str);
+	
+	this.parentElement.remove();
+	
+	
+	$('.owl-carousel')
+	  .trigger('update.owl.carousel', [str, idx])
+	  .trigger('refresh.owl.carousel')
+	
 	
 	}
 });

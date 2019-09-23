@@ -1,4 +1,9 @@
-board:
+
+header: 
+  like: "관심목록"
+  lan: "다국어"
+
+board: 
   writer: "작성자"
   regdate: "등록날짜"
   budget: "예산(만원)"

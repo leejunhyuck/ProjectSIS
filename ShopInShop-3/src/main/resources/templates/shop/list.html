@@ -204,7 +204,7 @@ aside {
 	<div class="row justify-content-center" id="storeList">
 
 		<div class="col-sm-5 mb-4" th:each="vo : ${list}">
-			<div class="block-4">
+			<div class="block-4" >
 				<a href="" class="link" th:value=${vo.bno}>
 					<img src="/images/shop.jpg" alt="Image placeholder"
 					th:attr="onmouseover=|imgHover(${vo.lat},${vo.lng})|"
@@ -330,11 +330,13 @@ var marker= []
 			}
 			for(i=0;i<msg.length;i++){
 			var strHTML =
+				
 				"<div class='col-sm-5 mb-4'>"+
 				"<div class='block-4'>"+
+				"<a href='' class='link' value="+msg[i].bno+">"+
 				"<img src='/images/shop.jpg' alt='Image placeholder'"+
 				"attr='onmouseover=|imgHover("+msg[i].lat+","+msg[i].lng+")|'"+
-				"onmouseleave='imgLeave()' class='img-fluid'>"+
+				"onmouseleave='imgLeave()' class='img-fluid'></a>"+
 				"<div class='block-4-text p-1' >"+
 				"<p class='mb-0'>업종: "+msg[i].stype+"</p>"+
 				"<p style='text-align: right;' class='mb-0'>원하는 업종</p>"+
@@ -639,9 +641,7 @@ var marker= []
 	$("#condition").on("click",function(e){
 	
 		
-		
-		
-		
+	
 		storedata()
 	
 })
@@ -728,6 +728,8 @@ var marker= []
 	
 	$(".link").on("click",function(){
 
+		console.log("Aa")
+		
 		var furuitSrc= $(this).attr('value');
 		
 		var url ="/shop/read/?bno="+furuitSrc
@@ -736,8 +738,14 @@ var marker= []
 	 });
 
 
-	
-	
+	$(document).on("click",".link",function(){  
+
+		var furuit= $(this).attr('value');
+		
+		var url ="/shop/read/?bno="+furuit
+		
+		$(".link").attr("href", url)			
+	})
 	
 
 	
@@ -770,8 +778,7 @@ var marker= []
 	         markerCluster = new MarkerClusterer(map, markers,
 	            {imagePath: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m'});
 	      
-	        
-	      
+	    
 	        
 	 }
 	
