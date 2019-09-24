@@ -87,7 +87,7 @@
 		resultType="org.sis.board.model.ShopVO">
 		select * from (select * from tbl_shop where (lat between #{swlat} and
 		#{nelat} )OR (lng between #{swlng} and #{nelng})) c
-		where stype = '의류점'
+		where stype = #{stype}
 		and deposit between #{depositmin} and #{depositmax}
 		and rent between #{rentmin} and #{rentmax}
 		and p_surface between #{surfacemin} and #{surfacemax}

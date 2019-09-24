@@ -8,6 +8,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
 
+import org.sis.board.model.AnalysisVO;
 import org.sis.board.model.Criteria;
 import org.sis.board.model.ListVO;
 import org.sis.board.model.PageMaker;
@@ -90,13 +91,68 @@ public class ShopController {
 		model.addAttribute("list", service.getList(cri));
 	}
 	
-	@GetMapping("/list_test")
-	public void list_test() {
-	}
 
 	
-	@GetMapping("/analysis")
-	public void analysis() {
+	@PostMapping(value="/analysis",consumes = "application/json")		
+	@ResponseBody		
+	public String analysis(@RequestBody AnalysisVO vo) {	
+
+
+		log.info(""+vo);	
+
+		 String result=null;	
+
+		 try{	
+
+
+           // 1. 서버의 IP와 서버의 동작 포트 값(10001)을 인자로 넣어 socket 생성	
+
+           Socket sock = new Socket("192.168.41.64", 9000);	
+
+           String msg = "a,"+vo.getLat()+","+vo.getLng()+","+vo.getAddress()+","+vo.getStype();	
+
+
+
+
+           // 2. 생성된 Socket으로부터 InputStream과 OutputStream을 구함	
+
+           OutputStream out = sock.getOutputStream();	
+
+           out.write(msg.getBytes());	
+
+           out.flush();	
+
+
+
+           InputStream in = sock.getInputStream();	
+
+           byte[] arr = new byte[1024];	
+
+           int count = in.read(arr);	
+
+           result=new String(arr);	
+           System.out.println(result);	
+
+           System.out.println(count);	
+
+           in.close();	
+
+           out.close();	
+
+           sock.close();	
+
+    }catch(Exception e){	
+
+           System.out.println(e);	
+           e.printStackTrace();	
+
+    }	
+
+
+
+
+
+		return result;	
 	}
 	
 	@GetMapping("/recent")
