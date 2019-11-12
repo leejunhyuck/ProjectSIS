@@ -194,7 +194,7 @@ aside {
 		<div class="col-md-1"></div>
 		<div class="col-md-5">
 			<div class="site-section-heading pt-3 mb-4">
-				<h5>조건에 맞는 매물 : N개</h5>
+				<h5>조건에 맞는 매물 : [[${pm.cri.amount}]]개</h5>
 			</div>
 		</div>
 	</div>
@@ -205,8 +205,9 @@ aside {
 
 		<div class="col-sm-5 mb-4" th:each="vo : ${list}">
 			<div class="block-4" >
-				<a href="" class="link" th:value=${vo.bno}>
-					<img src="/images/shop.jpg" alt="Image placeholder"
+				<a href="" class="link" th:value=${vo.bno} th:each="img : ${listImg}">
+					<img th:if="${vo.bno} == ${img.bno}" 
+					th:src="@{${'/upload_shop/getImage?fileName='+ '/s_' + img.uuid + '_' + img.fileName}}"
 					th:attr="onmouseover=|imgHover(${vo.lat},${vo.lng})|"
 					onmouseleave="imgLeave()" class="img-fluid"></a>
 				<div class="block-4-text p-1" >
@@ -274,6 +275,16 @@ aside {
 
 <!-- Map -->
 <script>
+var loginForm = $("#loginForm")
+function login() {
+	$("#replyModal").modal('show')
+}
+$("#loginButton").on("click", function(e) {
+	loginForm.submit();
+})
+$("#loginButton").on("click", function(e) {
+	loginForm.submit();
+})
 
 var locations = [ ]
 var marker= []
@@ -781,11 +792,10 @@ var marker= []
 	    
 	        
 	 }
-	
-	 
 
 	
 </script>
+
 
 </html>
 

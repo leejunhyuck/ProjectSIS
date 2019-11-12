@@ -41,5 +41,8 @@ public interface ShopMapper {
 	@Select("select shop.bno, img.fileName, img.uuid, img.uploadPath from tbl_shop  as shop join tbl_shop_img as img on shop.bno = img.bno group by bno order by bno desc limit 0,5")
 	public List<ShopImgVO> recentListImg();
 	
+	@Select("select shop.bno, img.fileName, img.uuid, img.uploadPath from tbl_shop  as shop join tbl_shop_img as img on shop.bno = img.bno group by bno order by bno desc limit #{skip}, #{amount}")
+	public List<ShopImgVO> selectPageImg( Criteria cri);
+
 	
 }

@@ -131,20 +131,27 @@ aside {
 
 <div class="sample-box">
 	<span class="sample-left">
-		<hr style="border: outset">
-		<div class="d-flex">
-			<span class="mr-auto align-self-center font-weight-bold">가게이름:
-				[[${vo.sname}]] </span>
-			<div class="ml-auto">
-				<a class="align-self-center btn-sm btn-dark prevBtn" href="#">찜하기</a>
-				<a class="align-self-center btn-sm btn-secondary listBtn" href="#">수정
-					및 삭제</a> <a class="align-self-center btn-sm btn-dark nextBtn"
-					href="/shop/list">목록으로</a>
-			</div>
-		</div>
-		<hr style="border: outset"> <br> <img style="width: 65%;" src="/images/shop.jpg"
-		alt="Image Box">
-
+		<hr style="border: outset; margin-bottom:1em; margin-top:0px;">
+        <div class="d-flex">
+            <span class="mr-auto align-self-center font-weight-bold text-primary">가게이름:
+                [[${vo.sname}]] </span>
+            <div class="ml-auto">
+                <a class="align-self-center btn-sm btn-secondary modBtn" href="#">수정
+                    및 삭제</a> <a class="align-self-center btn-sm btn-dark listBtn"
+                    href="/shop/list">목록으로</a>
+            </div>
+        </div>
+        <hr style="border: outset; margin-bottom:0px; margin-top:1em; ">
+        
+        <div class="uploadBox" style="display: none;"> <!--  image box -->
+            <div class="site-section block-3 card shadow mb-4">
+                <div class="container">
+                <div class="row">
+                    <div class="nonloop-block-3 owl-carousel">
+                </div></div><br>
+                </div>
+            </div>
+        </div> <!--  image box -->
 		<div>
 			<label>소개글</label>
 			<textarea class="form-control bg-light" rows="10"
@@ -328,7 +335,7 @@ $("#analysis").on("click", function(e) {
 			
 			var strHTML = 
 			"예상 매출은 평균 매출 건수와 근처 아파트 평균 시세를 기준으로 형성되며 지역 "
-			+result[1]+"와 업종 "+arr.stype+"에  따라서 예상 월 매출 "+result[0]+"천원 예상됩니다. 이 예상치는 소득신고를 기준으로 합니다."
+			+result[1]+"와 업종 "+arr.stype+"에  따라서 예상 월 매출 "+result[0]+"만원 예상됩니다. 이 예상치는 소득신고를 기준으로 합니다."
 		     
 
 		
@@ -389,6 +396,31 @@ var schange = [[${vo.schange}]];
 		map : map,
 		position : new google.maps.LatLng("[[${vo.lat}]]", "[[${vo.lng}]]"),
 	});
+	
+	<!-- Get Img by bno -->
+	$(document).ready(function(){
+	    
+	    var bno = [[${vo.bno}]];
+	    $.getJSON("/shop/getAttachList",{bno: bno}, function(arr){
+	        console.log(arr);            
+	        if(arr.length != 0){
+	            $(".uploadBox").attr('style', "display:block;");
+	        }
+	        $(arr).each(function(i,attach){
+	            var fileCallPath = encodeURIComponent( attach.uploadPath+"/s_"+attach.uuid+"_"+attach.fileName);
+	            var fileOriginPath = encodeURIComponent( attach.uploadPath+"/"+attach.uuid+"_"+attach.fileName);
+	            var str="";
+	            //str += "<div class='item'><div class='block-4 text-center'><figure class='block-4-image'>";
+	            str += "<a class='example-image-link' href='/upload_shop/getImage?fileName="+fileOriginPath+"' data-lightbox='example-set' data-title='Uploaded Image'>";
+	            str += "<img class='example-image' src='/upload_shop/getImage?fileName="+fileCallPath+"' alt='Image Read Fail' class='img-fluid'></a>";
+	            //str += "</figure></div></div></div>";
+	            $('.owl-carousel').owlCarousel('add', str).owlCarousel('update');
+	        });
+	    }); // end json <- getImage to read page
+	    
+	    
+	});// End Document Ready
+	
 </script>
 
 <th:block th:insert="/../include/footer.html"></th:block>

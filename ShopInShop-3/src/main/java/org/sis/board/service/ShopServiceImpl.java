@@ -129,4 +129,10 @@ public class ShopServiceImpl implements ShopService {
 		return mapper.recentListImg();
 	}
 
+	@Override
+	public List<ShopImgVO> getPageImg(Criteria cri) {
+		// TODO Auto-generated method stub
+		return mapper.selectPageImg(cri);
+	}
+
 }

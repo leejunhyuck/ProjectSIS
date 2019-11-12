@@ -89,6 +89,8 @@ public class ShopController {
 		
 		model.addAttribute("pm", new PageMaker(cri, totalCount));
 		model.addAttribute("list", service.getList(cri));
+		model.addAttribute("listImg", service.getPageImg(cri));
+		
 	}
 	
 
