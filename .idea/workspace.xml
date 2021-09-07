@@ -50,9 +50,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="f63aa3df-5b88-4b63-9787-212d9ffbfa48" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/image/architecture.PNG" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/image/feature.PNG" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ShopInShop-3/src/main/java/org/sis/ServletInitializer.java" beforeDir="false" afterPath="$PROJECT_DIR$/ShopInShop-3/src/main/java/org/sis/ServletInitializer.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -80,6 +78,7 @@
     <property name="aspect.path.notification.shown" value="true" />
     <property name="dart.analysis.tool.window.visible" value="false" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/Image" />
+    <property name="nodejs_package_manager_path" value="npm" />
     <property name="show.migrate.to.gradle.popup" value="false" />
   </component>
   <component name="RecentsManager">
@@ -111,7 +110,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1631031365315</updated>
-      <workItem from="1631031366425" duration="879000" />
+      <workItem from="1631031366425" duration="952000" />
     </task>
     <servers />
   </component>
